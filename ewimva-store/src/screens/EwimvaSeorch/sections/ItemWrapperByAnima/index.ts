@@ -1,0 +1,1 @@
+export { ItemWrapperByAnima } from "./ItemWrapperByAnima";

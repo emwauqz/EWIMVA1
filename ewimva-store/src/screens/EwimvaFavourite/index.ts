@@ -1,0 +1,1 @@
+export { EwimvaFavourite } from "./EwimvaFavourite";
