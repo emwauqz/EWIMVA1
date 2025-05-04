@@ -2,80 +2,79 @@ import { HeartIcon } from "lucide-react";
 import React from "react";
 import { Card, CardContent } from "../../../../components/ui/card";
 
-// Product data for mapping
-const products = [
-  {
-    id: 1,
-    title: "Прямое платье с драпировкой",
-    label: "NEW NOW - SELECTION",
-    price: "KGS 12 990,00",
-    image: "/87038267-05-d2-2.png",
-  },
-  {
-    id: 2,
-    title: "Короткий тренч из денима с поясом",
-    label: "NEW NOW - SELECTION",
-    price: "KGS 12 990,00",
-    image: "/87075741-ts-02-d7.png",
-  },
-  {
-    id: 3,
-    title: "Объемный тренч из хлопка",
-    label: "NEW NOW",
-    price: "KGS 12 990,00",
-    image: "/87038267-05-d2-3.png",
-    colorOptions: [
-      { id: 1, image: "/03-3.png" },
-      { id: 2, image: "/32-3.png" },
-    ],
-  },
-  {
-    id: 4,
-    title: "Куртка-бомбер со сборками",
-    label: "NEW NOW - SELECTION",
-    price: "KGS 12 990,00",
-    image: "/87063290-92-d7.png",
-  },
-];
-
 export const ViewWrapperByAnima = (): JSX.Element => {
+  // Product data for mapping
+  const products = [
+    {
+      id: 1,
+      name: "Прямое платье с драпировкой",
+      category: "CAPSULE",
+      price: "KGS 12 990,00",
+      image: "/87038267-05-d2-2.png",
+      colorVariants: [],
+    },
+    {
+      id: 2,
+      name: "Короткий тренч из денима с поясом",
+      category: "NEW NOW - SELECTION",
+      price: "KGS 12 990,00",
+      image: "/87075741-ts-02-d7.png",
+      colorVariants: [],
+    },
+    {
+      id: 3,
+      name: "Объемный тренч из хлопка",
+      category: "NEW NOW",
+      price: "KGS 12 990,00",
+      image: "/87038267-05-d2-3.png",
+      colorVariants: [
+        { color: "03", image: "/03-2.png" },
+        { color: "32", image: "/32-2.png" },
+      ],
+    },
+    {
+      id: 4,
+      name: "Куртка-бомбер со сборками",
+      category: "NEW NOW - SELECTION",
+      price: "KGS 12 990,00",
+      image: "/87063290-92-d7.png",
+      colorVariants: [],
+    },
+  ];
+
   return (
     <section className="w-full py-8">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-0">
         {products.map((product) => (
-          <Card key={product.id} className="border-none relative">
+          <Card key={product.id} className="rounded-none border-0 relative">
             <CardContent className="p-0">
               <div className="relative">
                 <img
                   className="w-full h-[671px] object-cover"
-                  alt={product.title}
+                  alt={product.name}
                   src={product.image}
                 />
                 <button className="absolute top-3 right-3">
                   <HeartIcon className="w-4 h-4" />
                 </button>
               </div>
-
               <div className="p-2">
-                <div className="[font-family:'Inter',Helvetica] font-normal text-[#131313] text-[8.9px] tracking-[0] leading-3 whitespace-nowrap">
-                  {product.label}
+                <div className="font-['Inter',Helvetica] text-[8.9px] font-normal text-[#131313] leading-3 whitespace-nowrap">
+                  {product.category}
                 </div>
-
-                <div className="[font-family:'Inter',Helvetica] font-normal text-[#131313] text-[11.9px] tracking-[0] leading-[18px] mt-1">
-                  {product.title}
+                <div className="font-['Inter',Helvetica] text-[11.9px] font-normal text-[#131313] leading-[18px] mt-1">
+                  {product.name}
                 </div>
-
-                <div className="[font-family:'Inter',Helvetica] font-normal text-[#131313] text-[12.6px] tracking-[0] leading-[18px] whitespace-nowrap mt-1">
+                <div className="font-['Inter',Helvetica] text-[12.6px] font-normal text-[#131313] leading-[18px] mt-1">
                   {product.price}
                 </div>
-
-                {product.colorOptions && (
+                {product.colorVariants.length > 0 && (
                   <div className="flex gap-2 mt-2">
-                    {product.colorOptions.map((color) => (
+                    {product.colorVariants.map((variant, index) => (
                       <div
-                        key={color.id}
+                        key={index}
                         className="w-3.5 h-3.5 rounded-[7px] bg-cover bg-[50%_50%]"
-                        style={{ backgroundImage: `url(${color.image})` }}
+                        style={{ backgroundImage: `url(${variant.image})` }}
                       />
                     ))}
                   </div>
