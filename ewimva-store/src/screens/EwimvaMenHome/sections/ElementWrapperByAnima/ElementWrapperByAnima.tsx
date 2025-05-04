@@ -31,7 +31,7 @@ export const ElementWrapperByAnima = (): JSX.Element => {
   ];
 
   return (
-    <section className="w-full max-w-[1920px] mx-auto mt-[1199px]">
+    <section className="w-full mt-0">
       <div className="grid grid-cols-1 md:grid-cols-2">
         {/* Top row */}
         <div className="grid grid-cols-1 md:grid-cols-2">

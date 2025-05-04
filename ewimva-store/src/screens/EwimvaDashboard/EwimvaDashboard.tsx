@@ -1,4 +1,5 @@
 import React from "react";
+import Header from '../../components/Header';
 import { Badge } from "../../components/ui/badge";
 import {
   Card,
@@ -170,14 +171,7 @@ export const EwimvaDashboard = (): JSX.Element => {
   return (
     <div className="bg-white flex flex-row justify-center w-full">
       <div className="bg-white overflow-hidden w-full max-w-[1920px] relative">
-        <header className="w-full h-14 bg-white border-b flex items-center justify-between px-6">
-          <div className="font-['Montserrat'] font-semibold text-[#131313] text-2xl">
-            EWIMVA
-          </div>
-          <div className="font-['Inter'] font-bold text-[#131313] text-[12.7px]">
-            МОЙ АККАУНТ
-          </div>
-        </header>
+      <Header />
 
         <div className="flex">
           {/* Sidebar */}
@@ -361,7 +355,7 @@ export const EwimvaDashboard = (): JSX.Element => {
             <Card className="border border-solid border-[#00000040] rounded-[10px]">
               <CardHeader className="pb-0">
                 <CardTitle className="font-['Inter'] font-semibold text-[#131313] text-2xl">
-                  Популярные товары
+                  Недавние заказы
                 </CardTitle>
                 <CardDescription className="font-['Inter'] font-normal text-[#131313] text-[15px]">
                   Недавно размещенные заказы
@@ -381,10 +375,10 @@ export const EwimvaDashboard = (): JSX.Element => {
                         Дата
                       </TableHead>
                       <TableHead className="font-['Inter'] font-normal text-[#131313] text-sm">
-                        Ствтус
+                        Статус
                       </TableHead>
                       <TableHead className="font-['Inter'] font-normal text-[#131313] text-sm">
-                        товары
+                        Товары
                       </TableHead>
                       <TableHead className="font-['Inter'] font-normal text-[#131313] text-sm">
                         Сумма

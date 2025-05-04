@@ -2,9 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { ElementByAnima } from "./sections/ElementByAnima";
 import { ElementWrapperByAnima } from "./sections/ElementWrapperByAnima";
-import { HeaderByAnima } from "./sections/HeaderByAnima";
+import Header from '../../components/Header';
 import { OverlapWrapperByAnima } from "./sections/OverlapWrapperByAnima/OverlapWrapperByAnima";
-import { ViewByAnima } from "./sections/ViewByAnima/ViewByAnima";
+import Footer from "../../components/Footer";
+
 
 export const EwimvaHome = (): JSX.Element => {
   return (
@@ -35,13 +36,13 @@ export const EwimvaHome = (): JSX.Element => {
 
       <div className="bg-white w-full max-w-[1920px] overflow-hidden relative">
         <div className="w-full">
-          <HeaderByAnima />
+          <Header />
           <ElementByAnima />
         </div>
 
         <ElementWrapperByAnima />
         <OverlapWrapperByAnima />
-        <ViewByAnima />
+        <Footer />
       </div>
     </div>
   );

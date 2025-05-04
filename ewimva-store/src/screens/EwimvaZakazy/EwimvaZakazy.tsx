@@ -15,6 +15,7 @@ import {
   TableHeader,
   TableRow,
 } from "../../components/ui/table";
+import Header from '../../components/Header';
 
 export const EwimvaZakazy = (): JSX.Element => {
   // Order status data with corresponding colors
@@ -170,17 +171,7 @@ export const EwimvaZakazy = (): JSX.Element => {
     >
       <div className="bg-white overflow-hidden w-full max-w-[1920px] min-h-screen relative">
         {/* Header */}
-        <header className="w-full h-14 bg-white border-b border-solid border-gray-200 flex items-center justify-between px-6">
-          <div className="flex-1"></div>
-          <div className="[font-family:'Montserrat',Helvetica] font-semibold text-[#131313] text-2xl">
-            EWIMVA
-          </div>
-          <div className="flex-1 flex justify-end">
-            <div className="[font-family:'Inter',Helvetica] font-bold text-[12.7px] text-[#131313]">
-              МОЙ АККАУНТ
-            </div>
-          </div>
-        </header>
+        <Header />
 
         {/* Sidebar */}
         <div className="w-[262px] h-[calc(100vh-56px)] fixed top-14 left-0 border-r border-solid border-[#00000040]">

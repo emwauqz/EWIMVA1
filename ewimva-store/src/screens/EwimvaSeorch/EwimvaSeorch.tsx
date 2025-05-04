@@ -3,16 +3,17 @@ import React from "react";
 import { Button } from "../../components/ui/button";
 import { DivByAnima } from "./sections/DivByAnima";
 import { DivWrapperByAnima } from "./sections/DivWrapperByAnima/DivWrapperByAnima";
-import { HeaderByAnima } from "./sections/HeaderByAnima";
+import Header from '../../components/Header';
 import { ItemByAnima } from "./sections/ItemByAnima/ItemByAnima";
 import { ItemWrapperByAnima } from "./sections/ItemWrapperByAnima";
-import { ViewByAnima } from "./sections/ViewByAnima/ViewByAnima";
+import Footer from "../../components/Footer";
+
 
 export const EwimvaSeorch = (): JSX.Element => {
   return (
     <div className="bg-white flex flex-row justify-center w-full">
       <div className="bg-white overflow-hidden w-full max-w-[1921px] relative">
-        <HeaderByAnima />
+        <Header />
 
         {/* Search bar */}
         <div className="relative w-[928px] h-8 mt-[78px] mx-auto border-b [border-bottom-style:solid] border-[#131313]">
@@ -40,7 +41,7 @@ export const EwimvaSeorch = (): JSX.Element => {
           <DivByAnima />
         </div>
 
-        <ViewByAnima />
+        <Footer />
       </div>
     </div>
   );

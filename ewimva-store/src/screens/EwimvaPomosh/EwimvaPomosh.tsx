@@ -2,8 +2,9 @@ import React from "react";
 import { DivWrapperByAnima } from "./sections/DivWrapperByAnima/DivWrapperByAnima";
 import { GroupByAnima } from "./sections/GroupByAnima";
 import { GroupWrapperByAnima } from "./sections/GroupWrapperByAnima";
-import { HeaderByAnima } from "./sections/HeaderByAnima";
-import { ViewByAnima } from "./sections/ViewByAnima";
+import Header from '../../components/Header';
+import Footer from "../../components/Footer";
+
 
 export const EwimvaPomosh = (): JSX.Element => {
   return (
@@ -12,11 +13,11 @@ export const EwimvaPomosh = (): JSX.Element => {
       data-model-id="1:8"
     >
       <div className="bg-white w-full max-w-[1920px] flex flex-col">
-        <HeaderByAnima />
+        <Header />
         <GroupByAnima />
         <GroupWrapperByAnima />
         <DivWrapperByAnima />
-        <ViewByAnima />
+        <Footer />
       </div>
     </div>
   );

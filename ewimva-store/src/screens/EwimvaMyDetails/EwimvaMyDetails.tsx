@@ -1,7 +1,8 @@
 import React from "react";
 import { GroupByAnima } from "./sections/GroupByAnima";
-import { HeaderByAnima } from "./sections/HeaderByAnima";
-import { ViewByAnima } from "./sections/ViewByAnima";
+import Header from '../../components/Header';
+import Footer from "../../components/Footer";
+
 
 export const EwimvaMyDetails = (): JSX.Element => {
   return (
@@ -10,7 +11,7 @@ export const EwimvaMyDetails = (): JSX.Element => {
       data-model-id="1:8"
     >
       <div className="bg-white w-full max-w-[1920px] flex flex-col">
-        <HeaderByAnima />
+        <Header />
 
         <main className="flex flex-col items-center">
           <h1 className="mt-[109px] [font-family:'Meow_Script',Helvetica] font-normal text-black text-5xl text-center tracking-[0] leading-normal">
@@ -18,7 +19,7 @@ export const EwimvaMyDetails = (): JSX.Element => {
           </h1>
 
           <GroupByAnima />
-          <ViewByAnima />
+          <Footer />
         </main>
       </div>
     </div>

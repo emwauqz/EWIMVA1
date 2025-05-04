@@ -1,9 +1,10 @@
 import React from "react";
 import { ElementByAnima } from "./sections/ElementByAnima";
 import { ElementWrapperByAnima } from "./sections/ElementWrapperByAnima";
-import { HeaderByAnima } from "./sections/HeaderByAnima";
+import Header from '../../components/Header';
 import { OverlapWrapperByAnima } from "./sections/OverlapWrapperByAnima";
-import { ViewByAnima } from "./sections/ViewByAnima";
+import Footer from "../../components/Footer";
+
 
 export const EwimvaMenHome = (): JSX.Element => {
   return (
@@ -13,13 +14,13 @@ export const EwimvaMenHome = (): JSX.Element => {
     >
       <div className="bg-white w-full max-w-[1920px] relative">
         <div className="w-full">
-          <HeaderByAnima />
+          <Header />
           <ElementByAnima />
         </div>
 
         <ElementWrapperByAnima />
         <OverlapWrapperByAnima />
-        <ViewByAnima />
+        <Footer />
       </div>
     </div>
   );

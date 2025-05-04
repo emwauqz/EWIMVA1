@@ -31,7 +31,7 @@ export const ElementWrapperByAnima = (): JSX.Element => {
   ];
 
   return (
-    <div className="w-full mt-[1199px]">
+    <div className="w-full mt-0">
       <div className="grid grid-cols-1 md:grid-cols-2">
         {categoryData.map((category) => (
           <Card key={category.id} className="rounded-none border-0">

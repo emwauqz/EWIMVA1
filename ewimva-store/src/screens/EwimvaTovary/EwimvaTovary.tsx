@@ -18,6 +18,7 @@ import {
   TableHeader,
   TableRow,
 } from "../../components/ui/table";
+import Header from '../../components/Header';
 
 // Product data for mapping
 const products = [
@@ -118,16 +119,7 @@ export const EwimvaTovary = (): JSX.Element => {
       data-model-id="1:2"
     >
       <div className="bg-white w-full relative">
-        <header className="w-full h-14 bg-white border-b">
-          <div className="max-w-[1920px] mx-auto h-full flex items-center justify-between px-6">
-            <div className="[font-family:'Montserrat',Helvetica] font-semibold text-[#131313] text-2xl">
-              EWIMVA
-            </div>
-            <div className="[font-family:'Inter',Helvetica] font-bold text-[#131313] text-[12.7px] tracking-[0] leading-[18px]">
-              МОЙ АККАУНТ
-            </div>
-          </div>
-        </header>
+      <Header />
 
         <div className="flex">
           {/* Sidebar */}

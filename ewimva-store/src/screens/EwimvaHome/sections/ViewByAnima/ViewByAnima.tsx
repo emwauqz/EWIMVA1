@@ -1,147 +1,223 @@
-import { ChevronRightIcon } from "lucide-react";
-import React from "react";
-import { Button } from "../../../../components/ui/button";
-import { Input } from "../../../../components/ui/input";
+// import React from "react";
+// import { Button } from "../../../../components/ui/button";
+// import { Input } from "../../../../components/ui/input";
+// import { Separator } from "../components/ui/separator";
 
-export const ViewByAnima = (): JSX.Element => {
-  // Categories data for the top navigation
-  const categories = [
-    { id: 1, name: "ПЛАТЬЯ И КОМБИНЕЗОНЫ" },
-    { id: 2, name: "БРЮКИ" },
-    { id: 3, name: "ДЖИНСЫ" },
-    { id: 4, name: "КУРТКИ" },
-    { id: 5, name: "БЛЕЙЗЕРЫ" },
-    { id: 6, name: "РУБАШКИ И БЛУЗКИ" },
-    { id: 7, name: "ТОПЫ" },
-    { id: 8, name: "ДЖЕМПЕРЫ И КАРДИГАНЫ" },
-    { id: 9, name: "ТРЕНЧИ И ПАРКИ" },
-    { id: 10, name: "ЮБКИ" },
-    { id: 11, name: "ЖИЛЕТЫ" },
-    { id: 12, name: "ФУТБОЛКИ" },
-    { id: 13, name: "ПАЛЬТО" },
-    { id: 14, name: "ШОРТЫ" },
-    { id: 15, name: "КУПАЛЬНИКИ" },
-    { id: 16, name: "ПИЖАМЫ" },
-    { id: 17, name: "КОЖА" },
-    { id: 18, name: "ОБУВЬ" },
-  ];
+// const Footer = (): JSX.Element => {
+// const footerLinks = [
+// { category: "ПОМОЩЬ", links: [] },
+// { category: "EWIMVA OUTLET", links: [] },
+// { category: "МОИ ПОКУПКИ", links: [] },
+// { category: "NEW NOW", links: [] },
+// { category: "ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ", links: [] },
+// ];
 
-  // Help section links
-  const helpLinks = [
-    { id: 1, name: "ПОМОЩЬ", position: "left-0 top-0" },
-    { id: 2, name: "МОИ ПОКУПКИ", position: "left-0 top-10" },
-    {
-      id: 3,
-      name: "EWIMVA OUTLET",
-      position: "left-[164px] top-0",
-      semibold: true,
-    },
-    {
-      id: 4,
-      name: "SITE MAP",
-      position: "left-[164px] top-10",
-      semibold: true,
-    },
-  ];
+// const socialLinks = [
+// { name: "INSTAGRAM", url: "#" },
+// { name: "FACEBOOK", url: "#" },
+// { name: "TIKTOK", url: "#" },
+// { name: "PINTEREST", url: "#" },
+// ];
 
-  // Social media links
-  const socialLinks = [
-    { id: 1, name: "INSTAGRAM", position: "left-0" },
-    { id: 2, name: "FACEBOOK", position: "left-[150px]" },
-    { id: 3, name: "TIKTOK", position: "left-[296px]" },
-    { id: 4, name: "PINTEREST", position: "left-[416px]" },
-  ];
+// const footerCategories = [
+// "Платья и комбинезоны", "Брюки", "Джинсы", "Куртки", "Блейзеры", "Рубашки и блузки", "Топы",
+// "Джемперы и кардиганы", "Тренчи и парки", "Юбки", "Жилеты", "Футболки", "Пальто", "Шорты",
+// "Купальники", "Пижамы", "Кожа", "Обувь", "Сумки", "Бижутерия", "Ремни", "Кошельки и бумажники",
+// "Шарфы и платки", "Шапки и перчатки", "Солнцезащитные очки", "Больше аксессуаров", "Ароматы", "Кожаные аксессуары"
+// ];
 
-  return (
-    <section className="w-full py-8 bg-white">
-      <div className="container mx-auto px-8">
-        {/* Top categories navigation */}
-        <div className="mb-16">
-          <h2 className="text-xs font-bold text-center underline mb-12 [text-shadow:0px_0px_10px_#1313131a] [font-family:'Inter',Helvetica] leading-[68px]">
-            ЖЕНЩИНЫ
-          </h2>
+// return (
+// <footer className="w-full bg-white py-8">
+//     <div className="mx-auto max-w-7xl px-4 mb-12">
+//     <div className="flex flex-col items-center justify-center">
+//         <p className="font-bold text-[12.5px] text-center text-[#131313] mb-6">
+//         ПОЛУЧАЙТЕ ИНФОРМАЦИЮ ОБ ЭКСКЛЮЗИВНЫХ АКЦИЯХ, ЗАКРЫТЫХ РАСПРОДАЖАХ И НОВИНКАХ
+//         </p>
 
-          <div className="flex flex-wrap gap-x-4 gap-y-2 items-center">
-            {categories.map((category) => (
-              <button
-                key={category.id}
-                className="font-bold text-black text-xs [font-family:'Inter',Helvetica] tracking-[0] leading-[18px] whitespace-nowrap hover:opacity-70 transition-opacity"
-              >
-                {category.name}
-              </button>
-            ))}
-            <ChevronRightIcon className="w-6 h-6 ml-2" />
-          </div>
-        </div>
+//         <div className="flex flex-col sm:flex-row gap-4 items-center">
+//         <Input
+//             placeholder="E-mail"
+//             className="w-[295px] h-11 border-[#b8b8b8] text-[13px]"
+//         />
+//         <Button
+//             variant="outline"
+//             className="w-[125px] h-11 border-[#131313] font-bold text-[12.7px] text-[#131313]"
+//         >
+//             Подписаться
+//         </Button>
+//         </div>
 
-        {/* Newsletter subscription */}
-        <div className="flex flex-col items-center justify-center mb-16">
-          <p className="font-bold text-[#131313] text-[12.5px] text-center [font-family:'Inter',Helvetica] tracking-[0] leading-[18px] mb-8">
-            ПОЛУЧАЙТЕ ИНФОРМАЦИЮ ОБ ЭКСКЛЮЗИВНЫХ АКЦИЯХ, ЗАКРЫТЫХ РАСПРОДАЖАХ И
-            НОВИНКАХ
-          </p>
+//         <div className="mt-4 text-center">
+//         <p className="text-[11.9px] text-[#131313] font-normal">
+//             Подписываясь, Вы подтверждаете, что ознакомились с
+//         </p>
+//         <p className="font-bold text-[12.7px] text-[#131313]">
+//             Политикой конфиденциальности
+//         </p>
+//         </div>
+//     </div>
+//     </div>
 
-          <div className="flex items-center gap-2 mb-4">
-            <Input
-              placeholder="E-mail"
-              className="w-[295px] h-11 border border-solid border-[#b8b8b8] rounded-none text-[13px] [font-family:'Inter',Helvetica]"
-            />
-            <Button className="w-[125px] h-11 rounded-none border border-solid border-[#131313] bg-white text-[#131313] hover:bg-[#131313] hover:text-white transition-colors">
-              <span className="font-bold text-[12.7px] [font-family:'Inter',Helvetica]">
-                Подписаться
-              </span>
-            </Button>
-          </div>
+//     {/* Горизонтальный scroll с категориями */}
+//     <div className="w-full overflow-x-auto whitespace-nowrap border-t border-b py-4 px-4 mb-8">
+//     <div className="inline-flex gap-6 min-w-max">
+//         {footerCategories.map((item, index) => (
+//         <a
+//             key={index}
+//             href="#"
+//             className="text-[13px] text-[#131313] whitespace-nowrap hover:underline"
+//         >
+//             {item}
+//         </a>
+//         ))}
+//     </div>
+//     </div>
 
-          <div className="flex items-center text-[#131313] text-[11.9px] [font-family:'Inter',Helvetica]">
-            <span className="font-normal">
-              Подписываясь, Вы подтверждаете, что ознакомились с
-            </span>
-            <button className="font-bold text-[12.7px] ml-1">
-              Политикой конфиденциальности
-            </button>
-          </div>
-        </div>
+//     <Separator className="bg-gray-100" />
 
-        {/* Social media and location */}
-        <div className="flex flex-col items-center mb-16">
-          <p className="font-bold text-black text-[12.7px] [font-family:'Inter',Helvetica] tracking-[0] leading-[18px] mb-4">
-            КЫРГЫЗСТАН
-          </p>
+//     <div className="mx-auto max-w-7xl px-4 pt-8">
+//     <div className="flex justify-center mb-16">
+//         <p className="font-bold text-[12.7px] text-black">КЫРГЫЗСТАН</p>
+//     </div>
 
-          <div className="flex items-center gap-8">
-            {socialLinks.map((link) => (
-              <button
-                key={link.id}
-                className={`relative font-normal text-[#131313] text-[13px] [font-family:'Inter',Helvetica] tracking-[0] leading-[18px] whitespace-nowrap ${link.position} hover:underline`}
-              >
-                {link.name}
-              </button>
-            ))}
-          </div>
-        </div>
+//     <div className="flex justify-center gap-12 mb-16">
+//         {socialLinks.map((social, index) => (
+//         <a
+//             key={index}
+//             href={social.url}
+//             className="font-normal text-[13px] text-[#131313]"
+//         >
+//             {social.name}
+//         </a>
+//         ))}
+//     </div>
 
-        {/* Help section */}
-        <div className="mb-16">
-          <div className="relative w-[280px] h-[58px]">
-            {helpLinks.map((link) => (
-              <button
-                key={link.id}
-                className={`absolute ${link.position} ${link.semibold ? "font-semibold" : "font-bold"} text-black text-[12.6px] [font-family:'Inter',Helvetica] tracking-[0] leading-[18px] whitespace-nowrap hover:underline`}
-              >
-                {link.name}
-              </button>
-            ))}
-          </div>
-        </div>
+//     <div className="flex flex-wrap justify-center gap-8 mb-16">
+//         {footerLinks.map((category, index) => (
+//         <a
+//             key={index}
+//             href="#"
+//             className={`text-black text-[12.8px] ${
+//             index === 0 || index === 2 || index === 4
+//                 ? "font-bold"
+//                 : "font-semibold"
+//             }`}
+//         >
+//             {category.category}
+//         </a>
+//         ))}
+//     </div>
 
-        {/* Copyright */}
-        <div className="flex justify-center">
-          <p className="[font-family:'Inter',Helvetica] font-normal text-[#131313] text-[12.3px] tracking-[0] leading-[18px]">
-            © 2025 EWIMVA Все права защищены
-          </p>
-        </div>
-      </div>
-    </section>
-  );
-};
+//     <div className="text-center pb-4">
+//         <p className="font-normal text-[12.3px] text-[#131313]">
+//         © 2025 EWIMVA Все права защищены
+//         </p>
+//     </div>
+//     </div>
+// </footer>
+// );
+// };
+
+// export default Footer;
+
+
+// // import React from "react";
+// // import { Button } from "../components/ui/button";
+// // import { Input } from "../components/ui/input";
+// // import { Separator } from "../components/ui/separator";
+
+// // const Footer = (): JSX.Element => {
+// // const footerLinks = [
+// // { category: "ПОМОЩЬ", links: [] },
+// // { category: "EWIMVA OUTLET", links: [] },
+// // { category: "МОИ ПОКУПКИ", links: [] },
+// // { category: "NEW NOW", links: [] },
+// // { category: "ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ", links: [] },
+// // ];
+
+// // const socialLinks = [
+// // { name: "INSTAGRAM", url: "#" },
+// // { name: "FACEBOOK", url: "#" },
+// // { name: "TIKTOK", url: "#" },
+// // { name: "PINTEREST", url: "#" },
+// // ];
+
+// // return (
+// // <footer className="w-full bg-white py-8">
+// //     <div className="mx-auto max-w-7xl px-4 mb-12">
+// //     <div className="flex flex-col items-center justify-center">
+// //         <p className="font-bold text-[12.5px] text-center text-[#131313] mb-6">
+// //         ПОЛУЧАЙТЕ ИНФОРМАЦИЮ ОБ ЭКСКЛЮЗИВНЫХ АКЦИЯХ, ЗАКРЫТЫХ РАСПРОДАЖАХ И
+// //         НОВИНКАХ
+// //         </p>
+
+// //         <div className="flex flex-col sm:flex-row gap-4 items-center">
+// //         <Input
+// //             placeholder="E-mail"
+// //             className="w-[295px] h-11 border-[#b8b8b8] text-[13px]"
+// //         />
+// //         <Button
+// //             variant="outline"
+// //             className="w-[125px] h-11 border-[#131313] font-bold text-[12.7px] text-[#131313]"
+// //         >
+// //             Подписаться
+// //         </Button>
+// //         </div>
+
+// //         <div className="mt-4 text-center">
+// //         <p className="text-[11.9px] text-[#131313] font-normal">
+// //             Подписываясь, Вы подтверждаете, что ознакомились с
+// //         </p>
+// //         <p className="font-bold text-[12.7px] text-[#131313]">
+// //             Политикой конфиденциальности
+// //         </p>
+// //         </div>
+// //     </div>
+// //     </div>
+
+// //     <Separator className="bg-gray-100" />
+
+// //     <div className="mx-auto max-w-7xl px-4 pt-8">
+// //     <div className="flex justify-center mb-16">
+// //         <p className="font-bold text-[12.7px] text-black">КЫРГЫЗСТАН</p>
+// //     </div>
+
+// //     <div className="flex justify-center gap-12 mb-16">
+// //         {socialLinks.map((social, index) => (
+// //         <a
+// //             key={index}
+// //             href={social.url}
+// //             className="font-normal text-[13px] text-[#131313]"
+// //         >
+// //             {social.name}
+// //         </a>
+// //         ))}
+// //     </div>
+
+// //     <div className="flex flex-wrap justify-center gap-8 mb-16">
+// //         {footerLinks.map((category, index) => (
+// //         <a
+// //             key={index}
+// //             href="#"
+// //             className={`text-black text-[12.8px] ${
+// //             index === 0 || index === 2 || index === 4
+// //                 ? "font-bold"
+// //                 : "font-semibold"
+// //             }`}
+// //         >
+// //             {category.category}
+// //         </a>
+// //         ))}
+// //     </div>
+
+// //     <div className="text-center pb-4">
+// //         <p className="font-normal text-[12.3px] text-[#131313]">
+// //         © 2025 EWIMVA Все права защищены
+// //         </p>
+// //     </div>
+// //     </div>
+// // </footer>
+// // );
+// // };
+
+// // export default Footer;

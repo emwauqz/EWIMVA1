@@ -4,6 +4,9 @@ import { Button } from "../../components/ui/button";
 import { Card, CardContent } from "../../components/ui/card";
 import { Checkbox } from "../../components/ui/checkbox";
 import { Input } from "../../components/ui/input";
+import Header from '../../components/Header';
+import Footer from "../../components/Footer";
+
 
 export const EwimvaLogin = (): JSX.Element => {
   // Navigation links data
@@ -32,42 +35,11 @@ export const EwimvaLogin = (): JSX.Element => {
       className="bg-white flex flex-row justify-center w-full"
       data-model-id="1:8"
     >
-      <div className="bg-white overflow-hidden w-[1920px] h-[1200px] relative">
-        <header className="w-full h-14 top-0 left-0 bg-white fixed z-10">
-          <div className="relative w-full h-14 max-w-[1920px] mx-auto flex items-center justify-between px-8">
-            {/* Left navigation */}
-            <div className="flex space-x-10">
-              {navLinks.left.map((link, index) => (
-                <div
-                  key={index}
-                  className={`${link.width} font-bold text-[#131313] text-[12.7px] [font-family:'Inter',Helvetica] tracking-[0] leading-[18px] whitespace-nowrap cursor-pointer`}
-                >
-                  {link.text}
-                </div>
-              ))}
-            </div>
-
-            {/* Logo */}
-            <div className="absolute left-1/2 transform -translate-x-1/2 [font-family:'Montserrat',Helvetica] font-semibold text-[#131313] text-2xl tracking-[0] leading-[normal]">
-              EWIMVA
-            </div>
-
-            {/* Right navigation */}
-            <div className="flex space-x-8">
-              {navLinks.right.map((link, index) => (
-                <div
-                  key={index}
-                  className="font-bold text-[#131313] text-[12.7px] [font-family:'Inter',Helvetica] tracking-[0] leading-[18px] whitespace-nowrap cursor-pointer"
-                >
-                  {link.text}
-                </div>
-              ))}
-            </div>
-          </div>
-        </header>
+      <div className="bg-white overflow-hidden w-[1920px] h-[1300px] relative">
+      <Header />
 
         {/* Login Form */}
-        <Card className="absolute w-[364px] h-[359px] top-[234px] left-[809px] border-none shadow-none">
+        <Card className="absolute w-[364px] h-[359px] top-[234px] left-[755px] border-none shadow-none">
           <CardContent className="p-0">
             <div className="w-[57px] [font-family:'Inter',Helvetica] font-bold text-[#131313] text-[15.8px] tracking-[0] leading-5 whitespace-nowrap mb-11">
               ВОЙТИ
@@ -129,45 +101,9 @@ export const EwimvaLogin = (): JSX.Element => {
         </Card>
 
         {/* Footer */}
-        <footer className="absolute w-[1920px] h-[392px] top-[808px] left-0 bg-white">
-          <div className="relative max-w-[1200px] mx-auto pt-8">
-            {/* Country and Social Media */}
-            <div className="flex flex-col items-center mb-16">
-              <div className="font-bold text-black text-[12.7px] [font-family:'Inter',Helvetica] tracking-[0] leading-[18px] whitespace-nowrap mb-16">
-                КЫРГЫЗСТАН
-              </div>
-
-              <div className="flex justify-center space-x-12">
-                {socialLinks.map((link, index) => (
-                  <a
-                    key={index}
-                    href="#"
-                    className="[font-family:'Inter',Helvetica] font-normal text-[#131313] text-[13px] tracking-[0] leading-[18px] whitespace-nowrap"
-                  >
-                    {link}
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            {/* Footer Links */}
-            <div className="flex justify-center space-x-12 mb-16">
-              {footerLinks.map((link, index) => (
-                <a
-                  key={index}
-                  href="#"
-                  className={`${index === 0 || index === 2 || index === 4 ? "font-bold" : "font-semibold"} text-black text-[12.8px] [font-family:'Inter',Helvetica] tracking-[0] leading-[18px] whitespace-nowrap`}
-                >
-                  {link}
-                </a>
-              ))}
-            </div>
-
-            {/* Copyright */}
-            <div className="text-center [font-family:'Inter',Helvetica] font-normal text-[#131313] text-[12.3px] tracking-[0] leading-[18px] whitespace-nowrap">
-              © 2025 EWIMVA Все права защищены
-            </div>
-          </div>
+        <footer className="absolute w-[1920px] top-[770px]">
+        <Footer />
+        
         </footer>
       </div>
     </div>

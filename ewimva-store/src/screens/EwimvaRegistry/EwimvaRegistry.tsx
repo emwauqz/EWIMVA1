@@ -1,6 +1,9 @@
 import React from "react";
 import { Button } from "../../components/ui/button";
 import { Card, CardContent } from "../../components/ui/card";
+import Header from '../../components/Header';
+import Footer from "../../components/Footer";
+
 
 export const EwimvaRegistry = (): JSX.Element => {
   // Data for navigation links
@@ -29,41 +32,10 @@ export const EwimvaRegistry = (): JSX.Element => {
     <div className="bg-white flex flex-row justify-center w-full">
       <div className="bg-white overflow-hidden w-[1920px] h-[1200px] relative">
         {/* Header */}
-        <header className="absolute w-[1932px] h-14 top-0 left-0 bg-transparent">
-          <div className="relative w-[1920px] h-14 bg-white flex items-center justify-between px-8">
-            {/* Left navigation */}
-            <div className="flex space-x-10">
-              {navLinks.left.map((link, index) => (
-                <div
-                  key={index}
-                  className={`${link.width} font-bold text-[#131313] text-[12.7px] [font-family:'Inter',Helvetica] tracking-[0] leading-[18px] whitespace-nowrap`}
-                >
-                  {link.text}
-                </div>
-              ))}
-            </div>
-
-            {/* Logo */}
-            <div className="absolute left-1/2 transform -translate-x-1/2 [font-family:'Montserrat',Helvetica] font-semibold text-[#131313] text-2xl tracking-[0] leading-[normal]">
-              EWIMVA
-            </div>
-
-            {/* Right navigation */}
-            <div className="flex space-x-10 justify-end">
-              {navLinks.right.map((text, index) => (
-                <div
-                  key={index}
-                  className="font-bold text-[#131313] text-[12.7px] [font-family:'Inter',Helvetica] tracking-[0] leading-[18px] whitespace-nowrap"
-                >
-                  {text}
-                </div>
-              ))}
-            </div>
-          </div>
-        </header>
+        <Header />
 
         {/* Registration Form */}
-        <Card className="absolute w-[364px] h-[312px] top-[234px] left-[809px] border-none shadow-none">
+        <Card className="absolute w-[364px] h-[312px] top-[234px] left-[760px] border-none shadow-none">
           <CardContent className="p-0">
             <div className="w-[165px] [font-family:'Inter',Helvetica] font-bold text-[#131313] text-[15.1px] tracking-[0] leading-5 whitespace-nowrap mb-9">
               СОЗДАЙТЕ АККАУНТ
@@ -132,55 +104,11 @@ export const EwimvaRegistry = (): JSX.Element => {
         </Card>
 
         {/* Footer */}
-        <div className="absolute w-[1920px] h-[392px] top-[808px] left-0 bg-white">
-          {/* Help and outlet links */}
-          <div className="absolute w-[280px] h-[58px] top-[188px] left-8 flex flex-col">
-            <div className="flex justify-between">
-              <div className="font-[number:var(--shop-mango-com-semantic-link-upper-font-weight)] text-black text-[length:var(--shop-mango-com-semantic-link-upper-font-size)] font-shop-mango-com-semantic-link-upper tracking-[var(--shop-mango-com-semantic-link-upper-letter-spacing)] leading-[var(--shop-mango-com-semantic-link-upper-line-height)] whitespace-nowrap [font-style:var(--shop-mango-com-semantic-link-upper-font-style)]">
-                {footerLinks.help[0].text}
-              </div>
-              <div className="absolute top-0 left-[164px] [font-family:'Inter',Helvetica] font-semibold text-black text-[12.8px] tracking-[0] leading-[18px] whitespace-nowrap">
-                {footerLinks.outlet[0].text}
-              </div>
-            </div>
-            <div className="flex justify-between mt-10">
-              <div className="font-bold text-black text-[12.2px] [font-family:'Inter',Helvetica] tracking-[0] leading-[18px] whitespace-nowrap">
-                {footerLinks.help[1].text}
-              </div>
-              <div className="absolute top-10 left-[164px] [font-family:'Inter',Helvetica] font-semibold text-black text-[12.9px] tracking-[0] leading-[18px] whitespace-nowrap">
-                {footerLinks.outlet[1].text}
-              </div>
-            </div>
-          </div>
+        <footer className="absolute w-[1920px] top-[750px]">
+        <Footer />
 
-          {/* Social links and country */}
-          <div className="absolute w-[499px] h-[57px] top-[31px] left-[716px]">
-            <div className="h-[18px] top-0 left-[207px] font-bold text-black text-[12.7px] absolute [font-family:'Inter',Helvetica] tracking-[0] leading-[18px] whitespace-nowrap">
-              КЫРГЫЗСТАН
-            </div>
-            <div className="flex justify-between mt-11">
-              <div className="w-[78px] [font-family:'Inter',Helvetica] font-normal text-[#131313] text-[13px] tracking-[0] leading-[18px] whitespace-nowrap">
-                {footerLinks.social[0]}
-              </div>
-              <div className="w-[74px] ml-[72px] [font-family:'Inter',Helvetica] font-normal text-[#131313] text-[13px] tracking-[0] leading-[18px] whitespace-nowrap">
-                {footerLinks.social[1]}
-              </div>
-              <div className="w-12 ml-[72px] [font-family:'Inter',Helvetica] font-normal text-[#131313] text-[12.9px] tracking-[0] leading-[18px] whitespace-nowrap">
-                {footerLinks.social[2]}
-              </div>
-              <div className="w-[73px] ml-[72px] [font-family:'Inter',Helvetica] font-normal text-[#131313] text-[13px] tracking-[0] leading-[18px] whitespace-nowrap">
-                {footerLinks.social[3]}
-              </div>
-            </div>
-          </div>
+        </footer>
 
-          {/* Copyright */}
-          <div className="absolute w-[233px] h-[18px] top-[319px] left-[844px]">
-            <div className="absolute h-[18px] top-0 left-0 [font-family:'Inter',Helvetica] font-normal text-[#131313] text-[12.3px] tracking-[0] leading-[18px] whitespace-nowrap">
-              © 2025 EWIMVA Все права защищены
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );

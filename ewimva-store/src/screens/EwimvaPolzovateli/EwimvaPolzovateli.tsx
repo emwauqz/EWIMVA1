@@ -15,6 +15,7 @@ import {
   TableHeader,
   TableRow,
 } from "../../components/ui/table";
+import Header from '../../components/Header';
 
 export const EwimvaPolzovateli = (): JSX.Element => {
   // User data for the table
@@ -150,17 +151,7 @@ export const EwimvaPolzovateli = (): JSX.Element => {
     <div className="bg-white flex flex-row justify-center w-full">
       <div className="bg-white w-full max-w-[1920px] min-h-screen relative">
         {/* Header */}
-        <header className="w-full h-14 bg-white border-b border-solid border-[#00000040] flex items-center justify-between px-6">
-          <div className="flex-1"></div>
-          <div className="font-['Montserrat',Helvetica] font-semibold text-[#131313] text-2xl">
-            EWIMVA
-          </div>
-          <div className="flex-1 flex justify-end">
-            <div className="font-['Inter',Helvetica] font-bold text-[#131313] text-[12.7px] leading-[18px]">
-              МОЙ АККАУНТ
-            </div>
-          </div>
-        </header>
+        <Header />
 
         {/* Sidebar */}
         <aside className="w-[254px] h-[calc(100vh-56px)] bg-white border-r border-solid border-[#00000040] fixed top-14 left-0">

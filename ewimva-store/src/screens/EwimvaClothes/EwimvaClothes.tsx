@@ -8,14 +8,15 @@ import {
 import { Card, CardContent } from "../../components/ui/card";
 import { GroupByAnima } from "./sections/GroupByAnima";
 import { GroupWrapperByAnima } from "./sections/GroupWrapperByAnima";
-import { HeaderByAnima } from "./sections/HeaderByAnima";
-import { ViewByAnima } from "./sections/ViewByAnima";
+import Header from '../../components/Header';
+import Footer from "../../components/Footer";
+
 
 export const EwimvaClothes = (): JSX.Element => {
   return (
     <div className="bg-white flex flex-row justify-center w-full" data-model-id="1:8">
       <div className="bg-white w-full max-w-[1920px] relative">
-        <HeaderByAnima />
+        <Header />
         
         <div className="flex">
           <div className="flex-1 min-w-[1150px]">
@@ -123,7 +124,7 @@ export const EwimvaClothes = (): JSX.Element => {
         </div>
 
         <GroupWrapperByAnima />
-        <ViewByAnima />
+        <Footer />
       </div>
     </div>
   );

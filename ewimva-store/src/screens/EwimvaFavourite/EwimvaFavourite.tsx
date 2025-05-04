@@ -1,16 +1,17 @@
 import React from "react";
 import { DivByAnima } from "./sections/DivByAnima";
 import { DivWrapperByAnima } from "./sections/DivWrapperByAnima";
-import { HeaderByAnima } from "./sections/HeaderByAnima";
+import Header from '../../components/Header';
 import { ItemByAnima } from "./sections/ItemByAnima";
 import { ItemWrapperByAnima } from "./sections/ItemWrapperByAnima";
-import { ViewByAnima } from "./sections/ViewByAnima";
+import Footer from "../../components/Footer";
+
 
 export const EwimvaFavourite = (): JSX.Element => {
   return (
     <div className="bg-white flex flex-col items-center w-full" data-model-id="1:8">
       <div className="bg-white w-full max-w-[1440px] relative">
-        <HeaderByAnima />
+        <Header />
         
         <div className="px-8 mt-[82px] mb-8">
           <div className="font-bold text-[#131313] text-[12.2px] [font-family:'Inter',Helvetica] tracking-[0] leading-[18px] mb-2">
@@ -35,7 +36,7 @@ export const EwimvaFavourite = (): JSX.Element => {
           <DivByAnima />
         </div>
 
-        <ViewByAnima />
+        <Footer />
       </div>
     </div>
   );

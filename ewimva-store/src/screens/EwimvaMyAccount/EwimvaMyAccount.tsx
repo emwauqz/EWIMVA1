@@ -2,8 +2,9 @@ import { ChevronRightIcon } from "lucide-react";
 import React from "react";
 import { Button } from "../../components/ui/button";
 import { Card, CardContent } from "../../components/ui/card";
-import { HeaderByAnima } from "./sections/HeaderByAnima";
-import { ViewByAnima } from "./sections/ViewByAnima/ViewByAnima";
+import Header from '../../components/Header';
+import Footer from "../../components/Footer";
+
 
 export const EwimvaMyAccount = (): JSX.Element => {
   // Menu items data for easier management and rendering
@@ -22,7 +23,7 @@ export const EwimvaMyAccount = (): JSX.Element => {
       data-model-id="1:8"
     >
       <div className="bg-white w-full relative">
-        <HeaderByAnima />
+        <Header />
 
         <div className="flex flex-col items-center mt-[109px]">
           <h1 className="[font-family:'Meow_Script',Helvetica] font-normal text-black text-5xl text-justify tracking-[0] leading-[normal]">
@@ -53,7 +54,7 @@ export const EwimvaMyAccount = (): JSX.Element => {
           </Card>
         </div>
 
-        <ViewByAnima />
+        <Footer />
       </div>
     </div>
   );
