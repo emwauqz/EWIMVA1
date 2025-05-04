@@ -2,12 +2,12 @@ import React from "react";
 import { Card, CardContent } from "../../../../components/ui/card";
 
 export const ElementWrapperByAnima = (): JSX.Element => {
-  // Define category data for mapping
-  const categories = [
+  // Define the category data for easier mapping
+  const categoryData = [
     {
       id: 1,
       name: "РУБАШКИ",
-      image: "/photo2.png",
+      image: "photo2.png",
       position: "top-left",
     },
     {
@@ -31,50 +31,26 @@ export const ElementWrapperByAnima = (): JSX.Element => {
   ];
 
   return (
-    <section className="w-full mt-0">
+    <div className="w-full mt-0">
       <div className="grid grid-cols-1 md:grid-cols-2">
-        {/* Top row */}
-        <div className="grid grid-cols-1 md:grid-cols-2">
-          {categories.slice(0, 2).map((category) => (
-            <Card key={category.id} className="rounded-none border-0">
-              <CardContent className="p-0">
-                <div
-                  className="relative h-[960px] w-full bg-cover bg-center"
-                  style={{ backgroundImage: `url(${category.image})` }}
-                >
-                  <div className="absolute bottom-[50px] left-8 font-bold text-white text-[13px] underline [font-family:'Inter',Helvetica] tracking-[0] leading-[18px] whitespace-nowrap">
-                    {category.name}
-                  </div>
-                  <div className="absolute bottom-[50px] right-[154px] font-bold text-white text-[12.8px] text-center underline [font-family:'Inter',Helvetica] tracking-[0] leading-[18px] whitespace-nowrap">
-                    ПОСМОТРЕТЬ ВСЕ
-                  </div>
+        {categoryData.map((category) => (
+          <Card key={category.id} className="rounded-none border-0">
+            <CardContent className="p-0">
+              <div
+                className="relative w-full h-[960px] bg-cover bg-center"
+                style={{ backgroundImage: `url(${category.image})` }}
+              >
+                <div className="absolute bottom-[50px] left-8 font-bold text-white text-[13px] underline font-['Inter',Helvetica] tracking-[0] leading-[18px] whitespace-nowrap">
+                  {category.name}
                 </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-
-        {/* Bottom row */}
-        <div className="grid grid-cols-1 md:grid-cols-2">
-          {categories.slice(2, 4).map((category) => (
-            <Card key={category.id} className="rounded-none border-0">
-              <CardContent className="p-0">
-                <div
-                  className="relative h-[960px] w-full bg-cover bg-center"
-                  style={{ backgroundImage: `url(${category.image})` }}
-                >
-                  <div className="absolute bottom-[50px] left-8 font-bold text-white text-[13px] underline [font-family:'Inter',Helvetica] tracking-[0] leading-[18px] whitespace-nowrap">
-                    {category.name}
-                  </div>
-                  <div className="absolute bottom-[50px] right-[154px] font-bold text-white text-[12.8px] text-center underline [font-family:'Inter',Helvetica] tracking-[0] leading-[18px] whitespace-nowrap">
-                    ПОСМОТРЕТЬ ВСЕ
-                  </div>
+                <div className="absolute bottom-[50px] right-[155px] font-bold text-white text-[12.8px] text-center underline font-['Inter',Helvetica] tracking-[0] leading-[18px] whitespace-nowrap">
+                  ПОСМОТРЕТЬ ВСЕ
                 </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
       </div>
-    </section>
+    </div>
   );
 };
