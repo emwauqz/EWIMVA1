@@ -19,7 +19,7 @@ export const EwimvaSeorch = (): JSX.Element => {
         <div className="relative w-[928px] h-8 mt-[78px] mx-auto border-b [border-bottom-style:solid] border-[#131313]">
           <div className="relative w-full h-[15px] top-2 overflow-hidden">
             <div className="w-[45px] font-normal text-black text-[11.9px] leading-[normal] absolute [font-family:'Inter',Helvetica] tracking-[0]">
-              пиджак
+              Искать
             </div>
           </div>
 

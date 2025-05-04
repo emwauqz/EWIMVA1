@@ -8,7 +8,7 @@
 //     { category: "ПОМОЩЬ", links: [] },
 //     { category: "EWIMVA OUTLET", links: [] },
 //     { category: "МОИ ПОКУПКИ", links: [] },
-//     { category: "NEW NOW", links: [] },
+//     { category: "SITE MAP", links: [] },
 //     { category: "ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ", links: [] },
 //   ];
 
