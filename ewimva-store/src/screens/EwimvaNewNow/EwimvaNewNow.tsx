@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ProductSection } from '../../components/ProductSection';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
+import { ChevronDownIcon } from 'lucide-react';
 
 // Данные о товарах из всех секций
 const products = [
-  // DivByAnima
   {
     id: 1,
     name: 'Lyocell V-neck midi dress',
@@ -41,7 +41,6 @@ const products = [
     image: '/87077907-05-d7.png',
     colorVariants: [],
   },
-  // OverlapGroupWrapperByAnima
   {
     id: 5,
     name: 'Платье из смесового льна с оборкой',
@@ -77,7 +76,6 @@ const products = [
     image: '/87090451-05.png',
     colorVariants: [],
   },
-  // OverlapWrapperByAnima
   {
     id: 9,
     name: 'Хлопковая футболка с контрастными окантовками',
@@ -113,7 +111,6 @@ const products = [
     image: '/87079065-56-d2.png',
     colorVariants: [],
   },
-  // View1ByAnima
   {
     id: 13,
     name: 'Толстовка с высоким воротником и молнией',
@@ -149,7 +146,6 @@ const products = [
     image: '/87085755-07.png',
     colorVariants: [],
   },
-  // View2ByAnima
   {
     id: 17,
     name: 'Тренч оверсайз с ремнем',
@@ -185,7 +181,6 @@ const products = [
     image: '/87075142-37-99999999-01.png',
     colorVariants: [],
   },
-  // ViewByAnima
   {
     id: 21,
     name: 'Костюмные брюки изо льна',
@@ -221,7 +216,6 @@ const products = [
     image: '/87068640-05-d1.png',
     colorVariants: [],
   },
-  // ViewWrapperByAnima
   {
     id: 25,
     name: 'Прямое платье с драпировкой',
@@ -259,34 +253,86 @@ const products = [
   },
 ];
 
+// Список категорий
+const categories = [
+  'Платья и комбинезоны',
+  'Брюки',
+  'Джинсы',
+  'Куртки',
+  'Блейзеры',
+  'Рубашки и блузки',
+  'Топы',
+  'Джемперы и кардиганы',
+  'Тренчи и парки',
+  'Юбки',
+  'Жилеты',
+  'Футболки',
+  'Пальто',
+  'Шорты',
+  'Купальники',
+  'Пижамы',
+  'Кожа',
+  'Обувь',
+  'Сумки',
+  'Бижутерия',
+  'Ремни',
+  'Кошельки и бумажники',
+  'Шарфы и платки',
+  'Шапки и перчатки',
+  'Солнцезащитные очки',
+  'Больше аксессуаров',
+  'Ароматы',
+  'Кожаные аксессуары',
+];
+
 export default function EwimvaNewNow(): JSX.Element {
+  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
+
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
       <main className="flex-1">
-        <ProductSection
-          title="WHAT'S NEW"
-          subtitle="ОТКРЫТИЯ И УДОВОЛЬСТВИЯ"
-          products={products.slice(0, 4)}
-        />
-        <ProductSection
-          products={products.slice(4, 8)}
-        />
-        <ProductSection
-          products={products.slice(8, 12)}
-        />
-        <ProductSection
-          products={products.slice(12, 16)}
-        />
-        <ProductSection
-          products={products.slice(16, 20)}
-        />
-        <ProductSection
-          products={products.slice(20, 24)}
-        />
-        <ProductSection
-          products={products.slice(24, 28)}
-        />
+        <div className="max-w-7xl mx-auto px-2 py-4">
+          <h1 className="font-['Montserrat'] font-medium text-[24px] text-[#131313] leading-[28px] ml-[-20px]">
+            New Now
+          </h1>
+        </div>
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="mb-6">
+            <h2 className="font-['Montserrat'] font-medium text-[24px] text-[#131313] leading-[28px] ml-[-20px]">
+              WHAT'S NEW
+            </h2>
+            <div className="relative mt-2">
+              <button
+                onClick={() => setIsCategoryOpen(!isCategoryOpen)}
+                className="flex items-center gap-1 font-['Montserrat'] font-normal text-[14px] text-[#131313] hover:underline"
+              >
+                Категория
+                <ChevronDownIcon className={`w-4 h-4 transition-transform ${isCategoryOpen ? 'rotate-180' : ''}`} />
+              </button>
+              {isCategoryOpen && (
+                <div className="absolute z-50 mt-2 w-[250px] bg-white shadow-lg rounded-md py-2 max-h-[400px] overflow-y-auto">
+                  {categories.map((category, index) => (
+                    <a
+                      key={index}
+                      href="#"
+                      className="block px-4 py-2 text-[14px] font-['Montserrat'] font-normal text-[#131313] hover:bg-gray-100"
+                    >
+                      {category}
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+        <ProductSection products={products.slice(0, 4)} />
+        <ProductSection products={products.slice(4, 8)} />
+        <ProductSection products={products.slice(8, 12)} />
+        <ProductSection products={products.slice(12, 16)} />
+        <ProductSection products={products.slice(16, 20)} />
+        <ProductSection products={products.slice(20, 24)} />
+        <ProductSection products={products.slice(24, 28)} />
       </main>
       <Footer />
     </div>

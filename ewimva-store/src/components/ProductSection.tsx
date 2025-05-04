@@ -41,7 +41,7 @@ setFavorites((prev) =>
 };
 
 return (
-<section className="w-full py-8">
+<section className="w-full py-0">
     {(title || subtitle) && (
     <div className="max-w-7xl mx-auto px-4 mb-6">
         {title && (
@@ -57,7 +57,7 @@ return (
     </div>
     )}
     <div className="w-full py-0">
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-0.5">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-0">
         {products.map((product) => (
         <Card key={product.id} className="rounded-none border-0 relative">
             <CardContent className="p-0">
@@ -69,7 +69,7 @@ return (
                 />
             </div>
             <div className="p-2">
-            <button
+                <button
                 className="absolute bottom-[35px] right-[12px] bg-transparent border-none cursor-pointer"
                 aria-label="Add to favorites"
                 onClick={() => handleFavoriteToggle(product.id)}
