@@ -1,11 +1,39 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { ElementByAnima } from "./sections/ElementByAnima";
-import { ElementWrapperByAnima } from "./sections/ElementWrapperByAnima";
-import { OverlapWrapperByAnima } from "./sections/OverlapWrapperByAnima/OverlapWrapperByAnima";
-
+import { Link, useNavigate } from "react-router-dom";
+import { Card, CardContent } from "../../components/ui/card";
+import { Button } from "../../components/ui/button";
 
 export const EwimvaHome = (): JSX.Element => {
+  const navigate = useNavigate();
+
+  // Данные категорий для секции ElementWrapperByAnima
+  const categoryData = [
+    {
+      id: 1,
+      name: "ПЛАТЬЯ",
+      image: "/87098649-99-d6--1-.png",
+      path: "/dress",
+    },
+    {
+      id: 2,
+      name: "ТОПЫ",
+      image: "/87069215-99-d6--1-.png",
+      path: "/tops",
+    },
+    {
+      id: 3,
+      name: "БРЮКИ",
+      image: "/family-woman--22-.png",
+      path: "/pants",
+    },
+    {
+      id: 4,
+      name: "СУМКИ",
+      image: "/17031172-02-o.png",
+      path: "/bags",
+    },
+  ];
+
   return (
     <div
       className="bg-white flex flex-col items-center w-full"
@@ -41,43 +69,61 @@ export const EwimvaHome = (): JSX.Element => {
       </nav>
 
       <div className="bg-white w-full max-w-[1920px] overflow-hidden relative">
-        <div className="w-full">
-          <ElementByAnima />
+        {/* Секция ElementByAnima */}
+        <section className="relative w-full h-[1144px]" onClick={() => navigate('/new')}>
+          <div className="w-full h-full bg-[url(/tak1.png)] bg-cover bg-center flex flex-col items-center justify-center cursor-pointer">
+            <h2 className="text-[54.5px] font-bold text-white text-center tracking-normal leading-[68px] underline [text-shadow:0px_0px_10px_#1313131a] font-['Inter',Helvetica] mb-8">
+              NEW NOW
+            </h2>
+            <span className="text-[6.5px] font-bold text-white text-center underline [text-shadow:0px_0px_10px_#1313131a] font-['Inter',Helvetica] tracking-normal leading-[18px]">
+              УЗНАТЬ БОЛЬШЕ
+            </span>
+          </div>
+        </section>
+
+        {/* Секция ElementWrapperByAnima */}
+        <div className="w-full mt-0">
+          <div className="grid grid-cols-1 md:grid-cols-2">
+            {categoryData.map((category) => (
+              <Card key={category.id} className="rounded-none border-0">
+                <CardContent className="p-0">
+                  <div
+                    className="relative w-full h-[960px] bg-cover bg-center cursor-pointer"
+                    style={{ backgroundImage: `url(${category.image})` }}
+                    onClick={() => navigate(category.path)}
+                  >
+                    <div className="absolute bottom-[50px] left-8 font-bold text-white text-[13px] underline font-['Inter',Helvetica] tracking-[0] leading-[18px] whitespace-nowrap">
+                      {category.name}
+                    </div>
+                    <div className="absolute bottom-[50px] right-[155px] font-bold text-white text-[12.8px] text-center underline font-['Inter',Helvetica] tracking-[0] leading-[18px] whitespace-nowrap">
+                      ПОСМОТРЕТЬ ВСЕ
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
 
-        <ElementWrapperByAnima />
-        <OverlapWrapperByAnima />
+        {/* Секция OverlapWrapperByAnima */}
+        <section className="relative w-full h-[1144px]" onClick={() => navigate('/party')}>
+          <div className="w-full h-full bg-[url(/landing-fiesta.png)] bg-cover bg-center flex flex-col items-center justify-center cursor-pointer">
+            <div className="flex flex-col items-center gap-6">
+              <h2 className="text-white text-[54.5px] font-bold font-['Inter',Helvetica] tracking-[0] leading-[68px] underline text-center [text-shadow:0px_0px_10px_#1313131a]">
+                PARTY AND EVENTS
+              </h2>
+              <Button
+                variant="link"
+                className="text-white text-[6.5px] font-bold font-['Inter',Helvetica] tracking-[0] leading-[18px] underline [text-shadow:0px_0px_10px_#1313131a] p-0 h-auto"
+              >
+                УЗНАТЬ БОЛЬШЕ
+              </Button>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   );
 };
 
 export default EwimvaHome;
-
-
-// import React from "react";
-// import { ElementByAnima } from "./sections/ElementByAnima";
-// import { ElementWrapperByAnima } from "./sections/ElementWrapperByAnima";
-// import { HeaderByAnima } from "./sections/HeaderByAnima";
-// import { OverlapWrapperByAnima } from "./sections/OverlapWrapperByAnima/OverlapWrapperByAnima";
-// import { ViewByAnima } from "./sections/ViewByAnima/ViewByAnima";
-
-// export const EwimvaHome = (): JSX.Element => {
-//   return (
-//     <div
-//       className="bg-white flex flex-col items-center w-full"
-//       data-model-id="1:18"
-//     >
-//       <div className="bg-white w-full max-w-[1920px] overflow-hidden relative">
-//         <div className="w-full">
-//           <HeaderByAnima />
-//           <ElementByAnima />
-//         </div>
-
-//         <ElementWrapperByAnima />
-//         <OverlapWrapperByAnima />
-//         <ViewByAnima />
-//       </div>
-//     </div>
-//   );
-// };

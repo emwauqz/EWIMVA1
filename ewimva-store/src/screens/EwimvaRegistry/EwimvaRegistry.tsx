@@ -74,7 +74,7 @@ export const EwimvaRegistry = (): JSX.Element => {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute w-[18px] h-[11px] top-4 right-3 cursor-pointer"
+                  className="absolute w-[30px] h-[11px] top-3 right-3 cursor-pointer"
                 >
                   {showPassword ? <EyeOffIcon /> : <EyeIcon />}
                 </button>

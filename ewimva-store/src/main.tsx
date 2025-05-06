@@ -10,6 +10,7 @@ import EwimvaRegistry from './screens/EwimvaRegistry/EwimvaRegistry';
 import EwimvaFavourite from './screens/EwimvaFavourite/EwimvaFavourite';
 import EwimvaSeorch from './screens/EwimvaSeorch/EwimvaSeorch';
 import EwimvaNewNow from './screens/EwimvaNewNow/EwimvaNewNow';
+import EwimvaDress from './screens/EwimvaDress/EwimvaDress'; // Добавляем импорт
 import EwimvaClothes from './screens/EwimvaClothes/EwimvaClothes';
 import EwimvaMyAccount from './screens/EwimvaMyAccount/EwimvaMyAccount';
 import EwimvaMyDetails from './screens/EwimvaMyDetails/EwimvaMyDetails';
@@ -29,6 +30,12 @@ import EditUser from './screens/EwimvaPolzovateli/EditUser';
 import { EwimvaPokypka } from './screens/EwimvaPokypka';
 import Header from './components/Header';
 import Footer from './components/Footer';
+
+// Заглушки для страниц, которые пока не реализованы
+const EwimvaTops = () => <div>Страница "Топы" (в разработке)</div>;
+const EwimvaPants = () => <div>Страница "Брюки" (в разработке)</div>;
+const EwimvaBags = () => <div>Страница "Сумки" (в разработке)</div>;
+const EwimvaParty = () => <div>Страница "Party and Events" (в разработке)</div>;
 
 // Типизация для ProtectedRoute
 interface ProtectedRouteProps {
@@ -85,6 +92,46 @@ const App = () => {
           element={
             <ProtectedRoute>
               <EwimvaNewNow />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/dress"
+          element={
+            <ProtectedRoute>
+              <EwimvaDress />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/tops"
+          element={
+            <ProtectedRoute>
+              <EwimvaTops />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/pants"
+          element={
+            <ProtectedRoute>
+              <EwimvaPants />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/bags"
+          element={
+            <ProtectedRoute>
+              <EwimvaBags />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/party"
+          element={
+            <ProtectedRoute>
+              <EwimvaParty />
             </ProtectedRoute>
           }
         />
