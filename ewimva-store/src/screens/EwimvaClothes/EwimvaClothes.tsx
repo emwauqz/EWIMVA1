@@ -9,7 +9,6 @@ import { Card, CardContent } from "../../components/ui/card";
 import { GroupByAnima } from "./sections/GroupByAnima";
 import { GroupWrapperByAnima } from "./sections/GroupWrapperByAnima";
 import Header from '../../components/Header';
-import Footer from "../../components/Footer";
 
 
 export const EwimvaClothes = (): JSX.Element => {
@@ -124,7 +123,6 @@ export const EwimvaClothes = (): JSX.Element => {
         </div>
 
         <GroupWrapperByAnima />
-        <Footer />
       </div>
     </div>
   );

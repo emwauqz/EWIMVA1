@@ -99,7 +99,7 @@ return (
             type="text"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
-            placeholder="Введите цену (например, 12 450 с)"
+            placeholder="Введите цену"
             className="w-full border-[#00000040] rounded-md focus:border-[#131313] focus:ring-1 focus:ring-[#131313] p-2"
             />
         </div>

@@ -1,7 +1,6 @@
 import React from "react";
 import { GroupByAnima } from "./sections/GroupByAnima";
 import Header from '../../components/Header';
-import Footer from "../../components/Footer";
 
 
 export const EwimvaMyDetails = (): JSX.Element => {
@@ -19,10 +18,6 @@ export const EwimvaMyDetails = (): JSX.Element => {
           </h1>
 
           <GroupByAnima />
-          <footer className="absolute w-[1920px] top-[770px]">
-        <Footer />
-        
-        </footer>
         </main>
       </div>
     </div>

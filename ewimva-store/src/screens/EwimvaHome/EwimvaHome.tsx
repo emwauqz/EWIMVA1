@@ -4,7 +4,6 @@ import { ElementByAnima } from "./sections/ElementByAnima";
 import { ElementWrapperByAnima } from "./sections/ElementWrapperByAnima";
 import Header from '../../components/Header';
 import { OverlapWrapperByAnima } from "./sections/OverlapWrapperByAnima/OverlapWrapperByAnima";
-import Footer from "../../components/Footer";
 
 
 export const EwimvaHome = (): JSX.Element => {
@@ -16,21 +15,29 @@ export const EwimvaHome = (): JSX.Element => {
       <nav className="bg-gray-800 p-20 w-full">
         <ul className="flex flex-wrap justify-center space-x-4 text-white">
           <li><Link to="/">Главная</Link></li>
-          <li><Link to="/men">Мужская одежда</Link></li>
+          <li><Link to="/men">Мужская</Link></li>
           <li><Link to="/login">Войти</Link></li>
           <li><Link to="/register">Регистрация</Link></li>
-          <li><Link to="/favourites">Избранное</Link></li>
+          <li><Link to="/favourites">Фавориты</Link></li>
           <li><Link to="/search">Поиск</Link></li>
           <li><Link to="/new">Новинки</Link></li>
           <li><Link to="/product">Товар</Link></li>
           <li><Link to="/account">Мой аккаунт</Link></li>
           <li><Link to="/details">Детали</Link></li>
-          <li><Link to="/recovery">Восстановление пароля</Link></li>
+          <li><Link to="/recovery">Сброс пароля</Link></li>
           <li><Link to="/help">Помощь</Link></li>
           <li><Link to="/users">Пользователи</Link></li>
           <li><Link to="/products">Товары</Link></li>
           <li><Link to="/orders">Заказы</Link></li>
           <li><Link to="/dashboard">Дашборд</Link></li>
+          <li><Link to="/purchases">Покупка</Link></li>
+          <li><Link to="/useorders/0/editrs">Редактировать заказы</Link></li>
+          <li><Link to="/orders/0/details">Просмотр деталей заказы</Link></li>
+          <li><Link to="/dashboard">Просмотр деталей товары</Link></li>
+          <li><Link to="/products/1/edit">Редактировать товары</Link></li>
+          <li><Link to="/products/add">Добавить товар</Link></li>
+          <li><Link to="/users/USR-1001/edit">Редактировать пользователей</Link></li>
+          <li><Link to="/users/add">Добавить пользователя</Link></li>
         </ul>
       </nav>
 
@@ -42,7 +49,6 @@ export const EwimvaHome = (): JSX.Element => {
 
         <ElementWrapperByAnima />
         <OverlapWrapperByAnima />
-        <Footer />
       </div>
     </div>
   );

@@ -3,7 +3,6 @@ import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
 import { Separator } from "../../components/ui/separator";
 import Header from '../../components/Header';
-import Footer from "../../components/Footer";
 import { useNavigate } from 'react-router-dom';
 
 export const EwimvaRecovery = (): JSX.Element => {
@@ -80,11 +79,6 @@ export const EwimvaRecovery = (): JSX.Element => {
             </div>
           </div>
         </div>
-
-        {/* Footer */}
-        <footer className="absolute w-[1920px] top-[600px]">
-          <Footer />
-        </footer>
       </div>
     </div>
   );

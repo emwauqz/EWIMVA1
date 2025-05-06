@@ -3,7 +3,6 @@ import { DivWrapperByAnima } from "./sections/DivWrapperByAnima/DivWrapperByAnim
 import { GroupByAnima } from "./sections/GroupByAnima";
 import { GroupWrapperByAnima } from "./sections/GroupWrapperByAnima";
 import Header from '../../components/Header';
-import Footer from "../../components/Footer";
 
 
 export const EwimvaPomosh = (): JSX.Element => {
@@ -17,7 +16,6 @@ export const EwimvaPomosh = (): JSX.Element => {
         <GroupByAnima />
         <GroupWrapperByAnima />
         <DivWrapperByAnima />
-        <Footer />
       </div>
     </div>
   );

@@ -3,7 +3,6 @@ import { ElementByAnima } from "./sections/ElementByAnima";
 import { ElementWrapperByAnima } from "./sections/ElementWrapperByAnima";
 import Header from '../../components/Header';
 import { OverlapWrapperByAnima } from "./sections/OverlapWrapperByAnima";
-import Footer from "../../components/Footer";
 
 
 export const EwimvaMenHome = (): JSX.Element => {
@@ -20,7 +19,6 @@ export const EwimvaMenHome = (): JSX.Element => {
 
         <ElementWrapperByAnima />
         <OverlapWrapperByAnima />
-        <Footer />
       </div>
     </div>
   );

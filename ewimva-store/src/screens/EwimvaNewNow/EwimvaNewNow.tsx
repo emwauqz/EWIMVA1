@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { ProductSection } from '../../components/ProductSection';
 import Header from '../../components/Header';
-import Footer from '../../components/Footer';
 import { ChevronDownIcon } from 'lucide-react';
 
 // Данные о товарах из всех секций
@@ -334,7 +333,6 @@ export default function EwimvaNewNow(): JSX.Element {
         <ProductSection products={products.slice(20, 24)} />
         <ProductSection products={products.slice(24, 28)} />
       </main>
-      <Footer />
     </div>
   );
 }

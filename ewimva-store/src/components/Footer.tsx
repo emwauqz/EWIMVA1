@@ -2,13 +2,15 @@ import React from "react";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Separator } from "../components/ui/separator";
+import { useNavigate } from 'react-router-dom';
 
 const Footer = (): JSX.Element => {
+const navigate = useNavigate();
+
 const footerLinks = [
-{ category: "ПОМОЩЬ", links: [] },
-{ category: "EWIMVA OUTLET", links: [] },
-{ category: "МОИ ПОКУПКИ", links: [] },
-{ category: "NEW NOW", links: [] },
+{ category: "ПОМОЩЬ", links: [], path: "/help" },
+{ category: "МОИ ПОКУПКИ", links: [], path: "/purchases" },
+{ category: "NEW NOW", links: [], path: "/new" },
 { category: "ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ", links: [] },
 ];
 
@@ -73,17 +75,31 @@ return (
 
     <div className="flex flex-wrap justify-center gap-4 sm:gap-8 mb-8 sm:mb-16">
         {footerLinks.map((category, index) => (
-        <a
+        category.path ? (
+            <button
             key={index}
-            href="#"
+            onClick={() => navigate(category.path)}
             className={`text-black text-[11px] sm:text-[12.8px] ${
-            index === 0 || index === 2 || index === 4
+                index === 0 || index === 2 || index === 4
                 ? "font-bold"
                 : "font-semibold"
             }`}
-        >
+            >
             {category.category}
-        </a>
+            </button>
+        ) : (
+            <a
+            key={index}
+            href="#"
+            className={`text-black text-[11px] sm:text-[12.8px] ${
+                index === 0 || index === 2 || index === 4
+                ? "font-bold"
+                : "font-semibold"
+            }`}
+            >
+            {category.category}
+            </a>
+        )
         ))}
     </div>
 

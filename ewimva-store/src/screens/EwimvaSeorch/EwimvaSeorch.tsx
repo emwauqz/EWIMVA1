@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { ProductSection } from '../../components/ProductSection';
 import Header from '../../components/Header';
-import Footer from '../../components/Footer';
 
 const products = [
   {
@@ -290,7 +289,6 @@ export default function EwimvaSeorch(): JSX.Element {
           )}
         </div>
       </main>
-      <Footer />
     </div>
   );
 }
