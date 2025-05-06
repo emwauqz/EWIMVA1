@@ -1,11 +1,17 @@
-import React from "react";
+import { EyeIcon, EyeOffIcon } from "lucide-react";
+import React, { useState } from "react";
 import { Button } from "../../components/ui/button";
 import { Card, CardContent } from "../../components/ui/card";
+import { Checkbox } from "../../components/ui/checkbox";
+import { Input } from "../../components/ui/input";
 import Header from '../../components/Header';
 import Footer from "../../components/Footer";
-
+import { useNavigate } from 'react-router-dom';
 
 export const EwimvaRegistry = (): JSX.Element => {
+  const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+
   // Data for navigation links
   const navLinks = {
     left: [
@@ -34,81 +40,76 @@ export const EwimvaRegistry = (): JSX.Element => {
         {/* Header */}
         <Header />
 
-        {/* Registration Form */}
-        <Card className="absolute w-[364px] h-[312px] top-[234px] left-[760px] border-none shadow-none">
-          <CardContent className="p-0">
-            <div className="w-[165px] [font-family:'Inter',Helvetica] font-bold text-[#131313] text-[15.1px] tracking-[0] leading-5 whitespace-nowrap mb-9">
-              СОЗДАЙТЕ АККАУНТ
-            </div>
-
-            {/* Email field */}
-            <div className="relative w-[350px] h-11 mb-6 border border-solid border-[#b8b8b8]">
-              <div className="absolute w-[39px] top-[13px] left-2 [font-family:'Inter',Helvetica] font-normal text-[#131313] text-[13px] tracking-[0] leading-[18px] whitespace-nowrap">
-                E-mail
+        {/* Registration Form - Centered */}
+        <div className="absolute top-[234px] w-full flex justify-center">
+          <Card className="w-[364px] h-[359px] border-none shadow-none">
+            <CardContent className="p-0">
+              <div className="w-[165px] [font-family:'Inter',Helvetica] font-bold text-[#131313] text-[15.8px] tracking-[0] leading-5 whitespace-nowrap mb-11">
+                СОЗДАЙТЕ АККАУНТ
               </div>
-            </div>
 
-            {/* Phone number field */}
-            <div className="flex mb-6">
-              <div className="relative w-[118px] h-11 bg-white border border-solid border-[#131313] flex items-center">
-                <div className="absolute w-4 h-[11px] top-[15px] left-2 bg-[url(/----------996.png)] bg-cover bg-[50%_50%]" />
-                <div className="w-8 ml-8 font-normal text-[#131313] text-[12.5px] [font-family:'Inter',Helvetica] tracking-[0] leading-[18px] whitespace-nowrap">
-                  +996
-                </div>
-                <img
-                  className="absolute w-[17px] h-[9px] top-[18px] right-4"
-                  alt="Vector"
-                  src="/vector-1_registry.svg"
+              <div className="relative w-[350px] h-11 mb-6">
+                <Input
+                  className="absolute w-[350px] h-11 border border-solid border-[#b8b8b8] rounded-none"
+                  placeholder="E-mail"
                 />
               </div>
 
-              <div className="relative w-[216px] h-11 ml-4">
-                <div className="w-[84px] top-3.5 left-[9px] text-[12.3px] absolute [font-family:'Inter',Helvetica] font-normal text-[#131313] tracking-[0] leading-[18px] whitespace-nowrap">
-                  Моб. телефон
+              <div className="relative w-[350px] h-11 mb-7">
+                <Input
+                  className="absolute w-[350px] h-11 border border-solid border-[#b8b8b8] rounded-none pr-10"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Пароль"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute w-[30px] h-[11px] top-3 right-3 cursor-pointer"
+                >
+                  {showPassword ? <EyeOffIcon /> : <EyeIcon />}
+                </button>
+              </div>
+
+              <div className="flex items-center mb-7">
+                <Checkbox
+                  id="remember"
+                  className="w-4 h-4 rounded-none border-[#131313]"
+                />
+                <label
+                  htmlFor="remember"
+                  className="ml-3 font-normal text-[#131313] text-[12.1px] [font-family:'Inter',Helvetica] tracking-[0] leading-[18px] whitespace-nowrap"
+                >
+                  Запомнить меня
+                </label>
+              </div>
+
+              <Button className="w-[350px] h-11 bg-[#131313] rounded-none hover:bg-[#333333] mb-6">
+                <div className="w-[105px] font-bold text-white text-[12.3px] text-center [font-family:'Inter',Helvetica] tracking-[0] leading-[18px] whitespace-nowrap">
+                  Создать аккаунт
                 </div>
-                <div className="absolute w-[216px] h-11 top-0 left-0 border border-solid border-[#b8b8b8]" />
-              </div>
-            </div>
+              </Button>
 
-            {/* Password field */}
-            <div className="relative w-[350px] h-11 mb-6 border border-solid border-[#b8b8b8]">
-              <div className="w-[45px] top-[13px] left-2 text-[12.4px] absolute [font-family:'Inter',Helvetica] font-normal text-[#131313] tracking-[0] leading-[18px] whitespace-nowrap">
-                Пароль
+              <div className="w-full flex justify-center mt-6">
+                <div className="w-[185px] font-normal text-[#131313] text-xs text-center [font-family:'Inter',Helvetica] tracking-[0] leading-[18px] whitespace-nowrap">
+                  <span className="[font-family:'Inter',Helvetica] font-normal text-[#131313] text-xs tracking-[0] leading-[18px]">
+                    У Вас уже есть аккаунт?{" "}
+                  </span>
+                  <button
+                    onClick={() => navigate('/login')}
+                    className="font-bold underline cursor-pointer"
+                  >
+                    Войти
+                  </button>
+                </div>
               </div>
-              <img
-                className="absolute w-[18px] h-[11px] top-[15px] right-4"
-                alt="Vector"
-                src="/vector_registry.svg"
-              />
-            </div>
-
-            {/* Create account button */}
-            <Button className="w-[350px] h-11 bg-[#131313] rounded-none hover:bg-[#333333]">
-              <div className="w-[105px] font-bold text-white text-[12.3px] text-center [font-family:'Inter',Helvetica] tracking-[0] leading-[18px] whitespace-nowrap">
-                Создать аккаунт
-              </div>
-            </Button>
-
-            {/* Login link */}
-            <div className="w-full flex justify-center mt-6">
-              <div className="w-[185px] font-normal text-[#131313] text-xs text-center [font-family:'Inter',Helvetica] tracking-[0] leading-[18px] whitespace-nowrap">
-                <span className="[font-family:'Inter',Helvetica] font-normal text-[#131313] text-xs tracking-[0] leading-[18px]">
-                  У Вас уже есть аккаунт?{" "}
-                </span>
-                <span className="font-bold underline cursor-pointer">
-                  Войти
-                </span>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        </div>
 
         {/* Footer */}
         <footer className="absolute w-[1920px] top-[750px]">
-        <Footer />
-
+          <Footer />
         </footer>
-
       </div>
     </div>
   );
