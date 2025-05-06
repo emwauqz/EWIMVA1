@@ -8,14 +8,12 @@ import {
 import { Card, CardContent } from "../../components/ui/card";
 import { GroupByAnima } from "./sections/GroupByAnima";
 import { GroupWrapperByAnima } from "./sections/GroupWrapperByAnima";
-import Header from '../../components/Header';
 
 
 export const EwimvaClothes = (): JSX.Element => {
   return (
     <div className="bg-white flex flex-row justify-center w-full" data-model-id="1:8">
       <div className="bg-white w-full max-w-[1920px] relative">
-        <Header />
         
         <div className="flex">
           <div className="flex-1 min-w-[1150px]">

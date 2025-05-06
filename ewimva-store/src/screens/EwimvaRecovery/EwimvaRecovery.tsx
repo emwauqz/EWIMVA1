@@ -2,7 +2,6 @@ import React from "react";
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
 import { Separator } from "../../components/ui/separator";
-import Header from '../../components/Header';
 import { useNavigate } from 'react-router-dom';
 
 export const EwimvaRecovery = (): JSX.Element => {
@@ -40,7 +39,6 @@ export const EwimvaRecovery = (): JSX.Element => {
       data-model-id="1:8"
     >
       <div className="bg-white overflow-hidden w-[1920px] h-[1200px] relative">
-        <Header />
 
         {/* Password recovery form - Centered */}
         <div className="absolute top-[234px] w-full flex justify-center">

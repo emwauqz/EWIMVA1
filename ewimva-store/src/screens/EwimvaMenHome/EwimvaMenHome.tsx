@@ -1,7 +1,6 @@
 import React from "react";
 import { ElementByAnima } from "./sections/ElementByAnima";
 import { ElementWrapperByAnima } from "./sections/ElementWrapperByAnima";
-import Header from '../../components/Header';
 import { OverlapWrapperByAnima } from "./sections/OverlapWrapperByAnima";
 
 
@@ -13,7 +12,6 @@ export const EwimvaMenHome = (): JSX.Element => {
     >
       <div className="bg-white w-full max-w-[1920px] relative">
         <div className="w-full">
-          <Header />
           <ElementByAnima />
         </div>
 

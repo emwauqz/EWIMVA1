@@ -1,7 +1,6 @@
 import React from "react";
 import { Button } from "../../components/ui/button";
 import { Separator } from "../../components/ui/separator";
-import Header from '../../components/Header';
 import { useNavigate } from 'react-router-dom';
 
 export const EwimvaPokypka = (): JSX.Element => {
@@ -43,8 +42,6 @@ export const EwimvaPokypka = (): JSX.Element => {
       data-model-id="1:8"
     >
       <div className="bg-white overflow-hidden w-[1920px] h-[1200px] relative">
-        {/* Header */}
-        <Header />
 
         {/* Centered Content */}
         <div className="absolute top-[294px] w-full flex justify-center">

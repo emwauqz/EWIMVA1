@@ -30,31 +30,29 @@ import { EwimvaPokypka } from './screens/EwimvaPokypka';
 import Header from './components/Header';
 import Footer from './components/Footer';
 
-// Компонент для защиты маршрутов
-const ProtectedRoute = ({ children }) => {
+const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('token'));
-  const location = useLocation();
 
   useEffect(() => {
-    // Обновляем состояние при изменении токена
     const checkAuth = () => setIsAuthenticated(!!localStorage.getItem('token'));
-    checkAuth(); // Проверка при монтировании
-    window.addEventListener('storage', checkAuth); // Обновление при изменении localStorage
+    checkAuth();
+    window.addEventListener('storage', checkAuth);
     return () => window.removeEventListener('storage', checkAuth);
-  }, [location]);
+  }, []);
 
-  const publicPaths = ['/', '/men', '/login', '/register', '/recovery'];
-  if (!isAuthenticated && !publicPaths.includes(location.pathname)) {
-    return <Navigate to="/login" replace />;
-  }
+  const ProtectedRoute = ({ children }) => {
+    const location = useLocation();
 
-  return <>{children}</>;
-};
+    if (!isAuthenticated && !['/', '/men', '/login', '/register', '/recovery'].includes(location.pathname)) {
+      return <Navigate to="/login" replace />;
+    }
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
+    return <>{children}</>;
+  };
+
+  return (
     <BrowserRouter>
-      <Header />
+      <Header isAuthenticated={isAuthenticated} />
       <Routes>
         <Route path="/" element={<EwimvaHome />} />
         <Route path="/men" element={<EwimvaMenHome />} />
@@ -218,9 +216,14 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       </Routes>
       <Footer />
     </BrowserRouter>
+  );
+};
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <App />
   </React.StrictMode>
 );
-
 
 // import React from 'react';
 // import ReactDOM from 'react-dom/client';

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { ProductSection } from '../../components/ProductSection';
-import Header from '../../components/Header';
 
 const products = [
   {
@@ -261,7 +260,6 @@ export default function EwimvaSeorch(): JSX.Element {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Header />
       <main className="flex-1 pt-16">
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex items-center gap-4 mb-4">

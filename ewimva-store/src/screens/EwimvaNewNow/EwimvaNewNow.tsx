@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { ProductSection } from '../../components/ProductSection';
-import Header from '../../components/Header';
 import { ChevronDownIcon } from 'lucide-react';
 
 // Данные о товарах из всех секций
@@ -289,7 +288,6 @@ export default function EwimvaNewNow(): JSX.Element {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Header />
       <main className="flex-1">
         <div className="max-w-7xl mx-auto px-2 py-4">
           <h1 className="font-['Montserrat'] font-medium text-[24px] text-[#131313] leading-[28px] ml-[-20px]">

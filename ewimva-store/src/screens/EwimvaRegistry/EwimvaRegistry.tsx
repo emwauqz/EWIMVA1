@@ -4,7 +4,6 @@ import { Button } from "../../components/ui/button";
 import { Card, CardContent } from "../../components/ui/card";
 import { Checkbox } from "../../components/ui/checkbox";
 import { Input } from "../../components/ui/input";
-import Header from '../../components/Header';
 import { useNavigate } from 'react-router-dom';
 
 export const EwimvaRegistry = (): JSX.Element => {
@@ -45,7 +44,6 @@ export const EwimvaRegistry = (): JSX.Element => {
   return (
     <div className="bg-white flex flex-row justify-center w-full">
       <div className="bg-white overflow-hidden w-[1920px] h-[1200px] relative">
-        <Header />
         <div className="absolute top-[234px] w-full flex justify-center">
           <Card className="w-[364px] h-[359px] border-none shadow-none">
             <CardContent className="p-0">

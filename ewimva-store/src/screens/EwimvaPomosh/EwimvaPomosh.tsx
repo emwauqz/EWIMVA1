@@ -2,7 +2,6 @@ import React from "react";
 import { DivWrapperByAnima } from "./sections/DivWrapperByAnima/DivWrapperByAnima";
 import { GroupByAnima } from "./sections/GroupByAnima";
 import { GroupWrapperByAnima } from "./sections/GroupWrapperByAnima";
-import Header from '../../components/Header';
 
 
 export const EwimvaPomosh = (): JSX.Element => {
@@ -12,7 +11,6 @@ export const EwimvaPomosh = (): JSX.Element => {
       data-model-id="1:8"
     >
       <div className="bg-white w-full max-w-[1920px] flex flex-col">
-        <Header />
         <GroupByAnima />
         <GroupWrapperByAnima />
         <DivWrapperByAnima />
