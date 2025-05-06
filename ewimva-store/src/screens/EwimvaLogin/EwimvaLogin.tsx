@@ -1,5 +1,5 @@
 import { EyeIcon, EyeOffIcon } from "lucide-react";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "../../components/ui/button";
 import { Card, CardContent } from "../../components/ui/card";
 import { Checkbox } from "../../components/ui/checkbox";
@@ -12,6 +12,12 @@ export const EwimvaLogin = (): JSX.Element => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (localStorage.getItem('token')) {
+      navigate('/account');
+    }
+  }, []);
 
   const handleLogin = () => {
     console.log("Login attempt:", { email, password });
