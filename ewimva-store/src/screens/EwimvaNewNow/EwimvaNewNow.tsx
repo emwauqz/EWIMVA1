@@ -299,13 +299,13 @@ export default function EwimvaNewNow(): JSX.Element {
         </div>
         <div className="max-w-7xl mx-auto px-4">
           <div className="mb-6">
-            <h2 className="font-['Montserrat'] font-medium text-[24px] text-[#131313] leading-[28px] ml-[-20px]">
+            <h2 className="font-medium text-[24px] text-[#131313] leading-[28px] ml-[-250px]">
               WHAT'S NEW
             </h2>
             <div className="relative mt-2">
               <button
                 onClick={() => setIsCategoryOpen(!isCategoryOpen)}
-                className="flex items-center gap-1 font-['Montserrat'] font-normal text-[14px] text-[#131313] hover:underline"
+                className="flex items-center gap-1  font-normal text-[14px] text-[#131313] hover:underline ml-[-250px]"
               >
                 Категория
                 <ChevronDownIcon className={`w-4 h-4 transition-transform ${isCategoryOpen ? 'rotate-180' : ''}`} />

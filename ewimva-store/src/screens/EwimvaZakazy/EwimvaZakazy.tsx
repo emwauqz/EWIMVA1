@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Badge } from '../../components/ui/badge';
 import { Card, CardContent } from '../../components/ui/card';
 import { Checkbox } from '../../components/ui/checkbox';
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuItem,
   DropdownMenuTrigger,
 } from '../../components/ui/dropdown-menu';
 import {
@@ -15,6 +16,8 @@ import {
   TableHeader,
   TableRow,
 } from '../../components/ui/table';
+import { ChevronDownIcon } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 // Order status data with corresponding colors
 const statusTypes = {
@@ -25,7 +28,7 @@ const statusTypes = {
 };
 
 // Order data
-const orders = [
+const initialOrders = [
   {
     id: 'CRD-7650',
     customer: 'Михаил Иванов',
@@ -155,6 +158,44 @@ const orders = [
 ];
 
 export default function EwimvaZakazy(): JSX.Element {
+  const [orders, setOrders] = useState(initialOrders);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [statusFilter, setStatusFilter] = useState('all');
+  const [sortOption, setSortOption] = useState('newest');
+  const navigate = useNavigate();
+
+  // Функция для фильтрации заказов по поиску
+  const filteredOrders = orders.filter((order) =>
+    searchQuery
+      ? order.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        order.customer.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        order.email.toLowerCase().includes(searchQuery.toLowerCase())
+      : true
+  ).filter((order) =>
+    statusFilter === 'all' ? true : order.status === statusFilter
+  );
+
+  // Функция для сортировки заказов
+  const sortedOrders = [...filteredOrders].sort((a, b) => {
+    if (sortOption === 'newest') {
+      return new Date(b.date).getTime() - new Date(a.date).getTime();
+    } else if (sortOption === 'oldest') {
+      return new Date(a.date).getTime() - new Date(b.date).getTime();
+    } else if (sortOption === 'amount-desc') {
+      return parseFloat(b.amount) - parseFloat(a.amount);
+    } else if (sortOption === 'amount-asc') {
+      return parseFloat(a.amount) - parseFloat(b.amount);
+    }
+    return 0;
+  });
+
+  // Функция для изменения статуса заказа
+  const handleStatusChange = (index: number, newStatus: string) => {
+    const updatedOrders = [...orders];
+    updatedOrders[index].status = newStatus;
+    setOrders(updatedOrders);
+  };
+
   return (
     <main className="flex-1 p-8">
       <h1 className="font-['Inter'] font-semibold text-[#131313] text-[40px] mb-12">
@@ -162,15 +203,70 @@ export default function EwimvaZakazy(): JSX.Element {
       </h1>
 
       {/* Search and Filters */}
-      <div className="flex items-center mb-8 border-b border-black pb-2 w-[340px]">
-        <div className="font-['Inter'] font-light text-black text-[13px] tracking-[0.80px]">
-          SEARCH
+      <div className="flex items-center gap-4 mb-8 border-b border-black pb-2">
+        <div className="flex items-center gap-2">
+          <div className="font-['Inter'] font-light text-black text-[13px] tracking-[0.80px]">
+            SEARCH
+          </div>
+          <input
+            type="text"
+            placeholder="Поиск по ID, клиенту или email..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-[300px] border-[#00000040] rounded-md focus:border-[#131313] focus:ring-1 focus:ring-[#131313] p-2 text-[12px]"
+          />
         </div>
         <div className="flex-1"></div>
-        <div className="font-['Inter'] font-bold text-[#131313] text-[12.7px] mr-2">
-          СТАТУСЫ
+        <div className="flex items-center gap-2">
+          <DropdownMenu>
+            <DropdownMenuTrigger className="flex items-center gap-1 font-['Inter'] font-normal text-[14px] text-[#131313] hover:underline focus:outline-none">
+              {statusFilter === 'all' ? 'Все статусы' : statusTypes[statusFilter as keyof typeof statusTypes].label}
+              <ChevronDownIcon className="w-4 h-4" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="bg-white shadow-lg rounded-md border border-gray-200">
+              <DropdownMenuItem onClick={() => setStatusFilter('all')}>
+                Все статусы
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setStatusFilter('processing')}>
+                Обработка
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setStatusFilter('sent')}>
+                Отправлен
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setStatusFilter('completed')}>
+                Выполнен
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setStatusFilter('cancelled')}>
+                Отменён
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
-        <img className="w-2 h-[5px]" alt="Vector" src="/vector-1.svg" />
+        <div className="flex items-center gap-2">
+          <DropdownMenu>
+            <DropdownMenuTrigger className="flex items-center gap-1 font-['Inter'] font-normal text-[14px] text-[#131313] hover:underline focus:outline-none">
+              {sortOption === 'newest' ? 'Новые' :
+              sortOption === 'oldest' ? 'Старые' :
+              sortOption === 'amount-desc' ? 'Сумма по убыванию' :
+              'Сумма по возрастанию'}
+              <ChevronDownIcon className="w-4 h-4" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="bg-white shadow-lg rounded-md border border-gray-200">
+              <DropdownMenuItem onClick={() => setSortOption('newest')}>
+                Новые
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setSortOption('oldest')}>
+                Старые
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setSortOption('amount-desc')}>
+                Сумма по убыванию
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setSortOption('amount-asc')}>
+                Сумма по возрастанию
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       </div>
 
       {/* Orders Table */}
@@ -204,7 +300,7 @@ export default function EwimvaZakazy(): JSX.Element {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {orders.map((order, index) => (
+              {sortedOrders.map((order, index) => (
                 <TableRow
                   key={index}
                   className="border-b border-solid border-[#00000040]"
@@ -227,11 +323,29 @@ export default function EwimvaZakazy(): JSX.Element {
                     {order.date}
                   </TableCell>
                   <TableCell>
-                    <Badge
-                      className={`${statusTypes[order.status as keyof typeof statusTypes].color} text-white font-semibold rounded **В наличии** rounded-[50px] px-3 py-1.5`}
-                    >
-                      {statusTypes[order.status as keyof typeof statusTypes].label}
-                    </Badge>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger>
+                        <Badge
+                          className={`${statusTypes[order.status as keyof typeof statusTypes].color} text-white font-semibold rounded rounded-[50px] px-3 py-1.5`}
+                        >
+                          {statusTypes[order.status as keyof typeof statusTypes].label}
+                        </Badge>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent className="bg-white shadow-lg rounded-md border border-gray-200">
+                        <DropdownMenuItem onClick={() => handleStatusChange(index, 'processing')}>
+                          Обработка
+                        </DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => handleStatusChange(index, 'sent')}>
+                          Отправлен
+                        </DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => handleStatusChange(index, 'completed')}>
+                          Выполнен
+                        </DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => handleStatusChange(index, 'cancelled')}>
+                          Отменён
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
                   </TableCell>
                   <TableCell className="font-['Inter'] font-semibold text-[#131313] text-sm">
                     {order.items}
@@ -244,8 +358,13 @@ export default function EwimvaZakazy(): JSX.Element {
                       <DropdownMenuTrigger className="font-['Inter'] font-semibold text-[#131313] text-sm">
                         •••
                       </DropdownMenuTrigger>
-                      <DropdownMenuContent>
-                        {/* Dropdown menu items would go here */}
+                      <DropdownMenuContent className="bg-white shadow-lg rounded-md border border-gray-200">
+                        <DropdownMenuItem onClick={() => navigate(`/orders/${index}/details`)}>
+                          Просмотр деталей
+                        </DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => navigate(`/orders/${index}/edit`)}>
+                          Редактировать
+                        </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </TableCell>

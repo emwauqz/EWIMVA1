@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Badge } from '../../components/ui/badge';
 import { Button } from '../../components/ui/button';
 import { Card, CardContent } from '../../components/ui/card';
 import { Checkbox } from '../../components/ui/checkbox';
 import { Input } from '../../components/ui/input';
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-} from '../../components/ui/select';
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '../../components/ui/dropdown-menu';
 import {
   Table,
   TableBody,
@@ -18,6 +18,8 @@ import {
   TableHeader,
   TableRow,
 } from '../../components/ui/table';
+import { ChevronDownIcon } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 // Product data for mapping
 const products = [
@@ -104,57 +106,126 @@ const products = [
 ];
 
 export default function EwimvaTovary(): JSX.Element {
+  const [productsList, setProductsList] = useState(products);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [categoryFilter, setCategoryFilter] = useState('all');
+  const [sortOption, setSortOption] = useState('newest');
+  const navigate = useNavigate();
+
+  // Функция для фильтрации по поиску
+  const filteredProducts = productsList.filter((product) =>
+    searchQuery
+      ? product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        product.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        product.status.toLowerCase().includes(searchQuery.toLowerCase())
+      : true
+  ).filter((product) =>
+    categoryFilter === 'all' ? true : product.category === categoryFilter
+  );
+
+  // Функция для сортировки
+  const sortedProducts = [...filteredProducts].sort((a, b) => {
+    if (sortOption === 'price-asc') {
+      return parseFloat(a.price) - parseFloat(b.price);
+    } else if (sortOption === 'price-desc') {
+      return parseFloat(b.price) - parseFloat(a.price);
+    } else if (sortOption === 'name-asc') {
+      return a.name.localeCompare(b.name);
+    }
+    return 0; // По умолчанию новые (без сортировки)
+  });
+
+  // Функция для удаления товара
+  const handleDelete = (id: number) => {
+    if (window.confirm('Вы уверены, что хотите удалить этот товар?')) {
+      setProductsList(productsList.filter((product) => product.id !== id));
+    }
+  };
+
   return (
     <main className="flex-1 p-8">
-      <h1 className="font-['Inter'] font-semibold text-[#131313] text-[40px] tracking-[0] leading-[18px] mb-12">
-        Товары
-      </h1>
-
-      <div className="flex items-center justify-between mb-6">
-        <div className="flex items-center gap-8">
-          <div>
-            <span className="font-['Inter'] font-light text-black text-[13px] tracking-[0.80px] leading-5 block mb-1">
-              SEARCH
-            </span>
-            <Input className="w-[332px]" />
-          </div>
-
-          <div>
-            <Select>
-              <SelectTrigger className="w-[150px] border-none shadow-none p-0 h-auto">
-                <div className="flex items-center">
-                  <span className="font-['Inter'] font-bold text-[#131313] text-[12.7px] tracking-[0] leading-[18px]">
-                    КАТЕГОРИИ
-                  </span>
-                  <img
-                    className="w-2 h-[5px] ml-2"
-                    alt="Vector"
-                    src="/vector_tovary.svg"
-                  />
-                </div>
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">Все категории</SelectItem>
-                <SelectItem value="clothes">Одежда</SelectItem>
-                <SelectItem value="shoes">Обувь</SelectItem>
-                <SelectItem value="accessories">Аксессуары</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
-
-        <Button className="bg-black text-white rounded-full h-[30px] px-6">
+      <div className="flex items-center justify-between mb-10">
+        <h1 className="font-['Inter'] font-semibold text-[#131313] text-[40px]">
+          Товары
+        </h1>
+        <Button
+          className="bg-black text-white rounded-full h-[30px] px-6"
+          onClick={() => navigate('/products/add')}
+        >
           <span className="mr-1">+</span> Добавить товар
         </Button>
       </div>
 
-      <Card className="border border-[#00000040] rounded-[10px]">
+      <div className="flex items-center gap-4 mb-8 border-b border-black pb-2">
+        <div className="flex items-center gap-2">
+          <div className="font-['Inter'] font-light text-black text-[13px] tracking-[0.80px]">
+            SEARCH
+          </div>
+          <input
+            type="text"
+            placeholder="Поиск по названию, категории или статусу..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-[300px] border-[#00000040] rounded-md focus:border-[#131313] focus:ring-1 focus:ring-[#131313] p-2 text-[12px]"
+          />
+        </div>
+        <div className="flex-1"></div>
+        <div className="flex items-center gap-2">
+          <DropdownMenu>
+            <DropdownMenuTrigger className="flex items-center gap-1 font-['Inter'] font-normal text-[14px] text-[#131313] hover:underline focus:outline-none">
+              {categoryFilter === 'all' ? 'Все категории' : categoryFilter}
+              <ChevronDownIcon className="w-4 h-4" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="bg-white shadow-lg rounded-md border border-gray-200">
+              <DropdownMenuItem onClick={() => setCategoryFilter('all')}>
+                Все категории
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setCategoryFilter('Одежда')}>
+                Одежда
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setCategoryFilter('Обувь')}>
+                Обувь
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setCategoryFilter('Аксессуары')}>
+                Аксессуары
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+        <div className="flex items-center gap-2">
+          <DropdownMenu>
+            <DropdownMenuTrigger className="flex items-center gap-1 font-['Inter'] font-normal text-[14px] text-[#131313] hover:underline focus:outline-none">
+              {sortOption === 'newest' ? 'Новые' :
+              sortOption === 'price-asc' ? 'Цены по возрастанию' :
+              sortOption === 'price-desc' ? 'Цены по убыванию' :
+              'Название А-Я'}
+              <ChevronDownIcon className="w-4 h-4" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="bg-white shadow-lg rounded-md border border-gray-200">
+              <DropdownMenuItem onClick={() => setSortOption('newest')}>
+                Новые
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setSortOption('price-asc')}>
+                Цены по возрастанию
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setSortOption('price-desc')}>
+                Цены по убыванию
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setSortOption('name-asc')}>
+                Название А-Я
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+      </div>
+
+      <Card className="border border-solid border-[#00000040] rounded-[10px]">
         <CardContent className="p-0">
           <Table>
             <TableHeader>
-              <TableRow className="border-b border-[#00000040]">
-                <TableHead className="w-[50px] text-center">
-                  <Checkbox />
+              <TableRow className="border-b border-solid border-[#00000040]">
+                <TableHead className="w-12 pl-10">
+                  <Checkbox className="rounded-[5px] border-[#00000040]" />
                 </TableHead>
                 <TableHead className="font-['Inter'] font-normal text-[#131313] text-sm">
                   Название
@@ -171,17 +242,17 @@ export default function EwimvaTovary(): JSX.Element {
                 <TableHead className="font-['Inter'] font-normal text-[#131313] text-sm">
                   Цена
                 </TableHead>
-                <TableHead className="w-[50px]"></TableHead>
+                <TableHead className="w-12"></TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {products.map((product) => (
+              {sortedProducts.map((product) => (
                 <TableRow
                   key={product.id}
-                  className="border-b border-[#00000040]"
+                  className="border-b border-solid border-[#00000040]"
                 >
-                  <TableCell className="text-center">
-                    <Checkbox />
+                  <TableCell className="pl-10">
+                    <Checkbox className="rounded-[5px] border-[#00000040]" />
                   </TableCell>
                   <TableCell className="font-['Inter'] font-semibold text-[#131313] text-sm">
                     {product.name}
@@ -221,8 +292,20 @@ export default function EwimvaTovary(): JSX.Element {
                   <TableCell className="font-['Inter'] font-semibold text-[#131313] text-sm">
                     {product.price}
                   </TableCell>
-                  <TableCell className="font-['Inter'] font-semibold text-[#131313] text-sm text-center">
-                    •••
+                  <TableCell>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger className="font-['Inter'] font-semibold text-[#131313] text-sm">
+                        •••
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent className="bg-white shadow-lg rounded-md border border-gray-200">
+                        <DropdownMenuItem onClick={() => navigate(`/products/${product.id}/edit`)}>
+                          Редактировать
+                        </DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => handleDelete(product.id)}>
+                          Удалить
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
                   </TableCell>
                 </TableRow>
               ))}
@@ -233,6 +316,7 @@ export default function EwimvaTovary(): JSX.Element {
     </main>
   );
 }
+
 
 // import React from "react";
 // import { Badge } from "../../components/ui/badge";

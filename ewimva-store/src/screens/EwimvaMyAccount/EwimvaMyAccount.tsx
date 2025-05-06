@@ -54,7 +54,10 @@ export const EwimvaMyAccount = (): JSX.Element => {
           </Card>
         </div>
 
+        <footer className="absolute w-[1920px] top-[770px]">
         <Footer />
+        
+        </footer>
       </div>
     </div>
   );

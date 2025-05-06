@@ -19,7 +19,10 @@ export const EwimvaMyDetails = (): JSX.Element => {
           </h1>
 
           <GroupByAnima />
-          <Footer />
+          <footer className="absolute w-[1920px] top-[770px]">
+        <Footer />
+        
+        </footer>
         </main>
       </div>
     </div>

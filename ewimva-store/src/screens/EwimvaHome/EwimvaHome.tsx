@@ -13,7 +13,7 @@ export const EwimvaHome = (): JSX.Element => {
       className="bg-white flex flex-col items-center w-full"
       data-model-id="1:18"
     >
-      <nav className="bg-gray-800 p-4 w-full">
+      <nav className="bg-gray-800 p-20 w-full">
         <ul className="flex flex-wrap justify-center space-x-4 text-white">
           <li><Link to="/">Главная</Link></li>
           <li><Link to="/men">Мужская одежда</Link></li>
