@@ -48,7 +48,7 @@ export const EwimvaHome = (): JSX.Element => {
           <li><Link to="/favourites">Фавориты</Link></li>
           <li><Link to="/search">Поиск</Link></li>
           <li><Link to="/new">Новинки</Link></li>
-          <li><Link to="/product">Товар</Link></li>
+          <li><Link to="/product/2">Товар</Link></li>
           <li><Link to="/account">Мой аккаунт</Link></li>
           <li><Link to="/details">Детали</Link></li>
           <li><Link to="/recovery">Сброс пароля</Link></li>

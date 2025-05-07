@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ProductSection } from '../../components/ProductSection';
+import { ProductSection } from "../../../components/ProductSection";
 import { ChevronDownIcon } from 'lucide-react';
 
 // Данные о товарах (фильтруем только платья)

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ProductSection } from '../../components/ProductSection';
+import { ProductSection } from "../../../components/ProductSection";
 import { ChevronDownIcon } from 'lucide-react';
 
 // Данные о товарах из всех секций
@@ -308,7 +308,7 @@ export default function EwimvaNewNow(): JSX.Element {
                 <ChevronDownIcon className={`w-4 h-4 transition-transform ${isCategoryOpen ? 'rotate-180' : ''}`} />
               </button>
               {isCategoryOpen && (
-                <div className="absolute z-50 mt-2 w-[250px] bg-white shadow-lg rounded-md py-2 max-h-[400px] overflow-y-auto">
+                <div className="absolute z-50 mt-2 w-[250px] bg-white shadow-lg ml-[-260px] rounded-md py-2 max-h-[400px] overflow-y-auto">
                   {categories.map((category, index) => (
                     <a
                       key={index}

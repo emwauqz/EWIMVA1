@@ -1,41 +1,48 @@
-import React, { useState, useEffect } from 'react';
-import ReactDOM from 'react-dom/client';
-import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import './tailwind.css';
-import AdminLayout from './components/AdminLayout';
-import EwimvaHome from './screens/EwimvaHome/EwimvaHome';
-import EwimvaMenHome from './screens/EwimvaMenHome/EwimvaMenHome';
-import EwimvaLogin from './screens/EwimvaLogin/EwimvaLogin';
-import EwimvaRegistry from './screens/EwimvaRegistry/EwimvaRegistry';
-import EwimvaFavourite from './screens/EwimvaFavourite/EwimvaFavourite';
-import EwimvaSeorch from './screens/EwimvaSeorch/EwimvaSeorch';
-import EwimvaNewNow from './screens/EwimvaNewNow/EwimvaNewNow';
-import EwimvaDress from './screens/EwimvaDress/EwimvaDress'; // Добавляем импорт
-import EwimvaClothes from './screens/EwimvaClothes/EwimvaClothes';
-import EwimvaMyAccount from './screens/EwimvaMyAccount/EwimvaMyAccount';
-import EwimvaMyDetails from './screens/EwimvaMyDetails/EwimvaMyDetails';
-import EwimvaRecovery from './screens/EwimvaRecovery/EwimvaRecovery';
-import EwimvaPomosh from './screens/EwimvaPomosh/EwimvaPomosh';
-import EwimvaPolzovateli from './screens/EwimvaPolzovateli/EwimvaPolzovateli';
-import EwimvaTovary from './screens/EwimvaTovary/EwimvaTovary';
-import EwimvaZakazy from './screens/EwimvaZakazy/EwimvaZakazy';
-import EwimvaDashboard from './screens/EwimvaDashboard/EwimvaDashboard';
-import OrderDetails from './screens/EwimvaZakazy/OrderDetails';
-import EditOrder from './screens/EwimvaZakazy/EditOrder';
-import EditProduct from './screens/EwimvaTovary/EditProduct';
-import AddProduct from './screens/EwimvaTovary/AddProduct';
-import AddUser from './screens/EwimvaPolzovateli/AddUser';
-import UserDetails from './screens/EwimvaPolzovateli/UserDetails';
-import EditUser from './screens/EwimvaPolzovateli/EditUser';
-import { EwimvaPokypka } from './screens/EwimvaPokypka';
-import Header from './components/Header';
-import Footer from './components/Footer';
-
-// Заглушки для страниц, которые пока не реализованы
-const EwimvaTops = () => <div>Страница "Топы" (в разработке)</div>;
-const EwimvaPants = () => <div>Страница "Брюки" (в разработке)</div>;
-const EwimvaBags = () => <div>Страница "Сумки" (в разработке)</div>;
-const EwimvaParty = () => <div>Страница "Party and Events" (в разработке)</div>;
+import React, { useState, useEffect } from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
+import "./tailwind.css";
+import AdminLayout from "./components/AdminLayout";
+import EwimvaHome from "./screens/EwimvaHome/EwimvaHome";
+import EwimvaMenHome from "./screens/EwimvaMenHome/EwimvaMenHome";
+import EwimvaLogin from "./screens/EwimvaLogin/EwimvaLogin";
+import EwimvaRegistry from "./screens/EwimvaRegistry/EwimvaRegistry";
+import EwimvaFavourite from "./screens/EwimvaFavourite/EwimvaFavourite";
+import EwimvaSeorch from "./screens/EwimvaSeorch/EwimvaSeorch";
+import EwimvaNewNow from "./screens/women/EwimvaNewNow/EwimvaNewNow";
+import EwimvaDress from "./screens/women/EwimvaDress/EwimvaDress";
+import EwimvaBags from "./screens/women/EwimvaBags/EwimvaBags";
+import EwimvaCoats from "./screens/women/EwimvaCoats/EwimvaCoats";
+import EwimvaFragrances from "./screens/women/EwimvaFragrances/EwimvaFragrances";
+import EwimvaJackets from "./screens/women/EwimvaJackets/EwimvaJackets";
+import EwimvaJeans from "./screens/women/EwimvaJeans/EwimvaJeans";
+import EwimvaJumpersAndCardigans from "./screens/women/EwimvaJumpersAndCardigans/EwimvaJumpersAndCardigans";
+import EwimvaPants from "./screens/women/EwimvaPants/EwimvaPants";
+import EwimvaShirtsAndBlouses from "./screens/women/EwimvaShirtsAndBlouses/EwimvaShirtsAndBlouses";
+import EwimvaShoes from "./screens/women/EwimvaShoes/EwimvaShoes";
+import EwimvaTops from "./screens/women/EwimvaTops/EwimvaTops";
+import EwimvaTshirts from "./screens/women/EwimvaTshirts/EwimvaTshirts";
+import EwimvaVests from "./screens/women/EwimvaVests/EwimvaVests";
+import EwimvaClothes from "./screens/EwimvaClothes/EwimvaClothes";
+import EwimvaProducts from "./screens/EwimvaProducts/EwimvaProducts";
+import EwimvaMyAccount from "./screens/EwimvaMyAccount/EwimvaMyAccount";
+import EwimvaMyDetails from "./screens/EwimvaMyDetails/EwimvaMyDetails";
+import EwimvaRecovery from "./screens/EwimvaRecovery/EwimvaRecovery";
+import EwimvaPomosh from "./screens/EwimvaPomosh/EwimvaPomosh";
+import EwimvaPolzovateli from "./screens/EwimvaPolzovateli/EwimvaPolzovateli";
+import EwimvaTovary from "./screens/EwimvaTovary/EwimvaTovary";
+import EwimvaZakazy from "./screens/EwimvaZakazy/EwimvaZakazy";
+import EwimvaDashboard from "./screens/EwimvaDashboard/EwimvaDashboard";
+import OrderDetails from "./screens/EwimvaZakazy/OrderDetails";
+import EditOrder from "./screens/EwimvaZakazy/EditOrder";
+import EditProduct from "./screens/EwimvaTovary/EditProduct";
+import AddProduct from "./screens/EwimvaTovary/AddProduct";
+import AddUser from "./screens/EwimvaPolzovateli/AddUser";
+import UserDetails from "./screens/EwimvaPolzovateli/UserDetails";
+import EditUser from "./screens/EwimvaPolzovateli/EditUser";
+import { EwimvaPokypka } from "./screens/EwimvaPokypka";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 // Типизация для ProtectedRoute
 interface ProtectedRouteProps {
@@ -43,19 +50,19 @@ interface ProtectedRouteProps {
 }
 
 const App = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('token'));
+  const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem("token"));
 
   useEffect(() => {
-    const checkAuth = () => setIsAuthenticated(!!localStorage.getItem('token'));
+    const checkAuth = () => setIsAuthenticated(!!localStorage.getItem("token"));
     checkAuth();
-    window.addEventListener('storage', checkAuth);
-    return () => window.removeEventListener('storage', checkAuth);
+    window.addEventListener("storage", checkAuth);
+    return () => window.removeEventListener("storage", checkAuth);
   }, []);
 
   const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
     const location = useLocation();
 
-    if (!isAuthenticated && !['/', '/men', '/login', '/register', '/recovery'].includes(location.pathname)) {
+    if (!isAuthenticated && !["/", "/men", "/login", "/register", "/recovery"].includes(location.pathname)) {
       return <Navigate to="/login" replace />;
     }
 
@@ -104,10 +111,50 @@ const App = () => {
           }
         />
         <Route
-          path="/tops"
+          path="/bags"
           element={
             <ProtectedRoute>
-              <EwimvaTops />
+              <EwimvaBags />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/coats"
+          element={
+            <ProtectedRoute>
+              <EwimvaCoats />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/fragrances"
+          element={
+            <ProtectedRoute>
+              <EwimvaFragrances />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/jackets"
+          element={
+            <ProtectedRoute>
+              <EwimvaJackets />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/jeans"
+          element={
+            <ProtectedRoute>
+              <EwimvaJeans />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/jumpers-and-cardigans"
+          element={
+            <ProtectedRoute>
+              <EwimvaJumpersAndCardigans />
             </ProtectedRoute>
           }
         />
@@ -120,23 +167,55 @@ const App = () => {
           }
         />
         <Route
-          path="/bags"
+          path="/shirts-and-blouses"
           element={
             <ProtectedRoute>
-              <EwimvaBags />
+              <EwimvaShirtsAndBlouses />
             </ProtectedRoute>
           }
         />
         <Route
-          path="/party"
+          path="/shoes"
           element={
             <ProtectedRoute>
-              <EwimvaParty />
+              <EwimvaShoes />
             </ProtectedRoute>
           }
         />
         <Route
-          path="/product"
+          path="/tops"
+          element={
+            <ProtectedRoute>
+              <EwimvaTops />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/tshirts"
+          element={
+            <ProtectedRoute>
+              <EwimvaTshirts />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/vests"
+          element={
+            <ProtectedRoute>
+              <EwimvaVests />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/products"
+          element={
+            <ProtectedRoute>
+              <EwimvaProducts />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/product/:id"
           element={
             <ProtectedRoute>
               <EwimvaClothes />
@@ -271,7 +350,7 @@ const App = () => {
   );
 };
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <App />
   </React.StrictMode>
