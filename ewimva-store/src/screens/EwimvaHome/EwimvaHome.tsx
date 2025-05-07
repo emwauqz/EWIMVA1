@@ -58,7 +58,7 @@ export const EwimvaHome = (): JSX.Element => {
           <li><Link to="/orders">Заказы</Link></li>
           <li><Link to="/dashboard">Дашборд</Link></li>
           <li><Link to="/purchases">Покупка</Link></li>
-          <li><Link to="/useorders/0/editrs">Редактировать заказы</Link></li>
+          <li><Link to="/orders/0/edit">Редактировать заказы</Link></li>
           <li><Link to="/orders/0/details">Просмотр деталей заказы</Link></li>
           <li><Link to="/dashboard">Просмотр деталей товары</Link></li>
           <li><Link to="/products/1/edit">Редактировать товары</Link></li>

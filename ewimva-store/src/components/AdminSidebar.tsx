@@ -11,7 +11,7 @@ const navItems = [
 
 return (
 <aside className="w-[250px] h-[calc(150vh-3.5rem)] bg-white border-r border-[#00000040] flex flex-col">
-    <nav className="mt-[50px] flex flex-col">
+    <nav className="mt-[100px] flex flex-col">
     {navItems.map((item, index) => (
         <NavLink
         key={index}
