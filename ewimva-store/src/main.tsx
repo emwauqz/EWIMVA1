@@ -40,6 +40,8 @@ import AddProduct from "./screens/EwimvaTovary/AddProduct";
 import AddUser from "./screens/EwimvaPolzovateli/AddUser";
 import UserDetails from "./screens/EwimvaPolzovateli/UserDetails";
 import EditUser from "./screens/EwimvaPolzovateli/EditUser";
+import { EwimvaCheckout } from "./screens/EwimvaCheckout/EwimvaCheckout";
+import EwimvaCart from "./screens/EwimvaCart/EwimvaCart";
 import { EwimvaPokypka } from "./screens/EwimvaPokypka";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -105,6 +107,22 @@ const App = () => {
           element={
             <ProtectedRoute>
               <EwimvaSeorch />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/checkout"
+          element={
+            <ProtectedRoute>
+              <EwimvaCheckout />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/cart"
+          element={
+            <ProtectedRoute>
+              <EwimvaCart />
             </ProtectedRoute>
           }
         />

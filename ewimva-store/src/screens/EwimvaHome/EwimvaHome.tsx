@@ -65,6 +65,8 @@ export const EwimvaHome = (): JSX.Element => {
           <li><Link to="/products/add">Добавить товар</Link></li>
           <li><Link to="/users/USR-1001/edit">Редактировать пользователей</Link></li>
           <li><Link to="/users/add">Добавить пользователя</Link></li>
+          <li><Link to="/checkout">Оформление заказа</Link></li>
+          <li><Link to="/cart">Корзина</Link></li>
         </ul>
       </nav>
 
