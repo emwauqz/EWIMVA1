@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { ProductSection } from '../../components/ProductSection';
+import { Card, CardContent } from "../../components/ui/card";
+import { HeartIcon } from "lucide-react";
 
 const products = [
   {
@@ -197,7 +199,7 @@ const products = [
     id: 23,
     name: 'Прямые костюмные брюки из смесового льна',
     category: 'NEW NOW',
-    price: 'KGS 12 990,00',
+    price: 'KGS 12 990 TSP,00',
     image: '/87038267-05-d2.png',
     colorVariants: [
       { color: '03', image: '/03-2.png' },
@@ -249,6 +251,144 @@ const products = [
   },
 ];
 
+// Компонент ItemWrapperByAnima
+const ItemWrapper = (): JSX.Element => {
+  const product = {
+    name: "Прямой костюмный пиджак",
+    price: "KGS 8 990,00",
+    image: "/-------------------------------------------------.png",
+    colors: [
+      { id: 1, image: "/52.png" },
+      { id: 2, image: "/05.png", selected: true },
+    ],
+  };
+
+  return (
+    <Card className="w-full max-w-[479px] mx-auto">
+      <div className="relative">
+        <div
+          className="w-full h-[671px] bg-cover bg-center"
+          style={{ backgroundImage: `url(${product.image})` }}
+        />
+        <button className="absolute top-6 right-6">
+          <HeartIcon className="w-4 h-[15px]" />
+        </button>
+      </div>
+
+      <CardContent className="pt-3 pb-6">
+        <h3 className="font-normal text-[#131313] text-[11.8px] leading-[18px] font-['Inter',Helvetica] mb-0">
+          {product.name}
+        </h3>
+        <p className="text-[12.8px] font-['Inter',Helvetica] font-normal text-[#131313] leading-[18px] mt-0">
+          {product.price}
+        </p>
+        <div className="flex gap-3 mt-3">
+          {product.colors.map((color) => (
+            <div key={color.id} className="relative">
+              <div
+                className={`w-3.5 h-3.5 rounded-[7px] bg-cover bg-center`}
+                style={{ backgroundImage: `url(${color.image})` }}
+              />
+              {color.selected && (
+                <div className="w-[18px] h-[18px] absolute top-[-2px] left-[-3px] rounded-[9px] border border-solid border-[#131313]" />
+              )}
+            </div>
+          ))}
+        </div>
+      </CardContent>
+    </Card>
+  );
+};
+
+const Item = (): JSX.Element => {
+  return (
+    <Card className="w-full max-w-[479px] rounded-none border-none">
+      <div className="bg-[url(/----------------------------------------.png)] w-full h-[671px] bg-cover bg-center" />
+      <CardContent className="p-2 relative">
+        <div className="text-[11.7px] font-normal text-[#131313] leading-[18px] font-['Inter',Helvetica] tracking-[0]">
+          Структурный пиджак с поясом
+        </div>
+        <div className="text-[12.6px] font-normal text-[#131313] tracking-[0] leading-[18px] font-['Inter',Helvetica]">
+          KGS 12 990,00
+        </div>
+        <HeartIcon className="absolute right-2 bottom-2 w-4 h-[15px]" />
+      </CardContent>
+    </Card>
+  );
+};
+
+const DivWrapper = (): JSX.Element => {
+  return (
+    <div className="w-full max-w-[479px] mx-auto">
+      <Card className="border-none shadow-none">
+        <CardContent className="p-0">
+          <div className="flex flex-col">
+            <div className="bg-[url(/---------------------------------------------.png)] w-full h-[671px] bg-cover bg-center" />
+            <div className="mt-3 px-2">
+              <h3 className="font-normal text-[#131313] text-[11.7px] leading-[18px] font-['Inter',Helvetica] tracking-[0]">
+                Костюмный пиджак в узкую полоску
+              </h3>
+              <div className="flex justify-between items-center mt-1">
+                <p className="text-[12.8px] font-['Inter',Helvetica] font-normal text-[#131313] tracking-[0] leading-[18px]">
+                  KGS 9 990,00
+                </p>
+                <HeartIcon className="w-4 h-[15px] text-black" />
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+};
+
+const Div = (): JSX.Element => {
+  const product = {
+    name: "Трикотажный пиджак с геометрическим узором",
+    price: "KGS 4 990,00",
+    image: "/-------------------------------------------------------.png",
+    colors: [
+      { id: 1, image: "/43.png", selected: true },
+      { id: 2, image: "/07.png", selected: false },
+    ],
+  };
+
+  return (
+    <Card className="w-full max-w-[479px] border-none">
+      <CardContent className="p-0">
+        <div
+          className="w-full h-[671px] bg-cover bg-center"
+          style={{ backgroundImage: `url(${product.image})` }}
+        />
+        <div className="mt-3 px-2">
+          <h3 className="font-normal text-[11.7px] leading-[18px] text-[#131313] font-['Inter',Helvetica] tracking-[0]">
+            {product.name}
+          </h3>
+          <p className="mt-1 font-normal text-[12.8px] leading-[18px] text-[#131313] font-['Inter',Helvetica] tracking-[0]">
+            {product.price}
+          </p>
+          <div className="flex items-center mt-3 gap-3">
+            {product.colors.map((color) => (
+              <div key={color.id} className="relative">
+                <div
+                  className={`w-3.5 h-3.5 rounded-[7px] bg-cover bg-center`}
+                  style={{ backgroundImage: `url(${color.image})` }}
+                />
+                {color.selected && (
+                  <div className="absolute top-[-2px] left-[-2px] w-[18px] h-[18px] rounded-[9px] border border-solid border-[#131313]" />
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+        <button className="absolute top-[694px] right-7">
+          <HeartIcon className="w-4 h-[15px]" />
+        </button>
+      </CardContent>
+    </Card>
+  );
+};
+
 export default function EwimvaSeorch(): JSX.Element {
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -290,54 +430,3 @@ export default function EwimvaSeorch(): JSX.Element {
     </div>
   );
 }
-
-// import { XIcon } from "lucide-react";
-// import React from "react";
-// import { Button } from "../../components/ui/button";
-// import { DivByAnima } from "./sections/DivByAnima";
-// import { DivWrapperByAnima } from "./sections/DivWrapperByAnima/DivWrapperByAnima";
-// import Header from '../../components/Header';
-// import { ItemByAnima } from "./sections/ItemByAnima/ItemByAnima";
-// import { ItemWrapperByAnima } from "./sections/ItemWrapperByAnima";
-// import Footer from "../../components/Footer";
-
-
-// export const EwimvaSeorch = (): JSX.Element => {
-//   return (
-//     <div className="bg-white flex flex-row justify-center w-full">
-//       <div className="bg-white overflow-hidden w-full max-w-[1921px] relative">
-//         <Header />
-
-//         {/* Search bar */}
-//         <div className="relative w-[928px] h-8 mt-[78px] mx-auto border-b [border-bottom-style:solid] border-[#131313]">
-//           <div className="relative w-full h-[15px] top-2 overflow-hidden">
-//             <div className="w-[45px] font-normal text-black text-[11.9px] leading-[normal] absolute [font-family:'Inter',Helvetica] tracking-[0]">
-//               Искать
-//             </div>
-//           </div>
-
-//           <Button
-//             variant="ghost"
-//             size="icon"
-//             className="absolute w-[11px] h-[11px] top-[9px] right-[6px] p-0"
-//             aria-label="Clear search"
-//           >
-//             <XIcon className="w-[11px] h-[11px]" />
-//           </Button>
-//         </div>
-
-//         {/* Product grid */}
-//         <div className="grid grid-cols-4 gap-4 max-w-[1920px] mx-auto px-8 mt-8">
-//           <ItemByAnima />
-//           <ItemWrapperByAnima />
-//           <DivWrapperByAnima />
-//           <DivByAnima />
-//         </div>
-
-//         <Footer />
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default EwimvaSeorch;

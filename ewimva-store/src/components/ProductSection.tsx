@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { HeartIcon } from 'lucide-react';
 import { Card, CardContent } from '../components/ui/card';
+import { useNavigate } from 'react-router-dom';
 
 interface ColorVariant {
 color: string;
@@ -40,6 +41,8 @@ setFavorites((prev) =>
 );
 };
 
+const navigate = useNavigate();
+
 return (
 <section className="w-full py-0">
     {(title || subtitle) && (
@@ -59,7 +62,11 @@ return (
     <div className="w-full py-0">
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-0">
         {products.map((product) => (
-        <Card key={product.id} className="rounded-none border-0 relative">
+        <Card
+            key={product.id}
+            className="rounded-none border-0 relative cursor-pointer"
+            onClick={() => navigate(`/product/${product.id}`)}
+        >
             <CardContent className="p-0">
             <div className="relative">
                 <img
@@ -72,7 +79,10 @@ return (
                 <button
                 className="absolute bottom-[35px] right-[12px] bg-transparent border-none cursor-pointer"
                 aria-label="Add to favorites"
-                onClick={() => handleFavoriteToggle(product.id)}
+                onClick={(e) => {
+                    e.stopPropagation();
+                    handleFavoriteToggle(product.id);
+                }}
                 >
                 <HeartIcon
                     className={`w-[17px] h-[15px] ${

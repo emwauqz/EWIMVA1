@@ -1,1 +1,0 @@
-export { ElementWrapperByAnima } from "./ElementWrapperByAnima";

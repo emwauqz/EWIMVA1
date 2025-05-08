@@ -271,7 +271,7 @@ const categories = [
 { name: 'вечерние', path: '/party' },
 ];
 
-export default function EwimvaPants(): JSX.Element {
+export default function NewNow(): JSX.Element {
 const [isCategoryOpen, setIsCategoryOpen] = useState(false);
 const navigate = useNavigate();
 
@@ -280,13 +280,13 @@ return (
     <main className="flex-1">
     <div className="max-w-7xl mx-auto px-2 py-4">
         <h1 className="font-['Montserrat'] font-medium text-[24px] text-[#131313] leading-[28px] ml-[-20px]">
-        Брюки
+        New Now
         </h1>
     </div>
     <div className="max-w-7xl mx-auto px-4">
         <div className="mb-6">
         <h2 className="font-medium text-[24px] text-[#131313] leading-[28px] ml-[-250px]">
-        Брюки
+            New Now
         </h2>
         <div className="relative mt-2">
             <button

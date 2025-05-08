@@ -11,7 +11,7 @@ export const EwimvaMyAccount = (): JSX.Element => {
     { id: 1, title: "ПОМОЩЬ", path: "/help" },
     { id: 2, title: "МОИ ПОКУПКИ", path: "/purchases" },
     { id: 3, title: "МОИ ДАННЫЕ", path: "/details" },
-    { id: 5, title: "МОЙ АДРЕСС", path: null },
+    { id: 5, title: "МОЙ АДРЕСС", path: "/#" },
     { id: 6, title: "МОИ ИЗБРАННЫЕ", path: "/favourites" },
   ];
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import {
 Accordion,
 AccordionContent,
@@ -21,11 +21,16 @@ price: string;
 composition: string;
 origin: string;
 care: string;
+photosLarge: { src: string; alt: string }[]; // Для больших фото (grid-cols-2)
+photosSmall: { src: string; alt: string }[]; // Для маленьких фото (grid-cols-4)
+color: string; // Цвет (например, "Экрю")
+description: string; // Описание для раздела "ОПИСАНИЕ"
 }
 
 export const EwimvaClothes = (): JSX.Element => {
 const { id } = useParams<{ id: string }>();
 const productId = id ? parseInt(id, 10) : 1;
+const navigate = useNavigate();
 
 const [favorites, setFavorites] = useState<number[]>(() => {
 const savedFavorites = localStorage.getItem("favorites");
@@ -44,11 +49,15 @@ setFavorites((prev) =>
 );
 };
 
+const handlePurchase = () => {
+alert("Страница оформления заказа пока в разработке. Это заглушка.");
+};
+
 // Product data
 const products: Product[] = [
 {
     id: 1,
-    image: "/87065751-1.png",
+    image: "/87028650-tc.png",
     title: "Топ на бретелях с квадратным декольте",
     alt: "Element",
     name: "RIBBED HALTER-NECK TOP",
@@ -57,6 +66,18 @@ const products: Product[] = [
     composition: "63% viscose, 37% polyamide",
     origin: "Разработано в Барселоне, Производство: Китай",
     care: "Ручная стирка при 30 °С, Отбеливать запрещено, Гладить при 110 °С, Химчистка запрещена, Запрещено сушить в сушилке",
+    photosLarge: [
+    { src: "/87028650-tc.png", alt: "Pervayz" },
+    { src: "/87028650-tc.png", alt: "Element r" },
+    ],
+    photosSmall: [
+    { src: "/87098645-05-01-d1.png", alt: "Element" },
+    { src: "/87098645-05-01-d8.png", alt: "Element" },
+    { src: "/87098645-05-01-b.png", alt: "Element b" },
+    { src: "/87098645-05-01-d0.png", alt: "Element" },
+    ],
+    color: "Экрю",
+    description: "Трикотажная ткань в рубчик. Приталенный дизайн. Воротник-халтер. Без рукавов. Без застежки.",
 },
 {
     id: 2,
@@ -69,6 +90,18 @@ const products: Product[] = [
     composition: "65% cotton, 35% polyester",
     origin: "Разработано в Париже, Производство: Вьетнам",
     care: "Машинная стирка при 40 °С, Отбеливать запрещено, Гладить при 150 °С, Химчистка разрешена, Сушка в сушилке разрешена",
+    photosLarge: [
+    { src: "/new-large-1.png", alt: "New Large 1" },
+    { src: "/new-large-2.png", alt: "New Large 2" },
+    ],
+    photosSmall: [
+    { src: "/new-small-1.png", alt: "New Small 1" },
+    { src: "/new-small-2.png", alt: "New Small 2" },
+    { src: "/new-small-3.png", alt: "New Small 3" },
+    { src: "/new-small-4.png", alt: "New Small 4" },
+    ],
+    color: "Черный",
+    description: "Легкая трикотажная ткань. Глубокое декольте. Идеально для повседневного образа.",
 },
 {
     id: 3,
@@ -81,6 +114,18 @@ const products: Product[] = [
     composition: "70% cotton, 30% elastane",
     origin: "Разработано в Милане, Производство: Турция",
     care: "Ручная стирка при 30 °С, Отбеливать запрещено, Гладить при 110 °С, Химчистка запрещена, Запрещено сушить в сушилке",
+    photosLarge: [
+    { src: "/polo-large-1.png", alt: "Polo Large 1" },
+    { src: "/polo-large-2.png", alt: "Polo Large 2" },
+    ],
+    photosSmall: [
+    { src: "/polo-small-1.png", alt: "Polo Small 1" },
+    { src: "/polo-small-2.png", alt: "Polo Small 2" },
+    { src: "/polo-small-3.png", alt: "Polo Small 3" },
+    { src: "/polo-small-4.png", alt: "Polo Small 4" },
+    ],
+    color: "Белый",
+    description: "Удобный топ с воротником поло. Подходит для спорта и отдыха.",
 },
 {
     id: 4,
@@ -93,6 +138,18 @@ const products: Product[] = [
     composition: "100% cotton",
     origin: "Разработано в Лондоне, Производство: Индия",
     care: "Машинная стирка при 40 °С, Отбеливать запрещено, Гладить при 150 °С, Химчистка разрешена, Сушка в сушилке разрешена",
+    photosLarge: [
+    { src: "/cotton-large-1.png", alt: "Cotton Large 1" },
+    { src: "/cotton-large-2.png", alt: "Cotton Large 2" },
+    ],
+    photosSmall: [
+    { src: "/cotton-small-1.png", alt: "Cotton Small 1" },
+    { src: "/cotton-small-2.png", alt: "Cotton Small 2" },
+    { src: "/cotton-small-3.png", alt: "Cotton Small 3" },
+    { src: "/cotton-small-4.png", alt: "Cotton Small 4" },
+    ],
+    color: "Синий",
+    description: "Укороченный топ из мягкого хлопка. Без рукавов. Отличный выбор для лета.",
 },
 {
     id: 5,
@@ -105,6 +162,18 @@ const products: Product[] = [
     composition: "60% wool, 40% acrylic",
     origin: "Разработано в Нью-Йорке, Производство: Китай",
     care: "Ручная стирка при 30 °С, Отбеливать запрещено, Гладить при 110 °С, Химчистка запрещена, Запрещено сушить в сушилке",
+    photosLarge: [
+    { src: "/vneck-large-1.png", alt: "V-Neck Large 1" },
+    { src: "/vneck-large-2.png", alt: "V-Neck Large 2" },
+    ],
+    photosSmall: [
+    { src: "/vneck-small-1.png", alt: "V-Neck Small 1" },
+    { src: "/vneck-small-2.png", alt: "V-Neck Small 2" },
+    { src: "/vneck-small-3.png", alt: "V-Neck Small 3" },
+    { src: "/vneck-small-4.png", alt: "V-Neck Small 4" },
+    ],
+    color: "Зеленый",
+    description: "Теплый вязаный топ с V-образным вырезом. Подходит для прохладной погоды.",
 },
 ];
 
@@ -116,42 +185,27 @@ const sizes = ["XXS", "XS", "S", "M", "L", "XL"];
 return (
 <div className="bg-white flex flex-row justify-center w-full" data-model-id="1:8" style={{ marginTop: '56px' }}>
     <div className="bg-white w-full max-w-[1920px] relative">
-    
     <div className="flex">
         <div className="flex-1 min-w-[1150px]">
         <div className="grid grid-cols-2">
+            {selectedProduct.photosLarge.map((photo, index) => (
             <img
-            className="w-full h-[802px] object-cover"
-            alt="Pervayz"
-            src="/pervayz.png"
+                key={index}
+                className="w-full h-[802px] object-cover"
+                alt={photo.alt}
+                src={photo.src}
             />
-            <img
-            className="w-full h-[802px] object-cover"
-            alt="Element r"
-            src="/87098645-05-01-r.png"
-            />
+            ))}
         </div>
         <div className="grid grid-cols-4">
+            {selectedProduct.photosSmall.map((photo, index) => (
             <img
-            className="w-full h-[401px] object-cover"
-            alt="Element"
-            src="/87098645-05-01-d1.png"
+                key={index}
+                className="w-full h-[401px] object-cover"
+                alt={photo.alt}
+                src={photo.src}
             />
-            <img
-            className="w-full h-[401px] object-cover"
-            alt="Element"
-            src="/87098645-05-01-d8.png"
-            />
-            <img
-            className="w-full h-[401px] object-cover"
-            alt="Element b"
-            src="/87098645-05-01-b.png"
-            />
-            <img
-            className="w-full h-[401px] object-cover"
-            alt="Element"
-            src="/87098645-05-01-d0.png"
-            />
+            ))}
         </div>
         </div>
 
@@ -227,7 +281,7 @@ return (
                 </div>
 
                 <div className="ml-auto font-normal text-[12.2px] text-[#131313] text-right">
-                    Экрю
+                    {selectedProduct.color}
                 </div>
                 </div>
 
@@ -249,26 +303,39 @@ return (
                 </Card>
 
                 <div className="mt-3 mb-6">
-                <button className="font-bold text-[12.6px] text-[#131313] underline">
+                <button
+                    className="font-bold text-[12.6px] text-[#131313] underline"
+                    onClick={() => navigate("/help")}
+                >
                     Таблица размеров
                 </button>
                 </div>
 
+                <div className="flex flex-col gap-3">
                 <Button
-                className="w-full h-11 bg-[#131313] text-white rounded-none hover:bg-[#2a2a2a]"
-                onClick={() => handleFavoriteToggle(selectedProduct.id)}
+                    className="w-full h-11 bg-[#131313] text-white rounded-none hover:bg-[#2a2a2a]"
+                    onClick={() => handleFavoriteToggle(selectedProduct.id)}
                 >
-                <img
+                    <img
                     className="w-[19px] h-[18px] mr-1.5"
                     alt="Heart icon"
                     src="/vector-5.svg"
-                />
-                <span className="font-bold text-[12.8px]">
+                    />
+                    <span className="font-bold text-[12.8px]">
                     {favorites.includes(selectedProduct.id)
-                    ? "Убрать из Фаворитов"
-                    : "Добавить в Фавориты"}
-                </span>
+                        ? "Убрать из Фаворитов"
+                        : "Добавить в Фавориты"}
+                    </span>
                 </Button>
+                <Button
+                    className="w-full h-11 bg-white text-[#131313] border border-[#131313] rounded-none hover:bg-gray-100"
+                    onClick={handlePurchase}
+                >
+                    <span className="font-bold text-[12.8px]">
+                    Приобрести
+                    </span>
+                </Button>
+                </div>
             </div>
             </CardContent>
         </Card>
@@ -280,7 +347,7 @@ return (
         ОПИСАНИЕ
         </div>
         <div className="font-normal text-[#131313] text-[11.9px] [font-family:'Inter',Helvetica] tracking-[0] leading-[18px] mt-2">
-        Трикотажная ткань в рубчик. Приталенный дизайн. Воротник-халтер. Без рукавов. Без застежки.
+        {selectedProduct.description}
         </div>
     </div>
 

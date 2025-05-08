@@ -1,1 +1,0 @@
-export { EwimvaMyDetails } from "./EwimvaMyDetails";

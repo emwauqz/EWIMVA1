@@ -1,1 +1,0 @@
-export { EwimvaMenHome } from "./EwimvaMenHome";

@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { ProductSection } from '../../components/ProductSection';
+import { Card, CardContent, CardFooter } from "../../components/ui/card";
+import { Button } from "../../components/ui/button";
+import { HeartIcon } from "lucide-react";
 
 const products = [
   {
@@ -280,3 +283,138 @@ export default function EwimvaFavourite(): JSX.Element {
     </div>
   );
 }
+
+const ItemWrapper = (): JSX.Element => {
+  return (
+    <Card className="w-full max-w-[479px] h-auto">
+      <CardContent className="p-0">
+        {/* Product Image */}
+        <div className="w-full h-[671px] bg-[url(/-------------------------------------------------.png)] bg-cover bg-center" />
+
+        {/* Product Information */}
+        <div className="p-2 space-y-2">
+          <h3 className="font-normal text-[11.8px] text-[#131313] font-['Inter',Helvetica] leading-[18px]">
+            Прямой костюмный пиджак
+          </h3>
+
+          <p className="font-normal text-[12.8px] text-[#131313] font-['Inter',Helvetica] leading-[18px]">
+            KGS 8 990,00
+          </p>
+
+          {/* Color Options */}
+          <div className="flex items-center gap-3 mt-2">
+            {/* First color option */}
+            <div className="w-3.5 h-3.5 rounded-[7px] bg-[url(/52.png)] bg-cover bg-center" />
+
+            {/* Second color option with border */}
+            <div className="relative w-[18px] h-[18px] rounded-[9px]">
+              <div className="absolute w-3.5 h-3.5 top-0.5 left-0.5 rounded-[7px] bg-[url(/05.png)] bg-cover bg-center" />
+              <div className="w-[18px] h-[18px] rounded-[9px] border border-solid border-[#131313] absolute top-0 left-0" />
+            </div>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  );
+};
+
+const Item = (): JSX.Element => {
+  return (
+    <Card className="w-full h-full relative">
+      <CardContent className="p-0 flex flex-col h-full">
+        <div
+          className="bg-[url(/----------------------------------------.png)] w-full h-[671px] bg-cover bg-center flex-grow"
+          aria-label="Product image"
+        />
+        <div className="p-2 space-y-0.5">
+          <h3 className="text-[11.7px] font-normal text-[#131313] font-['Inter',Helvetica] leading-[18px]">
+            Структурный пиджак с поясом
+          </h3>
+          <p className="text-[12.6px] font-normal text-[#131313] font-['Inter',Helvetica] leading-[18px]">
+            KGS 12 990,00
+          </p>
+        </div>
+      </CardContent>
+    </Card>
+  );
+};
+
+const DivWrapper = (): JSX.Element => {
+  return (
+    <Card className="w-[479px] h-[744px] relative border-none">
+      <CardContent className="p-0">
+        <div className="bg-[url(/---------------------------------------------.png)] w-full h-[671px] bg-cover bg-center" />
+      </CardContent>
+      <CardFooter className="flex flex-col items-start p-2 space-y-0">
+        <h3 className="font-normal text-[11.7px] text-[#131313] font-['Inter',Helvetica] tracking-[0] leading-[18px] whitespace-nowrap">
+          Костюмный пиджак в узкую полоску
+        </h3>
+        <p className="text-[12.8px] font-['Inter',Helvetica] font-normal text-[#131313] tracking-[0] leading-[18px] whitespace-nowrap">
+          KGS 9 990,00
+        </p>
+        <button
+          className="absolute bottom-[35px] right-[12px] bg-transparent border-none cursor-pointer"
+          aria-label="Add to favorites"
+        >
+          <HeartIcon className="w-[17px] h-[15px]" />
+        </button>
+      </CardFooter>
+    </Card>
+  );
+};
+
+const Div = (): JSX.Element => {
+  // Product data
+  const product = {
+    title: "Трикотажный пиджак с геометрическим узором",
+    price: "KGS 4 990,00",
+    image: "/-------------------------------------------------------.png",
+    colorOptions: [
+      { id: 1, color: "/43.png", selected: true },
+      { id: 2, color: "/07.png", selected: false },
+    ],
+  };
+
+  return (
+    <Card className="w-full max-w-[479px] h-auto">
+      <CardContent className="p-0">
+        {/* Product Image */}
+        <div
+          className="w-full h-[671px] bg-cover bg-center"
+          style={{ backgroundImage: `url(${product.image})` }}
+        />
+
+        {/* Product Info */}
+        <div className="p-2 space-y-2">
+          {/* Product Title */}
+          <h3 className="font-normal text-[#131313] text-[11.7px] font-['Inter',Helvetica] leading-[18px]">
+            {product.title}
+          </h3>
+
+          {/* Product Price */}
+          <p className="text-[12.8px] font-['Inter',Helvetica] font-normal text-[#131313] leading-[18px]">
+            {product.price}
+          </p>
+
+          {/* Color Options */}
+          <div className="flex items-center gap-3">
+            {product.colorOptions.map((option) => (
+              <div
+                key={option.id}
+                className={`relative ${option.selected ? "cursor-default" : "cursor-pointer"}`}
+              >
+                <div
+                  className="w-3.5 h-3.5 rounded-[7px] bg-cover bg-center"
+                  style={{ backgroundImage: `url(${option.color})` }}
+                />
+                {option.selected && (
+                  <div className="absolute inset-0 w-[18px] h-[18px] -m-0.5 rounded-[9px] border border-solid border-[#131313]" />
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  );
+};

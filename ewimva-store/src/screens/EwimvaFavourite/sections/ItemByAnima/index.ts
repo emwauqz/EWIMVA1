@@ -1,1 +1,0 @@
-export { ItemByAnima } from "./ItemByAnima";

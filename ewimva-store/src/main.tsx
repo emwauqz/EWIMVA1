@@ -12,16 +12,16 @@ import EwimvaSeorch from "./screens/EwimvaSeorch/EwimvaSeorch";
 import EwimvaNewNow from "./screens/women/EwimvaNewNow/EwimvaNewNow";
 import EwimvaDress from "./screens/women/EwimvaDress/EwimvaDress";
 import EwimvaBags from "./screens/women/EwimvaBags/EwimvaBags";
-import EwimvaCoats from "./screens/women/EwimvaCoats/EwimvaCoats";
+import EwimvaCoatsWomen from "./screens/women/EwimvaCoats/EwimvaCoats";
 import EwimvaFragrances from "./screens/women/EwimvaFragrances/EwimvaFragrances";
-import EwimvaJackets from "./screens/women/EwimvaJackets/EwimvaJackets";
-import EwimvaJeans from "./screens/women/EwimvaJeans/EwimvaJeans";
+import EwimvaJacketsWomen from "./screens/women/EwimvaJackets/EwimvaJackets";
+import EwimvaJeansWomen from "./screens/women/EwimvaJeans/EwimvaJeans";
 import EwimvaJumpersAndCardigans from "./screens/women/EwimvaJumpersAndCardigans/EwimvaJumpersAndCardigans";
-import EwimvaPants from "./screens/women/EwimvaPants/EwimvaPants";
+import EwimvaPantsWomen from "./screens/women/EwimvaPants/EwimvaPants";
 import EwimvaShirtsAndBlouses from "./screens/women/EwimvaShirtsAndBlouses/EwimvaShirtsAndBlouses";
-import EwimvaShoes from "./screens/women/EwimvaShoes/EwimvaShoes";
+import EwimvaShoesWomen from "./screens/women/EwimvaShoes/EwimvaShoes";
 import EwimvaTops from "./screens/women/EwimvaTops/EwimvaTops";
-import EwimvaTshirts from "./screens/women/EwimvaTshirts/EwimvaTshirts";
+import EwimvaTshirtsWomen from "./screens/women/EwimvaTshirts/EwimvaTshirts";
 import EwimvaVests from "./screens/women/EwimvaVests/EwimvaVests";
 import EwimvaClothes from "./screens/EwimvaClothes/EwimvaClothes";
 import EwimvaProducts from "./screens/EwimvaProducts/EwimvaProducts";
@@ -43,6 +43,20 @@ import EditUser from "./screens/EwimvaPolzovateli/EditUser";
 import { EwimvaPokypka } from "./screens/EwimvaPokypka";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import EwimvaPartyAndEvents from "./screens/women/EwimvaPartyAndEvents/EwimvaPartyAndEvents";
+
+// Men imports
+import EwimvaBackpacksAndBags from "./screens/men/BackpacksAndBags/EwimvaBackpacksAndBags";
+import EwimvaCoatsMen from "./screens/men/Coats/EwimvaCoats";
+import EwimvaHoodies from "./screens/men/Hoodies/EwimvaHoodies";
+import EwimvaJacketsOuterwear from "./screens/men/JacketsOuterwear/EwimvaJacketsOuterwear";
+import EwimvaJeansMen from "./screens/men/Jeans/EwimvaJeans";
+import EwimvaPantsMen from "./screens/men/Pants/EwimvaPants";
+import EwimvaShirtsMen from "./screens/men/Shirts/EwimvaShirts";
+import EwimvaShoesMen from "./screens/men/Shoes/EwimvaShoes";
+import EwimvaSuit from "./screens/men/Suit/EwimvaSuit";
+import EwimvaSweaters from "./screens/men/Sweaters/EwimvaSweaters";
+import EwimvaTshirtsMen from "./screens/men/Tshirts/EwimvaTshirts";
 
 // Типизация для ProtectedRoute
 interface ProtectedRouteProps {
@@ -119,10 +133,18 @@ const App = () => {
           }
         />
         <Route
+          path="/party"
+          element={
+            <ProtectedRoute>
+              <EwimvaPartyAndEvents />
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path="/coats"
           element={
             <ProtectedRoute>
-              <EwimvaCoats />
+              <EwimvaCoatsWomen />
             </ProtectedRoute>
           }
         />
@@ -138,7 +160,7 @@ const App = () => {
           path="/jackets"
           element={
             <ProtectedRoute>
-              <EwimvaJackets />
+              <EwimvaJacketsWomen />
             </ProtectedRoute>
           }
         />
@@ -146,7 +168,7 @@ const App = () => {
           path="/jeans"
           element={
             <ProtectedRoute>
-              <EwimvaJeans />
+              <EwimvaJeansWomen />
             </ProtectedRoute>
           }
         />
@@ -162,7 +184,7 @@ const App = () => {
           path="/pants"
           element={
             <ProtectedRoute>
-              <EwimvaPants />
+              <EwimvaPantsWomen />
             </ProtectedRoute>
           }
         />
@@ -178,7 +200,7 @@ const App = () => {
           path="/shoes"
           element={
             <ProtectedRoute>
-              <EwimvaShoes />
+              <EwimvaShoesWomen />
             </ProtectedRoute>
           }
         />
@@ -194,7 +216,7 @@ const App = () => {
           path="/tshirts"
           element={
             <ProtectedRoute>
-              <EwimvaTshirts />
+              <EwimvaTshirtsWomen />
             </ProtectedRoute>
           }
         />
@@ -251,6 +273,94 @@ const App = () => {
           element={
             <ProtectedRoute>
               <EwimvaPokypka />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/men/backpacks-and-bags"
+          element={
+            <ProtectedRoute>
+              <EwimvaBackpacksAndBags />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/men/coats"
+          element={
+            <ProtectedRoute>
+              <EwimvaCoatsMen />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/men/hoodies"
+          element={
+            <ProtectedRoute>
+              <EwimvaHoodies />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/men/jackets-outerwear"
+          element={
+            <ProtectedRoute>
+              <EwimvaJacketsOuterwear />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/men/jeans"
+          element={
+            <ProtectedRoute>
+              <EwimvaJeansMen />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/men/pants"
+          element={
+            <ProtectedRoute>
+              <EwimvaPantsMen />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/men/shirts"
+          element={
+            <ProtectedRoute>
+              <EwimvaShirtsMen />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/men/shoes"
+          element={
+            <ProtectedRoute>
+              <EwimvaShoesMen />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/men/suit"
+          element={
+            <ProtectedRoute>
+              <EwimvaSuit />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/men/sweaters"
+          element={
+            <ProtectedRoute>
+              <EwimvaSweaters />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/men/tshirts"
+          element={
+            <ProtectedRoute>
+              <EwimvaTshirtsMen />
             </ProtectedRoute>
           }
         />
