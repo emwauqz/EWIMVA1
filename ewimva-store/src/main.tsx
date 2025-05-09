@@ -62,30 +62,56 @@ import EwimvaTshirtsMen from "./screens/men/Tshirts/EwimvaTshirts";
 // Типизация для ProtectedRoute
 interface ProtectedRouteProps {
   children: React.ReactNode;
+  isAdmin?: boolean;
 }
 
-const App = () => {
+const AppContent = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem("token"));
+  const [isAdmin, setIsAdmin] = useState(localStorage.getItem("userRole") === "admin");
+  const location = useLocation(); // Теперь useLocation импортирован и работает корректно
 
   useEffect(() => {
-    const checkAuth = () => setIsAuthenticated(!!localStorage.getItem("token"));
+    const checkAuth = () => {
+      setIsAuthenticated(!!localStorage.getItem("token"));
+      setIsAdmin(localStorage.getItem("userRole") === "admin");
+    };
     checkAuth();
     window.addEventListener("storage", checkAuth);
     return () => window.removeEventListener("storage", checkAuth);
   }, []);
 
-  const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
-    const location = useLocation();
-
+  const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, isAdmin: adminOnly = false }) => {
+    console.log("ProtectedRoute", { isAuthenticated, isAdmin, location: location.pathname }); // Для отладки
     if (!isAuthenticated && !["/", "/men", "/login", "/register", "/recovery"].includes(location.pathname)) {
       return <Navigate to="/login" replace />;
     }
-
+    if (adminOnly && !isAdmin) {
+      return <Navigate to="/account" replace />;
+    }
     return <>{children}</>;
   };
 
+  // Список админских маршрутов, где футер не нужен
+  const adminPaths = [
+    "/dashboard",
+    "/orders",
+    "/orders/:id/details",
+    "/orders/:id/edit",
+    "/products",
+    "/products/:id/edit",
+    "/products/add",
+    "/users",
+    "/users/add",
+    "/users/:id/details",
+    "/users/:id/edit",
+  ];
+
+  const showFooter = !adminPaths.some((path) =>
+    location.pathname.startsWith(path.replace(/:id/, "[^/]+"))
+  );
+
   return (
-    <BrowserRouter>
+    <>
       <Header isAuthenticated={isAuthenticated} />
       <Routes>
         <Route path="/" element={<EwimvaHome />} />
@@ -377,7 +403,7 @@ const App = () => {
           <Route
             path="/dashboard"
             element={
-              <ProtectedRoute>
+              <ProtectedRoute isAdmin={true}>
                 <EwimvaDashboard />
               </ProtectedRoute>
             }
@@ -385,7 +411,7 @@ const App = () => {
           <Route
             path="/products"
             element={
-              <ProtectedRoute>
+              <ProtectedRoute isAdmin={true}>
                 <EwimvaTovary />
               </ProtectedRoute>
             }
@@ -393,7 +419,7 @@ const App = () => {
           <Route
             path="/products/:id/edit"
             element={
-              <ProtectedRoute>
+              <ProtectedRoute isAdmin={true}>
                 <EditProduct />
               </ProtectedRoute>
             }
@@ -401,7 +427,7 @@ const App = () => {
           <Route
             path="/products/add"
             element={
-              <ProtectedRoute>
+              <ProtectedRoute isAdmin={true}>
                 <AddProduct />
               </ProtectedRoute>
             }
@@ -409,7 +435,7 @@ const App = () => {
           <Route
             path="/orders"
             element={
-              <ProtectedRoute>
+              <ProtectedRoute isAdmin={true}>
                 <EwimvaZakazy />
               </ProtectedRoute>
             }
@@ -417,7 +443,7 @@ const App = () => {
           <Route
             path="/orders/:id/details"
             element={
-              <ProtectedRoute>
+              <ProtectedRoute isAdmin={true}>
                 <OrderDetails />
               </ProtectedRoute>
             }
@@ -425,7 +451,7 @@ const App = () => {
           <Route
             path="/orders/:id/edit"
             element={
-              <ProtectedRoute>
+              <ProtectedRoute isAdmin={true}>
                 <EditOrder />
               </ProtectedRoute>
             }
@@ -433,7 +459,7 @@ const App = () => {
           <Route
             path="/users"
             element={
-              <ProtectedRoute>
+              <ProtectedRoute isAdmin={true}>
                 <EwimvaPolzovateli />
               </ProtectedRoute>
             }
@@ -441,7 +467,7 @@ const App = () => {
           <Route
             path="/users/add"
             element={
-              <ProtectedRoute>
+              <ProtectedRoute isAdmin={true}>
                 <AddUser />
               </ProtectedRoute>
             }
@@ -449,7 +475,7 @@ const App = () => {
           <Route
             path="/users/:id/details"
             element={
-              <ProtectedRoute>
+              <ProtectedRoute isAdmin={true}>
                 <UserDetails />
               </ProtectedRoute>
             }
@@ -457,20 +483,46 @@ const App = () => {
           <Route
             path="/users/:id/edit"
             element={
-              <ProtectedRoute>
+              <ProtectedRoute isAdmin={true}>
                 <EditUser />
               </ProtectedRoute>
             }
           />
         </Route>
+        <Route
+          path="*"
+          element={<Navigate to="/login" replace />} // Редирект на /login для неизвестных путей
+        />
       </Routes>
-      <Footer />
+      {showFooter && <Footer />}
+    </>
+  );
+};
+
+const App = () => {
+  return (
+    <BrowserRouter>
+      <AppContent />
     </BrowserRouter>
   );
 };
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+// Проверка на существующий root
+const rootElement = document.getElementById("root")!;
+let root;
+
+if (rootElement.hasChildNodes()) {
+  root = ReactDOM.createRoot(rootElement);
+  root.render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  );
+} else {
+  root = ReactDOM.createRoot(rootElement);
+  root.render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  );
+}

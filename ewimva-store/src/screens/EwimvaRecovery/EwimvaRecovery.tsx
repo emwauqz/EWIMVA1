@@ -1,85 +1,124 @@
-import React from "react";
+import { EyeIcon, EyeOffIcon } from "lucide-react";
+import React, { useState } from "react";
 import { Button } from "../../components/ui/button";
+import { Card, CardContent } from "../../components/ui/card";
+import { Checkbox } from "../../components/ui/checkbox";
 import { Input } from "../../components/ui/input";
-import { Separator } from "../../components/ui/separator";
 import { useNavigate } from 'react-router-dom';
 
-export const EwimvaRecovery = (): JSX.Element => {
+export const EwimvaRegistry = (): JSX.Element => {
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
-  // Navigation links data
-  const navLinks = {
-    left: [
-      { text: "ЖЕНЩИНЫ", width: "w-[75px]" },
-      { text: "МУЖЧИНЫ", width: "w-[75px]" },
-    ],
-    right: [{ text: "ИСКАТЬ" }, { text: "ВОЙТИ" }, { text: "ФАВОРИТЫ" }],
+  const validatePassword = (pwd: string) => {
+    const hasUpperCase = /[A-Z]/.test(pwd);
+    const hasNumber = /\d/.test(pwd);
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>_]/.test(pwd);
+    const isLongEnough = pwd.length >= 8;
+    console.log("Password validation:", { hasUpperCase, hasNumber, hasSpecialChar, isLongEnough });
+    return hasUpperCase && hasNumber && hasSpecialChar && isLongEnough;
   };
 
-  // Footer links data
-  const footerLinks = [
-    { text: "ПОМОЩЬ" },
-    { text: "EWIMVA OUTLET" },
-    { text: "МОИ ПОКУПКИ" },
-    { text: "SITE MAP" },
-    { text: "ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ" },
-  ];
+  const handleRegister = () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setError("Введите корректный email");
+      return;
+    }
 
-  // Social media links
-  const socialLinks = [
-    { text: "INSTAGRAM", width: "w-[78px]" },
-    { text: "FACEBOOK", width: "w-[74px]" },
-    { text: "TIKTOK", width: "w-12" },
-    { text: "PINTEREST", width: "w-[73px]" },
-  ];
+    if (!validatePassword(password)) {
+      setError("Пароль должен быть минимум 8 символов, содержать заглавную букву, цифру и спецсимвол");
+      return;
+    }
+
+    const user = { email: email.toLowerCase(), password };
+    localStorage.setItem('user', JSON.stringify(user));
+    console.log("Registered user:", user);
+    localStorage.setItem('token', 'your_token');
+    localStorage.setItem('userRole', 'user'); // Устанавливаем userRole как user для новых пользователей
+    navigate('/account');
+  };
 
   return (
-    <div
-      className="bg-white flex flex-row justify-center w-full"
-      data-model-id="1:8"
-    >
+    <div className="bg-white flex flex-row justify-center w-full">
       <div className="bg-white overflow-hidden w-[1920px] h-[1200px] relative">
-
-        {/* Password recovery form - Centered */}
         <div className="absolute top-[234px] w-full flex justify-center">
-          <div className="w-[354px]">
-            <div className="relative [font-family:'Inter',Helvetica] font-bold text-[#131313] text-[15.8px] tracking-[0] leading-5 whitespace-nowrap">
-              ЗАБЫЛИ ПАРОЛЬ?
-            </div>
-
-            <div className="relative mt-4 [font-family:'Inter',Helvetica] font-normal text-[#131313] text-xs tracking-[0] leading-[18px]">
-              Введите свой e-mail, и мы отправим Вам ссылку
-              <br />
-              для восстановления пароля.
-            </div>
-
-            <div className="relative mt-6">
-              <Input
-                className="w-[350px] h-11 border border-solid border-[#b8b8b8] rounded-none px-[9px] py-[13px] text-[13px]"
-                placeholder="E-mail"
-              />
-            </div>
-
-            <Button className="w-[350px] h-11 mt-6 bg-[#131313] rounded-none hover:bg-[#2a2a2a]">
-              <span className="text-white text-[13px] text-center [font-family:'Inter',Helvetica] font-bold tracking-[0] leading-[18px] whitespace-nowrap">
-                Отправить
-              </span>
-            </Button>
-
-            {/* Back to login link */}
-            <div className="w-full flex justify-center mt-6">
-              <button
-                onClick={() => navigate('/login')}
-                className="[font-family:'Inter',Helvetica] font-bold text-[#131313] text-[12.8px] text-center tracking-[0] leading-[18px] underline whitespace-nowrap"
+          <Card className="w-[364px] h-[359px] border-none shadow-none">
+            <CardContent className="p-0">
+              <div className="w-[165px] [font-family:'Inter',Helvetica] font-bold text-[#131313] text-[15.8px] tracking-[0] leading-5 whitespace-nowrap mb-11">
+                СОЗДАЙТЕ АККАУНТ
+              </div>
+              {error && (
+                <div className="text-red-500 text-[12px] mb-4 text-center">
+                  {error}
+                </div>
+              )}
+              <div className="relative w-[350px] h-11 mb-6">
+                <Input
+                  className="absolute w-[350px] h-11 border border-solid border-[#b8b8b8] rounded-none"
+                  placeholder="E-mail"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value.trim())}
+                />
+              </div>
+              <div className="relative w-[350px] h-11 mb-7">
+                <Input
+                  className="absolute w-[350px] h-11 border border-solid border-[#b8b8b8] rounded-none pr-10"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Пароль"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value.trim())}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute w-[30px] h-[11px] top-3 right-3 cursor-pointer"
+                >
+                  {showPassword ? <EyeOffIcon /> : <EyeIcon />}
+                </button>
+              </div>
+              <div className="flex items-center mb-7">
+                <Checkbox
+                  id="remember"
+                  className="w-4 h-4 rounded-none border-[#131313]"
+                />
+                <label
+                  htmlFor="remember"
+                  className="ml-3 font-normal text-[#131313] text-[12.1px] [font-family:'Inter',Helvetica] tracking-[0] leading-[18px] whitespace-nowrap"
+                >
+                  Запомнить меня
+                </label>
+              </div>
+              <Button
+                className="w-[350px] h-11 bg-[#131313] rounded-none hover:bg-[#333333] mb-6"
+                onClick={handleRegister}
               >
-                Назад к логину
-              </button>
-            </div>
-          </div>
+                <div className="w-[105px] font-bold text-white text-[12.3px] text-center [font-family:'Inter',Helvetica] tracking-[0] leading-[18px] whitespace-nowrap">
+                  Создать аккаунт
+                </div>
+              </Button>
+              <div className="w-full flex justify-center mt-6">
+                <div className="w-[185px] font-normal text-[#131313] text-xs text-center [font-family:'Inter',Helvetica] tracking-[0] leading-[18px] whitespace-nowrap">
+                  <span className="[font-family:'Inter',Helvetica] font-normal text-[#131313] text-xs tracking-[0] leading-[18px]">
+                    У Вас уже есть аккаунт?{" "}
+                  </span>
+                  <button
+                    onClick={() => navigate('/login')}
+                    className="font-bold underline cursor-pointer"
+                  >
+                    Войти
+                  </button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>
   );
 };
 
-export default EwimvaRecovery;
+export default EwimvaRegistry;

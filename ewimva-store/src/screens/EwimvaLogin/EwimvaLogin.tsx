@@ -17,7 +17,7 @@ export const EwimvaLogin = (): JSX.Element => {
     if (localStorage.getItem('token')) {
       navigate('/account');
     }
-  }, []);
+  }, [navigate]);
 
   const handleLogin = () => {
     console.log("Login attempt:", { email, password });
@@ -28,14 +28,17 @@ export const EwimvaLogin = (): JSX.Element => {
       if (email.toLowerCase() === storedEmail && password === storedPassword) {
         console.log("Login successful");
         localStorage.setItem('token', 'your_token');
+        // Устанавливаем userRole в зависимости от пользователя
+        localStorage.setItem('userRole', email.toLowerCase() === "test@example.com" ? "admin" : "user");
         navigate('/account');
         return;
       }
     }
 
-    if (email.toLowerCase() === "test@example.com" && password === "Tokebellach_1") {
+    if (email.toLowerCase() === "ewimva@example.com" && password === "Tokebellach_1") {
       console.log("Login successful with default credentials");
       localStorage.setItem('token', 'your_token');
+      localStorage.setItem('userRole', "admin"); // Устанавливаем userRole как admin для тестового пользователя
       navigate('/account');
     } else {
       console.log("Login failed");
