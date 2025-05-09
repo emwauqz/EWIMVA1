@@ -3,36 +3,74 @@ import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
 
 export const EwimvaMyDetails = (): JSX.Element => {
-  const [userName, setUserName] = useState<string>("");
+  const [userData, setUserData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    password: "",
+    birthDate: "",
+    gender: ""
+  });
   const [isEditing, setIsEditing] = useState<string | null>(null);
   const [editValue, setEditValue] = useState<string>("");
 
   useEffect(() => {
-    const savedName = localStorage.getItem('userName') || 'User';
-    setUserName(savedName);
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      const parsedUser = JSON.parse(storedUser);
+      setUserData({
+        name: parsedUser.name || "User",
+        email: parsedUser.email || "",
+        phone: parsedUser.phone || "",
+        password: parsedUser.password || "",
+        birthDate: parsedUser.birthDate || "",
+        gender: parsedUser.gender || ""
+      });
+      // Для совместимости с текущим кодом обновляем userName в localStorage
+      localStorage.setItem('userName', parsedUser.name || "User");
+    }
   }, []);
 
   const profileData = [
-    { label: "ИМЯ", value: userName, hasViewButton: true },
-    { label: "E-MAIL", value: "etookebaeva@gmail.com", hasViewButton: true },
-    { label: "МОБ. ТЕЛЕФОН", value: "+996 (555) 55-55-55", hasViewButton: true },
-    { label: "ПАРОЛЬ", value: "••••••••••", hasViewButton: true },
-    { label: "ДАТА РОЖДЕНИЯ", value: "2000-01-01", hasViewButton: true },
-    { label: "ПОЛ", value: "женский", hasViewButton: true },
+    { label: "ИМЯ", value: userData.name, hasViewButton: true },
+    { label: "E-MAIL", value: userData.email, hasViewButton: true },
+    { label: "МОБ. ТЕЛЕФОН", value: userData.phone, hasViewButton: true },
+    { label: "ПАРОЛЬ", value: userData.password.replace(/./g, "•"), hasViewButton: true },
+    { label: "ДАТА РОЖДЕНИЯ", value: userData.birthDate, hasViewButton: true },
+    { label: "ПОЛ", value: userData.gender, hasViewButton: true },
   ];
 
   const handleEdit = (label: string, value: string) => {
     setIsEditing(label);
-    setEditValue(value);
+    setEditValue(value === userData.password.replace(/./g, "•") ? userData.password : value);
   };
 
   const handleSave = (label: string) => {
-    if (label === "ИМЯ") {
-      localStorage.setItem('userName', editValue);
-      setUserName(editValue);
+    const updatedUserData = { ...userData };
+    switch (label) {
+      case "ИМЯ":
+        updatedUserData.name = editValue;
+        localStorage.setItem('userName', editValue); // Обновляем userName
+        break;
+      case "E-MAIL":
+        updatedUserData.email = editValue;
+        break;
+      case "МОБ. ТЕЛЕФОН":
+        updatedUserData.phone = editValue;
+        break;
+      case "ПАРОЛЬ":
+        updatedUserData.password = editValue;
+        break;
+      case "ДАТА РОЖДЕНИЯ":
+        updatedUserData.birthDate = editValue;
+        break;
+      case "ПОЛ":
+        updatedUserData.gender = editValue;
+        break;
     }
+    setUserData(updatedUserData);
+    localStorage.setItem('user', JSON.stringify(updatedUserData));
     setIsEditing(null);
-    // Здесь можно добавить сохранение других данных (email, телефон и т.д.) в будущем
   };
 
   const handleCancel = () => {
@@ -47,7 +85,7 @@ export const EwimvaMyDetails = (): JSX.Element => {
       <div className="bg-white w-full max-w-[1920px] flex flex-col">
         <main className="flex flex-col items-center relative">
           <h1 className="mt-[109px] [font-family:'Meow_Script',Helvetica] font-normal text-black text-5xl text-center tracking-[0] leading-normal">
-            {userName}
+            {userData.name}
           </h1>
 
           <div className="w-full flex justify-center mt-10">
@@ -59,7 +97,7 @@ export const EwimvaMyDetails = (): JSX.Element => {
                       {item.label}
                     </div>
                     <div className="font-normal text-[#131313] text-[15.8px] leading-5 font-['Inter',Helvetica]">
-                      {item.value}
+                      {item.value || "Не указано"}
                     </div>
                   </div>
                   {item.hasViewButton && (
@@ -87,11 +125,30 @@ export const EwimvaMyDetails = (): JSX.Element => {
                 <h2 className="font-bold text-[#131313] text-[15.8px] leading-5 font-['Inter',Helvetica'] mb-4">
                   Редактировать {isEditing}
                 </h2>
-                <Input
-                  value={editValue}
-                  onChange={(e) => setEditValue(e.target.value)}
-                  className="w-full mb-4 border border-[#b8b8b8] rounded-none"
-                />
+                {isEditing === "ПОЛ" ? (
+                  <select
+                    className="w-full mb-4 border border-[#b8b8b8] rounded-none h-11 text-[#131313] text-[14px] [font-family:'Inter',Helvetica] bg-white"
+                    value={editValue}
+                    onChange={(e) => setEditValue(e.target.value)}
+                  >
+                    <option value="женский">Женский</option>
+                    <option value="мужской">Мужской</option>
+                  </select>
+                ) : isEditing === "ДАТА РОЖДЕНИЯ" ? (
+                  <Input
+                    type="date"
+                    value={editValue}
+                    onChange={(e) => setEditValue(e.target.value)}
+                    className="w-full mb-4 border border-[#b8b8b8] rounded-none"
+                  />
+                ) : (
+                  <Input
+                    value={editValue}
+                    onChange={(e) => setEditValue(e.target.value)}
+                    className="w-full mb-4 border border-[#b8b8b8] rounded-none"
+                    type={isEditing === "ПАРОЛЬ" ? "password" : "text"}
+                  />
+                )}
                 <div className="flex space-x-4">
                   <Button
                     className="bg-[#131313] text-white rounded-none hover:bg-[#333333]"
