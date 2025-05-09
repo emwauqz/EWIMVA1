@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MinusIcon, PlusIcon, XIcon } from 'lucide-react';
 import { Button } from '../../components/ui/button';
 import { Card, CardContent } from '../../components/ui/card';
@@ -15,6 +15,9 @@ interface OrderItem {
   price: string;
   quantity: number;
   image: string;
+  colorVariants: { color: string; image: string }[];
+  orderDate: string;
+  totalAmount: number;
 }
 
 interface OrderSummary {
@@ -26,25 +29,28 @@ interface OrderSummary {
 export const EwimvaCheckout = (): JSX.Element => {
   const navigate = useNavigate();
 
-  // Состояние для товаров в заказе
-  const [orderItems, setOrderItems] = useState<OrderItem[]>([
-    {
-      id: 1,
-      name: 'Платье из смесового льна с оборкой',
-      size: 'М',
-      price: '12 990 KGS',
-      quantity: 1,
-      image: '/87087899-99-d6.kkk.png',
-    },
-    {
-      id: 2,
-      name: 'Драпированное платье с цветочным принтом',
-      size: 'М',
-      price: '12 990 KGS',
-      quantity: 1,
-      image: '/87038267-05-d2.kkk.png',
-    },
-  ]);
+  // Состояние для товаров в заказе, синхронизация с корзиной из localStorage
+  const [orderItems, setOrderItems] = useState<OrderItem[]>(() => {
+    const savedCart = localStorage.getItem('cartItems');
+    return savedCart ? JSON.parse(savedCart).map((item: OrderItem) => ({
+      ...item,
+      size: 'M',
+      orderDate: '',
+      totalAmount: 0, // Инициализируем, обновим при оплате
+    })) : [];
+  });
+
+  useEffect(() => {
+    const savedCart = localStorage.getItem('cartItems');
+    if (savedCart) {
+      setOrderItems(JSON.parse(savedCart).map((item: OrderItem) => ({
+        ...item,
+        size: 'M',
+        orderDate: '',
+        totalAmount: 0,
+      })));
+    }
+  }, []);
 
   // Состояние для данных формы
   const [formData, setFormData] = useState({
@@ -137,9 +143,24 @@ export const EwimvaCheckout = (): JSX.Element => {
       return;
     }
 
-    // Здесь можно добавить логику отправки данных на сервер
+    // Добавляем дату заказа и итоговую сумму
+    const currentDate = new Date().toISOString().split('T')[0]; // Формат: YYYY-MM-DD
+    const shipping = 500;
+    const itemsWithDetails = orderItems.map(item => ({
+      ...item,
+      orderDate: currentDate,
+      totalAmount: parseFloat(item.price.replace(' KGS', '').replace(' ', '')) * item.quantity + shipping,
+    }));
+
+    // Сохраняем покупки в localStorage
+    const existingPurchases = JSON.parse(localStorage.getItem('purchases') || '[]');
+    const updatedPurchases = [...existingPurchases, ...itemsWithDetails];
+    localStorage.setItem('purchases', JSON.stringify(updatedPurchases));
+
+    // Очищаем корзину
     alert('Оплата успешно выполнена! Ваш заказ оформлен.');
     setOrderItems([]);
+    localStorage.removeItem('cartItems'); // Очищаем корзину
     setFormData({
       firstName: '',
       lastName: '',
@@ -159,8 +180,8 @@ export const EwimvaCheckout = (): JSX.Element => {
   return (
     <div className="bg-white flex flex-row justify-center w-full">
       <div className="bg-white overflow-hidden w-[1920px] relative">
-        <main className="px-[214px] py-[114px]">
-          <h1 className="font-bold text-[#131313] text-[15.8px] leading-5 [font-family:'Inter',Helvetica] tracking-[0] whitespace-nowrap mb-5">
+        <main className="px-[214px] py-[80px]">
+          <h1 className="font-bold text-[#131313] text-[20px] leading-5 [font-family:'Inter',Helvetica] tracking-[0] whitespace-nowrap mb-10">
             ОФОРМЛЕНИЕ ЗАКАЗА
           </h1>
 
@@ -241,7 +262,7 @@ export const EwimvaCheckout = (): JSX.Element => {
                 </div>
 
                 <div className="flex">
-                  <div className="w-[51px]">
+                  <div className="w-[60px]">
                     <Input
                       className="h-11 border border-solid border-[#b8b8b8] rounded-none"
                       value="+996"
@@ -401,25 +422,22 @@ export const EwimvaCheckout = (): JSX.Element => {
 
               {orderItems.map((item) => (
                 <Card key={item.id} className="mb-6 border-none shadow-none">
-                  <CardContent className="p-0 flex">
-                    <div className="w-[138px] h-48 mr-3">
-                      <img
-                        className="w-full h-full object-cover"
-                        alt={item.name}
-                        src={item.image}
-                      />
-                    </div>
-                    <div className="flex-1 relative">
+                  <CardContent className="p-0 flex relative">
+                    <div
+                      className="w-[138px] h-[192px] mr-3 bg-cover bg-center"
+                      style={{ backgroundImage: `url(${item.image})` }}
+                    />
+                    <div className="flex-1 space-y-2">
                       <div className="font-normal text-black text-sm leading-[18px] [font-family:'Inter',Helvetica] mb-1">
                         {item.name}
                       </div>
-                      <div className="font-normal text-[#000000b2] text-sm leading-[18px] [font-family:'Inter',Helvetica] mb-6">
+                      <div className="font-normal text-[#000000b2] text-sm leading-[18px] [font-family:'Inter',Helvetica]">
                         Размер: {item.size}
                       </div>
-                      <div className="font-normal text-black text-sm leading-[18px] [font-family:'Inter',Helvetica] mt-10">
+                      <div className="font-normal text-black text-sm leading-[18px] [font-family:'Inter',Helvetica]">
                         {item.price}
                       </div>
-                      <div className="flex items-center absolute bottom-0">
+                      <div className="flex items-center gap-2">
                         <Button
                           variant="outline"
                           size="icon"
@@ -440,15 +458,15 @@ export const EwimvaCheckout = (): JSX.Element => {
                           <PlusIcon className="h-3 w-3" />
                         </Button>
                       </div>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="absolute top-0 right-0 p-0 h-auto w-auto"
-                        onClick={() => handleRemoveItem(item.id)}
-                      >
-                        <XIcon className="h-3.5 w-3.5" />
-                      </Button>
                     </div>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="absolute top-2 right-2 p-0 h-auto w-auto"
+                      onClick={() => handleRemoveItem(item.id)}
+                    >
+                      <XIcon className="h-3.5 w-3.5" />
+                    </Button>
                   </CardContent>
                 </Card>
               ))}

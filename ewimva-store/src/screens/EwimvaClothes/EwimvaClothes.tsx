@@ -21,10 +21,10 @@ price: string;
 composition: string;
 origin: string;
 care: string;
-photosLarge: { src: string; alt: string }[]; // Для больших фото (grid-cols-2)
-photosSmall: { src: string; alt: string }[]; // Для маленьких фото (grid-cols-4)
-color: string; // Цвет (например, "Экрю")
-description: string; // Описание для раздела "ОПИСАНИЕ"
+photosLarge: { src: string; alt: string }[];
+photosSmall: { src: string; alt: string }[];
+color: string;
+description: string;
 }
 
 export const EwimvaClothes = (): JSX.Element => {
@@ -49,11 +49,25 @@ setFavorites((prev) =>
 );
 };
 
-const handlePurchase = () => {
-alert("Страница оформления заказа пока в разработке. Это заглушка.");
+const handlePurchase = (product: Product) => {
+const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+const existingItem = cartItems.find((item: any) => item.id === product.id);
+if (existingItem) {
+    existingItem.quantity += 1;
+} else {
+    cartItems.push({
+    id: product.id,
+    name: product.name,
+    price: product.price,
+    image: product.image,
+    quantity: 1,
+    colorVariants: [],
+    });
+}
+localStorage.setItem('cartItems', JSON.stringify(cartItems));
+alert(`${product.name} добавлен в корзину!`);
 };
 
-// Product data
 const products: Product[] = [
 {
     id: 1,
@@ -329,7 +343,7 @@ return (
                 </Button>
                 <Button
                     className="w-full h-11 bg-white text-[#131313] border border-[#131313] rounded-none hover:bg-gray-100"
-                    onClick={handlePurchase}
+                    onClick={() => handlePurchase(selectedProduct)}
                 >
                     <span className="font-bold text-[12.8px]">
                     Приобрести

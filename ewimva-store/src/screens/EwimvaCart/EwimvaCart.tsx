@@ -1,29 +1,28 @@
-import React, { useState } from 'react';
-import { Card, CardContent, CardFooter } from '../../components/ui/card';
+import React, { useState, useEffect } from 'react';
+import { Card, CardContent } from '../../components/ui/card';
 import { Button } from '../../components/ui/button';
-import { HeartIcon } from 'lucide-react';
+import { MinusIcon, PlusIcon, XIcon } from 'lucide-react';
+import { useNavigate, NavLink } from 'react-router-dom';
 
-const initialCartItems = [
-{
-id: 1,
-name: 'Lyocell V-neck midi dress',
-price: 'KGS 12 990,00',
-image: '/87028650-tc.png',
-quantity: 1,
-colorVariants: [],
-},
-{
-id: 2,
-name: 'Прямое платье с драпировкой',
-price: 'KGS 12 990,00',
-image: '/87038267-05-d2-2.png',
-quantity: 2,
-colorVariants: [{ color: '03', image: '/03-2.png' }, { color: '32', image: '/32-2.png' }],
-},
-];
+interface CartItem {
+id: number;
+name: string;
+price: string;
+image: string;
+quantity: number;
+colorVariants: { color: string; image: string }[];
+}
 
 const EwimvaCart = (): JSX.Element => {
-const [cartItems, setCartItems] = useState(initialCartItems);
+const navigate = useNavigate();
+const [cartItems, setCartItems] = useState<CartItem[]>(() => {
+const savedCart = localStorage.getItem('cartItems');
+return savedCart ? JSON.parse(savedCart) : [];
+});
+
+useEffect(() => {
+localStorage.setItem('cartItems', JSON.stringify(cartItems));
+}, [cartItems]);
 
 // Изменение количества товара
 const handleQuantityChange = (id: number, delta: number) => {
@@ -41,22 +40,38 @@ setCartItems((prev) => prev.filter((item) => item.id !== id));
 
 // Расчет общей суммы
 const totalAmount = cartItems.reduce(
-(sum, item) => sum + parseFloat(item.price.replace('KGS ', '').replace(',', '')) * item.quantity,
+(sum, item) => {
+    const price = parseFloat(item.price.replace(' KGS', '').replace(' ', '')) || 0;
+    return sum + price * item.quantity;
+},
 0
 );
+
+// Переход к оформлению
+const handleCheckout = () => {
+navigate('/checkout');
+};
 
 return (
 <div className="flex flex-col min-h-screen">
     <main className="flex-1">
     {cartItems.length > 0 ? (
-        <div className="max-w-7xl mx-auto px-4 py-8">
-        <h1 className="font-['Montserrat'] text-[24px] text-[#131313] leading-[28px] mb-6">
+        <div className="max-w-[1920px] mx-auto px-4 py-8">
+        <div className="flex items-center justify-between mb-9 mt-10">
+            <h1 className="font-medium text-[24px] text-[#131313] leading-[28px]">
             Корзина
-        </h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            </h1>
+            <NavLink
+            to="/favourites"
+            className="font-['Inter',Helvetica] font-bold text-[#131313] text-[15.8px] tracking-[0] leading-[18px] whitespace-nowrap underline"
+            >
+            ПЕРЕЙТИ В ФАВОРИТЫ
+            </NavLink>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {cartItems.map((item) => (
-            <Card key={item.id} className="w-full max-w-[479px] h-auto">
-                <CardContent className="p-0">
+            <Card key={item.id} className="w-full max-w-[479px] h-auto border-none">
+                <CardContent className="p-0 relative">
                 <div
                     className="w-full h-[671px] bg-cover bg-center"
                     style={{ backgroundImage: `url(${item.image})` }}
@@ -80,51 +95,81 @@ return (
                     <div className="flex items-center gap-2">
                     <Button
                         variant="outline"
-                        size="sm"
+                        size="icon"
+                        className="w-5 h-5 rounded-[5px] border-[#00000040] p-0"
                         onClick={() => handleQuantityChange(item.id, -1)}
-                        className="text-[#131313]"
                     >
-                        -
+                        <MinusIcon className="h-3 w-3" />
                     </Button>
-                    <span className="text-[12.8px] font-['Inter',Helvetica] text-[#131313]">
+                    <span className="mx-2 font-normal text-black text-[15px] leading-[18px] font-['Inter',Helvetica]">
                         {item.quantity}
                     </span>
                     <Button
                         variant="outline"
-                        size="sm"
+                        size="icon"
+                        className="w-5 h-5 rounded-[5px] border-[#00000040] p-0"
                         onClick={() => handleQuantityChange(item.id, 1)}
-                        className="text-[#131313]"
                     >
-                        +
-                    </Button>
-                    <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => handleRemoveItem(item.id)}
-                        className="text-[#131313]"
-                    >
-                        <HeartIcon className="w-4 h-[15px]" />
+                        <PlusIcon className="h-3 w-3" />
                     </Button>
                     </div>
                 </div>
+                <Button
+                    variant="ghost"
+                    size="icon"
+                    className="absolute top-2 right-2 p-0 h-auto w-auto"
+                    onClick={() => handleRemoveItem(item.id)}
+                >
+                    <XIcon className="h-3.5 w-3.5" />
+                </Button>
                 </CardContent>
             </Card>
             ))}
         </div>
         <div className="mt-8 text-right">
             <p className="text-[15.8px] font-['Inter',Helvetica] font-bold text-[#131313]">
-            Общая сумма: KGS {totalAmount.toFixed(2)}
+            Общая сумма: {totalAmount.toLocaleString()} KGS
             </p>
-            <Button className="mt-4 bg-[#131313] text-white hover:bg-[#333] text-[12.8px] font-['Inter',Helvetica]">
+            <Button
+            className="mt-4 bg-[#131313] text-white hover:bg-[#333] text-[12.8px] font-['Inter',Helvetica]"
+            onClick={handleCheckout}
+            >
             Перейти к оформлению
             </Button>
         </div>
         </div>
     ) : (
-        <div className="max-w-7xl mx-auto px-4 py-8 text-center">
-        <p className="font-['Montserrat'] text-[18px] text-[#131313]">
-            Корзина пуста.
-        </p>
+        <div className="bg-white flex flex-row justify-center w-full">
+        <div className="bg-white overflow-hidden w-[1920px] h-[1200px] relative">
+            <div className="absolute top-[294px] w-full flex justify-center">
+            <div className="text-center">
+                <div className="[font-family:'Inter',Helvetica] font-bold text-[#131313] text-[15.8px] tracking-[0] leading-5 whitespace-nowrap">
+                Корзина пуста
+                </div>
+                <div className="w-[336px] mt-5 [font-family:'Inter',Helvetica] font-normal text-[#131313] text-xs tracking-[0] leading-[18px]">
+                Вдохновляйтесь нашими коллекциями и приобретайте новинки для своего гардероба
+                </div>
+                <div className="flex flex-col items-center">
+                <Button
+                    className="w-[350px] h-11 mt-6 bg-[#131313] rounded-none hover:bg-[#333333]"
+                    onClick={() => navigate('/new')}
+                >
+                    <span className="text-white text-[13px] text-center [font-family:'Inter',Helvetica] font-bold tracking-[0] leading-[18px] whitespace-nowrap">
+                    Посмотреть новинки
+                    </span>
+                </Button>
+                <Button
+                    className="w-[350px] h-11 mt-2 bg-white text-[#131313] border border-[#131313] rounded-none hover:bg-gray-100"
+                    onClick={() => navigate('/favourites')}
+                >
+                    <span className="text-[13px] text-center [font-family:'Inter',Helvetica] font-bold tracking-[0] leading-[18px] whitespace-nowrap">
+                    Фавориты
+                    </span>
+                </Button>
+                </div>
+            </div>
+            </div>
+        </div>
         </div>
     )}
     </main>
