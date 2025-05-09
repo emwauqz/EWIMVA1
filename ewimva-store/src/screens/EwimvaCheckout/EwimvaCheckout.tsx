@@ -160,7 +160,7 @@ export const EwimvaCheckout = (): JSX.Element => {
     <div className="bg-white flex flex-row justify-center w-full">
       <div className="bg-white overflow-hidden w-[1920px] relative">
         <main className="px-[214px] py-[114px]">
-          <h1 className="font-bold text-[#131313] text-[15.8px] leading-5 [font-family:'Inter',Helvetica] tracking-[0] whitespace-nowrap mb-20">
+          <h1 className="font-bold text-[#131313] text-[15.8px] leading-5 [font-family:'Inter',Helvetica] tracking-[0] whitespace-nowrap mb-5">
             ОФОРМЛЕНИЕ ЗАКАЗА
           </h1>
 
@@ -215,11 +215,6 @@ export const EwimvaCheckout = (): JSX.Element => {
                       className="h-11 border border-solid border-[#b8b8b8] rounded-none"
                       placeholder="РЕГИОН *"
                       required
-                    />
-                    <img
-                      className="absolute w-[17px] h-2.5 top-[17px] right-[18px]"
-                      alt="Vector"
-                      src="/vector-3.kkk.svg"
                     />
                   </div>
                   <div className="w-[400px]">
@@ -322,7 +317,7 @@ export const EwimvaCheckout = (): JSX.Element => {
                       value={formData.cardNumber}
                       onChange={handleInputChange}
                       className="h-11 border-none rounded-none"
-                      placeholder="ВВЕДИТЕ ПЛАТЕЖНЫЕ ДАННЫЕ ПОЛНОСТЬЮ *"
+                      placeholder="ВВЕДИТЕ ПЛАТЕЖНЫЕ ДАННЫЕ ПОЛНОСТЬЮ"
                       required
                     />
                     <div className="absolute right-4 top-1/2 transform -translate-y-1/2 flex items-center space-x-2">
