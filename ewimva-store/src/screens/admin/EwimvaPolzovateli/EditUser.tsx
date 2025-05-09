@@ -1,28 +1,84 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Button } from '../../components/ui/button';
-import { Input } from '../../components/ui/input';
+import { Link, useParams, useNavigate } from 'react-router-dom';
+import { Button } from '../../../components/ui/button';
+import { Input } from '../../../components/ui/input';
 import {
 Select,
 SelectContent,
 SelectItem,
 SelectTrigger,
 SelectValue,
-} from '../../components/ui/select';
-import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/card';
+} from '../../../components/ui/select';
+import { Card, CardContent, CardHeader, CardTitle } from '../../../components/ui/card';
 
-export default function AddUser(): JSX.Element {
-const [name, setName] = useState('');
-const [email, setEmail] = useState('');
-const [role, setRole] = useState('customer');
-const [status, setStatus] = useState('active');
+// Пример данных пользователя
+const users = [
+{
+id: 'USR-1001',
+name: 'Анна Смирнова',
+email: 'anna.smirnova@example.com',
+role: 'customer',
+status: 'active',
+lastActivity: '25.04.2025',
+orders: 5,
+},
+{
+id: 'USR-1002',
+name: 'Михаил Иванов',
+email: 'mikhail.ivanov@example.com',
+role: 'customer',
+status: 'inactive',
+lastActivity: '20.04.2025',
+orders: 2,
+},
+{
+id: 'USR-1003',
+name: 'Елена Сидорова',
+email: 'elena.sidorova@example.com',
+role: 'admin',
+status: 'active',
+lastActivity: '28.04.2025',
+orders: 0,
+},
+{
+id: 'USR-1004',
+name: 'Дмитрий Козлов',
+email: 'dmitry.kozlov@example.com',
+role: 'customer',
+status: 'active',
+lastActivity: '22.04.2025',
+orders: 3,
+},
+{
+id: 'USR-1005',
+name: 'Ольга Новикова',
+email: 'olga.novikova@example.com',
+role: 'customer',
+status: 'inactive',
+lastActivity: '15.04.2025',
+orders: 1,
+},
+];
+
+export default function EditUser(): JSX.Element {
+const { id } = useParams();
+const user = users.find((u) => u.id === id);
 const navigate = useNavigate();
+
+const [name, setName] = useState(user?.name || '');
+const [email, setEmail] = useState(user?.email || '');
+const [role, setRole] = useState(user?.role || 'customer');
+const [status, setStatus] = useState(user?.status || 'active');
+
+if (!user) {
+return <div>Пользователь не найден</div>;
+}
 
 const handleSubmit = (e: React.FormEvent) => {
 e.preventDefault();
-// Здесь можно добавить логику сохранения пользователя (например, API-запрос)
-console.log({ name, email, role, status });
-alert('Пользователь добавлен! (Это имитация)');
+// Здесь можно добавить логику сохранения изменений (например, API-запрос)
+console.log({ id, name, email, role, status });
+alert('Пользователь обновлён! (Это имитация)');
 navigate('/users');
 };
 
@@ -31,7 +87,7 @@ return (
     <Card className="border border-solid border-[#00000040] rounded-[10px]">
     <CardHeader>
         <CardTitle className="font-['Inter'] font-semibold text-[#131313] text-[40px] mb-12">
-        Добавить нового пользователя
+        Редактировать пользователя #{user.id}
         </CardTitle>
     </CardHeader>
     <CardContent>

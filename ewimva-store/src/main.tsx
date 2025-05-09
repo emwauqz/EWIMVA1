@@ -24,22 +24,21 @@ import EwimvaTops from "./screens/women/EwimvaTops/EwimvaTops";
 import EwimvaTshirtsWomen from "./screens/women/EwimvaTshirts/EwimvaTshirts";
 import EwimvaVests from "./screens/women/EwimvaVests/EwimvaVests";
 import EwimvaClothes from "./screens/EwimvaClothes/EwimvaClothes";
-import EwimvaProducts from "./screens/EwimvaProducts/EwimvaProducts";
 import EwimvaMyAccount from "./screens/EwimvaMyAccount/EwimvaMyAccount";
 import EwimvaMyDetails from "./screens/EwimvaMyDetails/EwimvaMyDetails";
 import EwimvaRecovery from "./screens/EwimvaRecovery/EwimvaRecovery";
 import EwimvaPomosh from "./screens/EwimvaPomosh/EwimvaPomosh";
-import EwimvaPolzovateli from "./screens/EwimvaPolzovateli/EwimvaPolzovateli";
-import EwimvaTovary from "./screens/EwimvaTovary/EwimvaTovary";
-import EwimvaZakazy from "./screens/EwimvaZakazy/EwimvaZakazy";
-import EwimvaDashboard from "./screens/EwimvaDashboard/EwimvaDashboard";
-import OrderDetails from "./screens/EwimvaZakazy/OrderDetails";
-import EditOrder from "./screens/EwimvaZakazy/EditOrder";
-import EditProduct from "./screens/EwimvaTovary/EditProduct";
-import AddProduct from "./screens/EwimvaTovary/AddProduct";
-import AddUser from "./screens/EwimvaPolzovateli/AddUser";
-import UserDetails from "./screens/EwimvaPolzovateli/UserDetails";
-import EditUser from "./screens/EwimvaPolzovateli/EditUser";
+import EwimvaPolzovateli from "./screens/admin/EwimvaPolzovateli/EwimvaPolzovateli";
+import EwimvaTovary from "./screens/admin/EwimvaTovary/EwimvaTovary";
+import EwimvaZakazy from "./screens/admin/EwimvaZakazy/EwimvaZakazy";
+import EwimvaDashboard from "./screens/admin/EwimvaDashboard/EwimvaDashboard";
+import OrderDetails from "./screens/admin/EwimvaZakazy/OrderDetails";
+import EditOrder from "./screens/admin/EwimvaZakazy/EditOrder";
+import EditProduct from "./screens/admin/EwimvaTovary/EditProduct";
+import AddProduct from "./screens/admin/EwimvaTovary/AddProduct";
+import AddUser from "./screens/admin/EwimvaPolzovateli/AddUser";
+import UserDetails from "./screens/admin/EwimvaPolzovateli/UserDetails";
+import EditUser from "./screens/admin/EwimvaPolzovateli/EditUser";
 import { EwimvaCheckout } from "./screens/EwimvaCheckout/EwimvaCheckout";
 import EwimvaCart from "./screens/EwimvaCart/EwimvaCart";
 import { EwimvaPokypka } from "./screens/EwimvaPokypka";
@@ -243,14 +242,6 @@ const App = () => {
           element={
             <ProtectedRoute>
               <EwimvaVests />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/products"
-          element={
-            <ProtectedRoute>
-              <EwimvaProducts />
             </ProtectedRoute>
           }
         />
