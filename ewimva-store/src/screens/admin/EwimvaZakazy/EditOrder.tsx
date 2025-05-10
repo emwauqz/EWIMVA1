@@ -11,58 +11,71 @@ SelectValue,
 } from '../../../components/ui/select';
 import { Card, CardContent, CardHeader, CardTitle } from '../../../components/ui/card';
 
-const orders = [
-{
-id: 'CRD-7650',
-customer: 'Анна Смирнова',
-date: '28.04.2025',
-status: 'Выполнен',
-statusColor: 'bg-emerald-500',
-items: 3,
-total: '12 450 с',
-},
-{
-id: 'CRD-7651',
-customer: 'Михаил Иванов',
-date: '26.04.2025',
-status: 'Обработка',
-statusColor: 'bg-amber-500',
-items: 4,
-total: '24 450 с',
-},
-];
+// Интерфейс для заказа
+interface Order {
+id: string;
+customer: string;
+email: string;
+date: string;
+status: string;
+items: number;
+amount: string;
+products: { name: string; quantity: number; price: string }[];
+}
 
 export default function EditOrder(): JSX.Element {
 const { id } = useParams<{ id: string }>();
 const navigate = useNavigate();
-const [order, setOrder] = useState(orders.find((o) => o.id === id) || {
-id: '', customer: '', date: '', status: '', items: 0, total: '',
-});
-const [customer, setCustomer] = useState(order.customer);
-const [date, setDate] = useState(order.date);
-const [status, setStatus] = useState(order.status);
-const [items, setItems] = useState(order.items.toString());
-const [total, setTotal] = useState(order.total);
+const [order, setOrder] = useState<Order | null>(null);
+const [customer, setCustomer] = useState('');
+const [email, setEmail] = useState('');
+const [date, setDate] = useState('');
+const [status, setStatus] = useState('');
+const [items, setItems] = useState('0');
+const [amount, setAmount] = useState('');
 
 useEffect(() => {
-const foundOrder = orders.find((o) => o.id === id);
-if (foundOrder) {
+const savedOrders = localStorage.getItem('purchases');
+if (savedOrders) {
+    const orders: Order[] = JSON.parse(savedOrders);
+    const foundOrder = orders[parseInt(id || '0')];
+    if (foundOrder) {
     setOrder(foundOrder);
     setCustomer(foundOrder.customer);
+    setEmail(foundOrder.email);
     setDate(foundOrder.date);
     setStatus(foundOrder.status);
     setItems(foundOrder.items.toString());
-    setTotal(foundOrder.total);
+    setAmount(foundOrder.amount);
+    }
 }
 }, [id]);
 
 const handleSubmit = (e: React.FormEvent) => {
 e.preventDefault();
-// Имитация обновления заказа
-console.log({ id, customer, date, status, items, total });
-alert('Заказ обновлён! (Это имитация)');
+if (!order) return;
+
+const updatedOrder: Order = {
+    ...order,
+    customer,
+    email,
+    date,
+    status,
+    items: parseInt(items),
+    amount,
+};
+
+const savedOrders = JSON.parse(localStorage.getItem('purchases') || '[]');
+savedOrders[parseInt(id || '0')] = updatedOrder;
+localStorage.setItem('purchases', JSON.stringify(savedOrders));
+
+alert('Заказ обновлён!');
 navigate('/orders');
 };
+
+if (!order) {
+return <div>Заказ не найден</div>;
+}
 
 return (
 <main className="flex-1 p-8">
@@ -87,6 +100,17 @@ return (
         </div>
         <div>
             <label className="font-['Inter'] font-normal text-[#131313] text-sm mb-2 block">
+            Email
+            </label>
+            <Input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full border-[#00000040] rounded-md focus:border-[#131313] focus:ring-1 focus:ring-[#131313] p-2"
+            />
+        </div>
+        <div>
+            <label className="font-['Inter'] font-normal text-[#131313] text-sm mb-2 block">
             Дата
             </label>
             <Input
@@ -105,10 +129,10 @@ return (
                 <SelectValue />
             </SelectTrigger>
             <SelectContent>
-                <SelectItem value="Обработка">Обработка</SelectItem>
-                <SelectItem value="Отправлен">Отправлен</SelectItem>
-                <SelectItem value="Выполнен">Выполнен</SelectItem>
-                <SelectItem value="Отменён">Отменён</SelectItem>
+                <SelectItem value="processing">Обработка</SelectItem>
+                <SelectItem value="sent">Отправлен</SelectItem>
+                <SelectItem value="completed">Выполнен</SelectItem>
+                <SelectItem value="cancelled">Отменён</SelectItem>
             </SelectContent>
             </Select>
         </div>
@@ -129,8 +153,8 @@ return (
             </label>
             <Input
             type="text"
-            value={total}
-            onChange={(e) => setTotal(e.target.value)}
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
             className="w-full border-[#00000040] rounded-md focus:border-[#131313] focus:ring-1 focus:ring-[#131313] p-2"
             />
         </div>

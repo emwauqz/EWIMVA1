@@ -1,80 +1,42 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '../../../components/ui/card';
 import { Badge } from '../../../components/ui/badge';
 
-// Пример данных заказа (для демонстрации)
-const orders = [
-{
-id: 'CRD-7650',
-customer: 'Анна Смирнова',
-date: '28.04.2025',
-status: 'Выполнен',
-statusColor: 'bg-emerald-500',
-items: '3',
-total: '12 450 с',
-products: [
-    { name: 'Джинсы wideleg', quantity: 1, price: '5 000 с' },
-    { name: 'Блузка с перфорацией', quantity: 2, price: '3 725 с' },
-],
-},
-{
-id: 'CRD-7650',
-customer: 'Михаил Иванов',
-date: '26.04.2025',
-status: 'Обработка',
-statusColor: 'bg-amber-500',
-items: '4',
-total: '24 450 с',
-products: [
-    { name: 'Сумка-ведро', quantity: 1, price: '10 000 с' },
-    { name: 'Жакет букле', quantity: 3, price: '4 816 с' },
-],
-},
-{
-id: 'CRD-7650',
-customer: 'Елена Сидорова',
-date: '20.04.2025',
-status: 'Обработка',
-statusColor: 'bg-amber-500',
-items: '2',
-total: '8 450 с',
-products: [
-    { name: 'Тренч укороченный', quantity: 1, price: '5 000 с' },
-    { name: 'Блузка с перфорацией', quantity: 1, price: '3 450 с' },
-],
-},
-{
-id: 'CRD-7650',
-customer: 'Дмитрий Козлов',
-date: '19.04.2025',
-status: 'Отправлен',
-statusColor: 'bg-[#2f88ff]',
-items: '3',
-total: '14 450 с',
-products: [
-    { name: 'Джинсы wideleg', quantity: 2, price: '5 000 с' },
-    { name: 'Сумка-ведро', quantity: 1, price: '4 450 с' },
-],
-},
-{
-id: 'CRD-7650',
-customer: 'Ольга Новикова',
-date: '18.04.2025',
-status: 'Выполнен',
-statusColor: 'bg-emerald-500',
-items: '4',
-total: '20 450 с',
-products: [
-    { name: 'Жакет букле', quantity: 2, price: '4 816 с' },
-    { name: 'Тренч укороченный', quantity: 2, price: '5 409 с' },
-],
-},
-];
+// Интерфейс для заказа
+interface Order {
+id: string;
+customer: string;
+email: string;
+date: string;
+status: string;
+items: number;
+amount: string;
+products: { name: string; quantity: number; price: string }[];
+}
+
+// Соответствие статусов и цветов
+const statusTypes = {
+processing: { label: 'Обработка', color: 'bg-amber-500' },
+sent: { label: 'Отправлен', color: 'bg-[#2f88ff]' },
+completed: { label: 'Выполнен', color: 'bg-emerald-500' },
+cancelled: { label: 'Отменён', color: 'bg-[#ae1414]' },
+};
 
 export default function OrderDetails(): JSX.Element {
-const { id } = useParams();
-const order = orders[parseInt(id || '0')];
+const { id } = useParams<{ id: string }>();
+const [order, setOrder] = useState<Order | null>(null);
+
+useEffect(() => {
+const savedOrders = localStorage.getItem('purchases');
+if (savedOrders) {
+    const orders: Order[] = JSON.parse(savedOrders);
+    const foundOrder = orders[parseInt(id || '0')];
+    if (foundOrder) {
+    setOrder(foundOrder);
+    }
+}
+}, [id]);
 
 if (!order) {
 return <div>Заказ не найден</div>;
@@ -93,12 +55,13 @@ return (
         <div>
             <h2 className="font-['Inter'] font-semibold text-[#131313] text-xl">Информация о заказе</h2>
             <p className="font-['Inter'] font-normal text-[#131313] text-sm">Клиент: {order.customer}</p>
+            <p className="font-['Inter'] font-normal text-[#131313] text-sm">Email: {order.email}</p>
             <p className="font-['Inter'] font-normal text-[#131313] text-sm">Дата: {order.date}</p>
             <p className="font-['Inter'] font-normal text-[#131313] text-sm">
-            Статус: <Badge className={`${order.statusColor} text-white font-semibold rounded-[50px] px-3 py-1.5`}>{order.status}</Badge>
+            Статус: <Badge className={`${statusTypes[order.status as keyof typeof statusTypes].color} text-white font-semibold rounded-[50px] px-3 py-1.5`}>{statusTypes[order.status as keyof typeof statusTypes].label}</Badge>
             </p>
             <p className="font-['Inter'] font-normal text-[#131313] text-sm">Количество товаров: {order.items}</p>
-            <p className="font-['Inter'] font-normal text-[#131313] text-sm">Итого: {order.total}</p>
+            <p className="font-['Inter'] font-normal text-[#131313] text-sm">Итого: {order.amount}</p>
         </div>
         <div>
             <h2 className="font-['Inter'] font-semibold text-[#131313] text-xl">Товары</h2>
@@ -109,8 +72,8 @@ return (
             </div>
             ))}
         </div>
-        <Link to="/dashboard" className="text-blue-500 underline mt-4 inline-block">
-            Назад к дашборду
+        <Link to="/orders" className="text-blue-500 underline mt-4 inline-block">
+            Назад к заказам
         </Link>
         </div>
     </CardContent>

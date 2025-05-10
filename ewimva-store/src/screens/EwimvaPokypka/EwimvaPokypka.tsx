@@ -13,38 +13,45 @@ interface PurchaseItem {
   colorVariants: { color: string; image: string }[];
   orderDate: string;
   totalAmount: number;
+  orderId: string;
 }
 
 export const EwimvaPokypka = (): JSX.Element => {
   const navigate = useNavigate();
 
-  // Загрузка покупок из localStorage с проверкой
   const [purchases, setPurchases] = useState<PurchaseItem[]>([]);
 
   useEffect(() => {
     try {
       const savedPurchases = localStorage.getItem('purchases');
       if (savedPurchases) {
-        const parsedPurchases = JSON.parse(savedPurchases);
-        const normalizedPurchases = Array.isArray(parsedPurchases)
-          ? parsedPurchases.map((item: any) => {
-              const priceNum = parseFloat(item.price?.replace(' KGS', '').replace(' ', '') || '0');
-              const quantity = item.quantity || 1;
-              const shipping = 500;
-              const totalAmount = item.totalAmount || (priceNum * quantity + shipping);
+        const orders = JSON.parse(savedPurchases);
+        const normalizedPurchases: PurchaseItem[] = [];
+        const shipping = 500; // Фиксированная стоимость доставки
 
-              return {
-                id: item.id || 0,
-                name: item.name || 'Неизвестный товар',
-                price: item.price || '0 KGS',
-                image: item.image || '',
-                quantity: quantity,
-                colorVariants: item.colorVariants || [],
-                orderDate: item.orderDate || new Date().toISOString().split('T')[0],
-                totalAmount: totalAmount,
-              };
-            })
-          : [];
+        orders.forEach((order: any, orderIndex: number) => {
+          const baseOrderDate = order.date || new Date().toISOString().split('T')[0];
+
+          order.products.forEach((product: { name: string; quantity: number; price: string; image: string; colorVariants: { color: string; image: string }[] }, productIndex: number) => {
+            const priceNum = parseFloat(product.price.replace(' KGS', '').replace(' ', '')) || 0;
+            const quantity = product.quantity || 1;
+            // Доставка добавляется только к первому товару в заказе
+            const totalAmount = priceNum * quantity + (productIndex === 0 ? shipping : 0);
+
+            normalizedPurchases.push({
+              id: orderIndex * 1000 + normalizedPurchases.length,
+              name: product.name || 'Неизвестный товар',
+              price: product.price || '0 KGS',
+              image: product.image || '/placeholder-image.jpg', // Извлекаем image из product
+              quantity: quantity,
+              colorVariants: product.colorVariants || [],
+              orderDate: baseOrderDate,
+              totalAmount: totalAmount,
+              orderId: order.id || `CRD-${orderIndex}`,
+            });
+          });
+        });
+
         setPurchases(normalizedPurchases);
       }
     } catch (error) {
@@ -63,7 +70,40 @@ export const EwimvaPokypka = (): JSX.Element => {
   const handleRemovePurchase = (id: number) => {
     const updatedPurchases = purchases.filter((item) => item.id !== id);
     setPurchases(updatedPurchases);
-    localStorage.setItem('purchases', JSON.stringify(updatedPurchases));
+
+    // Обновляем localStorage
+    const updatedOrders = updatedPurchases.reduce((acc: any[], item) => {
+      const order = acc.find((o) => o.id === item.orderId);
+      if (order) {
+        order.products.push({
+          name: item.name,
+          quantity: item.quantity,
+          price: item.price,
+          image: item.image,
+          colorVariants: item.colorVariants,
+        });
+      } else {
+        acc.push({
+          id: item.orderId,
+          customer: '',
+          email: '',
+          date: item.orderDate,
+          status: 'processing',
+          items: item.quantity,
+          amount: `${updatedPurchases.filter(p => p.orderId === item.orderId).reduce((sum, p) => sum + p.totalAmount, 0).toLocaleString()} с`,
+          products: [{
+            name: item.name,
+            quantity: item.quantity,
+            price: item.price,
+            image: item.image,
+            colorVariants: item.colorVariants,
+          }],
+        });
+      }
+      return acc;
+    }, []);
+
+    localStorage.setItem('purchases', JSON.stringify(updatedOrders));
   };
 
   return (
@@ -88,7 +128,7 @@ export const EwimvaPokypka = (): JSX.Element => {
                   <CardContent className="p-0 flex items-start">
                     <div
                       className="w-[326px] h-[453px] bg-cover bg-center mr-4"
-                      style={{ backgroundImage: `url(${item.image || '/placeholder-image.jpg'})` }}
+                      style={{ backgroundImage: `url(${item.image})` }}
                     />
                     <div className="flex-1 space-y-2">
                       <h3 className="font-normal text-[11.8px] text-[#131313] [font-family:'Inter',Helvetica] leading-[18px]">

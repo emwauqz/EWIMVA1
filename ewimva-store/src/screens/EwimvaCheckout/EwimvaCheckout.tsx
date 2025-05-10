@@ -16,8 +16,6 @@ interface OrderItem {
   quantity: number;
   image: string;
   colorVariants: { color: string; image: string }[];
-  orderDate: string;
-  totalAmount: number;
 }
 
 interface OrderSummary {
@@ -35,8 +33,6 @@ export const EwimvaCheckout = (): JSX.Element => {
     return savedCart ? JSON.parse(savedCart).map((item: OrderItem) => ({
       ...item,
       size: 'M',
-      orderDate: '',
-      totalAmount: 0, // Инициализируем, обновим при оплате
     })) : [];
   });
 
@@ -46,8 +42,6 @@ export const EwimvaCheckout = (): JSX.Element => {
       setOrderItems(JSON.parse(savedCart).map((item: OrderItem) => ({
         ...item,
         size: 'M',
-        orderDate: '',
-        totalAmount: 0,
       })));
     }
   }, []);
@@ -61,6 +55,7 @@ export const EwimvaCheckout = (): JSX.Element => {
     city: '',
     postalCode: '',
     phone: '',
+    email: '',
     cardNumber: '',
     expiryDate: '',
     cardHolder: '',
@@ -77,13 +72,9 @@ export const EwimvaCheckout = (): JSX.Element => {
         sum + parseFloat(item.price.replace(' KGS', '').replace(' ', '')) * item.quantity,
       0
     );
-    const shipping = 500; // Фиксированная стоимость доставки
+    const shipping = 500;
     const total = subtotal + shipping;
-    return {
-      subtotal,
-      shipping,
-      total,
-    };
+    return { subtotal, shipping, total };
   };
 
   const orderSummary = calculateSummary();
@@ -123,9 +114,10 @@ export const EwimvaCheckout = (): JSX.Element => {
       'city',
       'postalCode',
       'phone',
+      'email',
     ];
     const isFormValid = requiredFields.every((field) => formData[field as keyof typeof formData]);
-    
+
     if (paymentMethod === 'card') {
       const cardFields = ['cardNumber', 'expiryDate', 'cardHolder', 'cvv'];
       const isCardValid = cardFields.every((field) => formData[field as keyof typeof formData]);
@@ -143,24 +135,39 @@ export const EwimvaCheckout = (): JSX.Element => {
       return;
     }
 
-    // Добавляем дату заказа и итоговую сумму
-    const currentDate = new Date().toISOString().split('T')[0]; // Формат: YYYY-MM-DD
-    const shipping = 500;
-    const itemsWithDetails = orderItems.map(item => ({
-      ...item,
-      orderDate: currentDate,
-      totalAmount: parseFloat(item.price.replace(' KGS', '').replace(' ', '')) * item.quantity + shipping,
-    }));
+    // Генерация уникального ID для заказа
+    const orderId = `CRD-${Date.now()}`;
+    const currentDate = new Date().toLocaleDateString('ru-RU');
+    const customer = `${formData.firstName} ${formData.lastName}`;
+    const itemsCount = orderItems.reduce((sum, item) => sum + item.quantity, 0);
 
-    // Сохраняем покупки в localStorage
+    // Формируем объект заказа с продуктами, включая image и colorVariants
+    const newOrder = {
+      id: orderId,
+      customer,
+      email: formData.email,
+      date: currentDate,
+      status: 'processing',
+      items: itemsCount,
+      amount: `${orderSummary.total.toLocaleString()} с`,
+      products: orderItems.map(item => ({
+        name: item.name,
+        quantity: item.quantity,
+        price: item.price,
+        image: item.image,
+        colorVariants: item.colorVariants,
+      })),
+    };
+
+    // Сохраняем заказ в localStorage
     const existingPurchases = JSON.parse(localStorage.getItem('purchases') || '[]');
-    const updatedPurchases = [...existingPurchases, ...itemsWithDetails];
+    const updatedPurchases = [...existingPurchases, newOrder];
     localStorage.setItem('purchases', JSON.stringify(updatedPurchases));
 
     // Очищаем корзину
     alert('Оплата успешно выполнена! Ваш заказ оформлен.');
     setOrderItems([]);
-    localStorage.removeItem('cartItems'); // Очищаем корзину
+    localStorage.removeItem('cartItems');
     setFormData({
       firstName: '',
       lastName: '',
@@ -169,12 +176,13 @@ export const EwimvaCheckout = (): JSX.Element => {
       city: '',
       postalCode: '',
       phone: '',
+      email: '',
       cardNumber: '',
       expiryDate: '',
       cardHolder: '',
       cvv: '',
     });
-    navigate('/purchases'); // Перенаправление на страницу покупок
+    navigate('/purchases');
   };
 
   return (
@@ -214,6 +222,17 @@ export const EwimvaCheckout = (): JSX.Element => {
                       required
                     />
                   </div>
+                </div>
+
+                <div className="w-[810px]">
+                  <Input
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    className="h-11 border border-solid border-[#b8b8b8] rounded-none"
+                    placeholder="E-MAIL *"
+                    required
+                  />
                 </div>
 
                 <div className="w-[810px]">
