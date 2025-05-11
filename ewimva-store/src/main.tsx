@@ -59,6 +59,37 @@ import EwimvaSuit from "./screens/men/Suit/EwimvaSuit";
 import EwimvaSweaters from "./screens/men/Sweaters/EwimvaSweaters";
 import EwimvaTshirtsMen from "./screens/men/Tshirts/EwimvaTshirts";
 
+// Импорты Product для каждой категории (Women)
+import { Product as BagsProduct } from "./screens/women/EwimvaBags/Product";
+import { Product as CoatsProduct } from "./screens/women/EwimvaCoats/Product";
+import { Product as DressProduct } from "./screens/women/EwimvaDress/Product"; // Уже есть
+import { Product as FragrancesProduct } from "./screens/women/EwimvaFragrances/Product";
+import { Product as JacketsProduct } from "./screens/women/EwimvaJackets/Product";
+import { Product as JeansProduct } from "./screens/women/EwimvaJeans/Product";
+import { Product as JumpersAndCardigansProduct } from "./screens/women/EwimvaJumpersAndCardigans/Product";
+import { Product as NewProduct } from "./screens/women/EwimvaNewNow/Product"; // Уже есть
+import { Product as PantsProduct } from "./screens/women/EwimvaPants/Product"; // Уже есть
+import { Product as ShirtsAndBlousesProduct } from "./screens/women/EwimvaShirtsAndBlouses/Product";
+import { Product as ShoesProduct } from "./screens/women/EwimvaShoes/Product";
+import { Product as TopsProduct } from "./screens/women/EwimvaTops/Product";
+import { Product as TshirtsProduct } from "./screens/women/EwimvaTshirts/Product";
+import { Product as VestsProduct } from "./screens/women/EwimvaVests/Product";
+import { Product as PartyProduct } from "./screens/women/EwimvaPartyAndEvents/Product";
+
+import { Product as MenBackpacksAndBagsProduct } from "./screens/men/BackpacksAndBags/Product";
+import { Product as MenCoatsProduct } from "./screens/men/Coats/Product";
+import { Product as MenHoodiesProduct } from "./screens/men/Hoodies/Product";
+import { Product as MenJacketsOuterwearProduct } from "./screens/men/JacketsOuterwear/Product";
+import { Product as MenJeansProduct } from "./screens/men/Jeans/Product";
+import { Product as MenNewProduct } from "./screens/men/NewNow/Product";
+import { Product as MenPantsProduct } from "./screens/men/Pants/Product";
+import { Product as MenShirtsProduct } from "./screens/men/Shirts/Product";
+import { Product as MenShoesProduct } from "./screens/men/Shoes/Product";
+import { Product as MenSuitProduct } from "./screens/men/Suit/Product";
+import { Product as MenSweatersProduct } from "./screens/men/Sweaters/Product";
+import { Product as MenTshirtsProduct } from "./screens/men/Tshirts/Product";
+
+
 // Типизация для ProtectedRoute
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -160,6 +191,14 @@ const AppContent = () => {
           }
         />
         <Route
+          path="/new/product/:id"
+          element={
+            <ProtectedRoute>
+              <NewProduct />
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path="/dress"
           element={
             <ProtectedRoute>
@@ -168,10 +207,26 @@ const AppContent = () => {
           }
         />
         <Route
+          path="/dress/product/:id"
+          element={
+            <ProtectedRoute>
+              <DressProduct />
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path="/bags"
           element={
             <ProtectedRoute>
               <EwimvaBags />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/bags/product/:id"
+          element={
+            <ProtectedRoute>
+              <BagsProduct />
             </ProtectedRoute>
           }
         />
@@ -192,10 +247,26 @@ const AppContent = () => {
           }
         />
         <Route
+          path="/coats/product/:id"
+          element={
+            <ProtectedRoute>
+              <CoatsProduct />
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path="/fragrances"
           element={
             <ProtectedRoute>
               <EwimvaFragrances />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/fragrances/product/:id"
+          element={
+            <ProtectedRoute>
+              <FragrancesProduct />
             </ProtectedRoute>
           }
         />
@@ -208,10 +279,26 @@ const AppContent = () => {
           }
         />
         <Route
+          path="/jackets/product/:id"
+          element={
+            <ProtectedRoute>
+              <JacketsProduct />
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path="/jeans"
           element={
             <ProtectedRoute>
               <EwimvaJeansWomen />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/jeans/product/:id"
+          element={
+            <ProtectedRoute>
+              <JeansProduct />
             </ProtectedRoute>
           }
         />
@@ -224,10 +311,26 @@ const AppContent = () => {
           }
         />
         <Route
+          path="/jumpers-and-cardigans/product/:id"
+          element={
+            <ProtectedRoute>
+              <JumpersAndCardigansProduct />
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path="/pants"
           element={
             <ProtectedRoute>
               <EwimvaPantsWomen />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/pants/product/:id"
+          element={
+            <ProtectedRoute>
+              <PantsProduct />
             </ProtectedRoute>
           }
         />
@@ -240,10 +343,26 @@ const AppContent = () => {
           }
         />
         <Route
+          path="/shirts-and-blouses/product/:id"
+          element={
+            <ProtectedRoute>
+              <ShirtsAndBlousesProduct />
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path="/shoes"
           element={
             <ProtectedRoute>
               <EwimvaShoesWomen />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/shoes/product/:id"
+          element={
+            <ProtectedRoute>
+              <ShoesProduct />
             </ProtectedRoute>
           }
         />
@@ -256,6 +375,14 @@ const AppContent = () => {
           }
         />
         <Route
+          path="/tops/product/:id"
+          element={
+            <ProtectedRoute>
+              <TopsProduct />
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path="/tshirts"
           element={
             <ProtectedRoute>
@@ -264,10 +391,42 @@ const AppContent = () => {
           }
         />
         <Route
+          path="/tshirts/product/:id"
+          element={
+            <ProtectedRoute>
+              <TshirtsProduct />
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path="/vests"
           element={
             <ProtectedRoute>
               <EwimvaVests />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/vests/product/:id"
+          element={
+            <ProtectedRoute>
+              <VestsProduct />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/party"
+          element={
+            <ProtectedRoute>
+              <EwimvaPartyAndEvents />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/party/product/:id"
+          element={
+            <ProtectedRoute>
+              <PartyProduct />
             </ProtectedRoute>
           }
         />
@@ -352,6 +511,14 @@ const AppContent = () => {
           }
         />
         <Route
+          path="/men/new"
+          element={
+            <ProtectedRoute>
+              <EwimvaJeansMen />
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path="/men/pants"
           element={
             <ProtectedRoute>
@@ -399,6 +566,102 @@ const AppContent = () => {
             </ProtectedRoute>
           }
         />
+          <Route
+            path="/men/backpacks-and-bags/product/:id"
+            element={
+              <ProtectedRoute>
+                <MenBackpacksAndBagsProduct />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/men/coats/product/:id"
+            element={
+              <ProtectedRoute>
+                <MenCoatsProduct />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/men/hoodies/product/:id"
+            element={
+              <ProtectedRoute>
+                <MenHoodiesProduct />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/men/jackets-outerwear/product/:id"
+            element={
+              <ProtectedRoute>
+                <MenJacketsOuterwearProduct />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/men/jeans/product/:id"
+            element={
+              <ProtectedRoute>
+                <MenJeansProduct />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/men/new/product/:id"
+            element={
+              <ProtectedRoute>
+                <MenNewProduct />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/men/pants/product/:id"
+            element={
+              <ProtectedRoute>
+                <MenPantsProduct />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/men/shirts/product/:id"
+            element={
+              <ProtectedRoute>
+                <MenShirtsProduct />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/men/shoes/product/:id"
+            element={
+              <ProtectedRoute>
+                <MenShoesProduct />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/men/suit/product/:id"
+            element={
+              <ProtectedRoute>
+                <MenSuitProduct />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/men/sweaters/product/:id"
+            element={
+              <ProtectedRoute>
+                <MenSweatersProduct />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/men/tshirts/product/:id"
+            element={
+              <ProtectedRoute>
+                <MenTshirtsProduct />
+              </ProtectedRoute>
+            }
+          />
         <Route element={<AdminLayout />}>
           <Route
             path="/dashboard"

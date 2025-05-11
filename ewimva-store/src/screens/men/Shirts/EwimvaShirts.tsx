@@ -254,21 +254,18 @@ colorVariants: [],
 
 // Список категорий с соответствующими путями
 const categories = [
-{ name: 'Сумки', path: '/bags' },
-{ name: 'Пальто', path: '/coats' },
-{ name: 'Платья', path: '/dress' },
-{ name: 'Ароматы', path: '/fragrances' },
-{ name: 'Куртки', path: '/jackets' },
-{ name: 'Джинсы', path: '/jeans' },
-{ name: 'Джемперы и кардиганы', path: '/jumpers-and-cardigans' },
-{ name: 'Новинки', path: '/new' },
-{ name: 'Брюки', path: '/pants' },
-{ name: 'Рубашки и блузки', path: '/shirts-and-blouses' },
-{ name: 'Обувь', path: '/shoes' },
-{ name: 'Топы', path: '/tops' },
-{ name: 'Футболки', path: '/tshirts' },
-{ name: 'Жилеты', path: '/vests' },
-{ name: 'Вечерние', path: '/party' },
+{ name: 'Рюкзаки и сумки', path: '/men/backpacks-and-bags' },
+{ name: 'Пальто', path: '/men/coats' },
+{ name: 'Худи', path: '/men/hoodies' },
+{ name: 'Куртки и верхняя одежда', path: '/men/jackets-outerwear' },
+{ name: 'Джинсы', path: '/men/jeans' },
+{ name: 'Новинки', path: '/men/new' },
+{ name: 'Брюки', path: '/men/pants' },
+{ name: 'Рубашки', path: '/men/shirts' },
+{ name: 'Обувь', path: '/men/shoes' },
+{ name: 'Костюмы', path: '/men/suit' },
+{ name: 'Джемперы', path: '/men/sweaters' },
+{ name: 'Футболки', path: '/men/tshirts' },
 ];
 
 export default function Shirts(): JSX.Element {
@@ -280,13 +277,13 @@ return (
     <main className="flex-1">
     <div className="max-w-7xl mx-auto px-2 py-4">
         <h1 className="font-['Montserrat'] font-medium text-[24px] text-[#131313] leading-[28px] ml-[-20px]">
-        Сумки
+        Рубашки
         </h1>
     </div>
     <div className="max-w-7xl mx-auto px-4">
         <div className="mb-6">
         <h2 className="font-medium text-[24px] text-[#131313] leading-[28px] ml-[-250px]">
-            Сумки
+            Рубашки
         </h2>
         <div className="relative mt-2">
             <button
