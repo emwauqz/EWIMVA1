@@ -403,12 +403,9 @@ export default function EwimvaSeorch(): JSX.Element {
       <main className="flex-1 pt-16">
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex items-center gap-4 mb-4">
-            <h1 className="font-['Montserrat'] font-medium text-[24px] text-[#131313] leading-[28px]">
-              Search
-            </h1>
             <input
               type="text"
-              placeholder="Search products..."
+              placeholder="ИСКАТЬ"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-[500px] border-[#00000040] rounded-md focus:border-[#131313] focus:ring-1 focus:ring-[#131313] p-2"
