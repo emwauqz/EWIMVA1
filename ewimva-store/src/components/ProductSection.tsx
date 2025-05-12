@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { HeartIcon } from 'lucide-react';
 import { Card, CardContent } from '../components/ui/card';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 interface ColorVariant {
 color: string;
@@ -42,6 +42,20 @@ setFavorites((prev) =>
 };
 
 const navigate = useNavigate();
+const location = useLocation(); // Получаем текущий путь
+
+// Определяем категорию на основе текущего пути
+const getCategoryPath = () => {
+const path = location.pathname; // Например, "/dress", "/bags", "/men/shirts"
+// Если это мужская категория, путь начинается с "/men/"
+if (path.startsWith('/men/')) {
+    return path.replace('/men/', ''); // Например, "shirts"
+}
+// Для женских категорий просто убираем начальный слэш
+return path.replace('/', ''); // Например, "dress"
+};
+
+const category = getCategoryPath();
 
 return (
 <section className="w-full py-0">
@@ -65,7 +79,11 @@ return (
         <Card
             key={product.id}
             className="rounded-none border-0 relative cursor-pointer"
-            onClick={() => navigate(`/product/${product.id}`)}
+            onClick={() => {
+            // Формируем путь в зависимости от категории
+            const basePath = location.pathname.startsWith('/men/') ? `/men/${category}` : `/${category}`;
+            navigate(`${basePath}/product/${product.id}`);
+            }}
         >
             <CardContent className="p-0">
             <div className="relative">

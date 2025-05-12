@@ -7,10 +7,10 @@ import { useNavigate } from 'react-router-dom';
 const products = [
 {
 id: 1,
-name: 'Lyocell V-neck midi dress',
+name: 'Платье с цветами и разрезом',
 category: 'CAPSULE',
-price: 'KGS 12 990,00',
-image: '/87028650-tc.png',
+price: 'KGS 26 490',
+image: '/Платье с цветами и разрезом.png',
 colorVariants: [],
 },
 {
@@ -28,8 +28,6 @@ category: 'CAPSULE',
 price: 'KGS 12 990,00',
 image: '/87007199-05-d9.png',
 colorVariants: [
-    { color: '03', image: '/03-2.png' },
-    { color: '32', image: '/32-2.png' },
 ],
 },
 {
@@ -63,8 +61,6 @@ category: 'NEW NOW',
 price: 'KGS 12 990,00',
 image: '/87014094-99-d2.png',
 colorVariants: [
-    { color: '03', image: '/03-2.png' },
-    { color: '32', image: '/32-2.png' },
 ],
 },
 {
@@ -98,8 +94,6 @@ category: 'NEW NOW',
 price: 'KGS 12 990,00',
 image: '/87038267-05-d2-1.png',
 colorVariants: [
-    { color: '03', image: '/03-2.png' },
-    { color: '32', image: '/32-2.png' },
 ],
 },
 {
@@ -133,8 +127,6 @@ category: 'NEW NOW',
 price: 'KGS 12 990,00',
 image: '/87050367-92.png',
 colorVariants: [
-    { color: '03', image: '/03-2.png' },
-    { color: '32', image: '/32-2.png' },
 ],
 },
 {
@@ -168,8 +160,6 @@ category: 'NEW NOW',
 price: 'KGS 12 990,00',
 image: '/87035749-30-d6.png',
 colorVariants: [
-    { color: '03', image: '/03-2.png' },
-    { color: '32', image: '/32-2.png' },
 ],
 },
 {
@@ -203,8 +193,6 @@ category: 'NEW NOW',
 price: 'KGS 12 990,00',
 image: '/87038267-05-d2.png',
 colorVariants: [
-    { color: '03', image: '/03-2.png' },
-    { color: '32', image: '/32-2.png' },
 ],
 },
 {
@@ -238,8 +226,6 @@ category: 'NEW NOW',
 price: 'KGS 12 990,00',
 image: '/87038267-05-d2-3.png',
 colorVariants: [
-    { color: '03', image: '/03-2.png' },
-    { color: '32', image: '/32-2.png' },
 ],
 },
 {

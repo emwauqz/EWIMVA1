@@ -62,13 +62,13 @@ import EwimvaTshirtsMen from "./screens/men/Tshirts/EwimvaTshirts";
 // Импорты Product для каждой категории (Women)
 import { Product as BagsProduct } from "./screens/women/EwimvaBags/Product";
 import { Product as CoatsProduct } from "./screens/women/EwimvaCoats/Product";
-import { Product as DressProduct } from "./screens/women/EwimvaDress/Product"; // Уже есть
+import { Product as DressProduct } from "./screens/women/EwimvaDress/Product";
 import { Product as FragrancesProduct } from "./screens/women/EwimvaFragrances/Product";
 import { Product as JacketsProduct } from "./screens/women/EwimvaJackets/Product";
 import { Product as JeansProduct } from "./screens/women/EwimvaJeans/Product";
 import { Product as JumpersAndCardigansProduct } from "./screens/women/EwimvaJumpersAndCardigans/Product";
-import { Product as NewProduct } from "./screens/women/EwimvaNewNow/Product"; // Уже есть
-import { Product as PantsProduct } from "./screens/women/EwimvaPants/Product"; // Уже есть
+import { Product as NewProduct } from "./screens/women/EwimvaNewNow/Product";
+import { Product as PantsProduct } from "./screens/women/EwimvaPants/Product";
 import { Product as ShirtsAndBlousesProduct } from "./screens/women/EwimvaShirtsAndBlouses/Product";
 import { Product as ShoesProduct } from "./screens/women/EwimvaShoes/Product";
 import { Product as TopsProduct } from "./screens/women/EwimvaTops/Product";
