@@ -7,16 +7,11 @@ import EwimvaBags from './screens/women/EwimvaBags/EwimvaBags';
 import EwimvaCoatsWomen from './screens/women/EwimvaCoats/EwimvaCoats';
 import EwimvaDress from './screens/women/EwimvaDress/EwimvaDress';
 import EwimvaFragrances from './screens/women/EwimvaFragrances/EwimvaFragrances';
-import EwimvaJacketsWomen from './screens/women/EwimvaJackets/EwimvaJackets';
-import EwimvaJeansWomen from './screens/women/EwimvaJeans/EwimvaJeans';
 import EwimvaJumpersAndCardigans from './screens/women/EwimvaJumpersAndCardigans/EwimvaJumpersAndCardigans';
 import EwimvaNewNow from './screens/women/EwimvaNewNow/EwimvaNewNow';
 import EwimvaPantsWomen from './screens/women/EwimvaPants/EwimvaPants';
 import EwimvaShirtsAndBlouses from './screens/women/EwimvaShirtsAndBlouses/EwimvaShirtsAndBlouses';
 import EwimvaShoesWomen from './screens/women/EwimvaShoes/EwimvaShoes';
-import EwimvaTops from './screens/women/EwimvaTops/EwimvaTops';
-import EwimvaTshirtsWomen from './screens/women/EwimvaTshirts/EwimvaTshirts';
-import EwimvaVests from './screens/women/EwimvaVests/EwimvaVests';
 import EwimvaPartyAndEvents from './screens/women/EwimvaPartyAndEvents/EwimvaPartyAndEvents';
 
 // Импорты Product для каждой категории (Women)
@@ -24,16 +19,12 @@ import { Product as BagsProduct } from "./screens/women/EwimvaBags/Product";
 import { Product as CoatsProduct } from "./screens/women/EwimvaCoats/Product";
 import { Product as DressProduct } from "./screens/women/EwimvaDress/Product";
 import { Product as FragrancesProduct } from "./screens/women/EwimvaFragrances/Product";
-import { Product as JacketsProduct } from "./screens/women/EwimvaJackets/Product";
-import { Product as JeansProduct } from "./screens/women/EwimvaJeans/Product";
 import { Product as JumpersAndCardigansProduct } from "./screens/women/EwimvaJumpersAndCardigans/Product";
 import { Product as NewProduct } from "./screens/women/EwimvaNewNow/Product";
 import { Product as PantsProduct } from "./screens/women/EwimvaPants/Product";
 import { Product as ShirtsAndBlousesProduct } from "./screens/women/EwimvaShirtsAndBlouses/Product";
 import { Product as ShoesProduct } from "./screens/women/EwimvaShoes/Product";
-import { Product as TopsProduct } from "./screens/women/EwimvaTops/Product";
-import { Product as TshirtsProduct } from "./screens/women/EwimvaTshirts/Product";
-import { Product as VestsProduct } from "./screens/women/EwimvaVests/Product";
+
 import { Product as PartyProduct } from "./screens/women/EwimvaPartyAndEvents/Product";
 
 // Men imports
@@ -82,10 +73,6 @@ const App: React.FC = () => {
             <Route path="/dress/product/:id" element={<DressProduct />} />
             <Route path="/fragrances" element={<EwimvaFragrances />} />
             <Route path="/fragrances/product/:id" element={<FragrancesProduct />} />
-            <Route path="/jackets" element={<EwimvaJacketsWomen />} />
-            <Route path="/jackets/product/:id" element={<JacketsProduct />} />
-            <Route path="/jeans" element={<EwimvaJeansWomen />} />
-            <Route path="/jeans/product/:id" element={<JeansProduct />} />
             <Route path="/jumpers-and-cardigans" element={<EwimvaJumpersAndCardigans />} />
             <Route path="/jumpers-and-cardigans/product/:id" element={<JumpersAndCardigansProduct />} />
             <Route path="/pants" element={<EwimvaPantsWomen />} />
@@ -94,12 +81,6 @@ const App: React.FC = () => {
             <Route path="/shirts-and-blouses/product/:id" element={<ShirtsAndBlousesProduct />} />
             <Route path="/shoes" element={<EwimvaShoesWomen />} />
             <Route path="/shoes/product/:id" element={<ShoesProduct />} />
-            <Route path="/tops" element={<EwimvaTops />} />
-            <Route path="/tops/product/:id" element={<TopsProduct />} />
-            <Route path="/tshirts" element={<EwimvaTshirtsWomen />} />
-            <Route path="/tshirts/product/:id" element={<TshirtsProduct />} />
-            <Route path="/vests" element={<EwimvaVests />} />
-            <Route path="/vests/product/:id" element={<VestsProduct />} />
             <Route path="/party" element={<EwimvaPartyAndEvents />} />
             <Route path="/party/product/:id" element={<PartyProduct />} />
 

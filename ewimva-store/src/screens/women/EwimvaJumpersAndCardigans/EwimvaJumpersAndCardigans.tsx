@@ -3,7 +3,6 @@ import { ProductSection } from "../../../components/ProductSection";
 import { ChevronDownIcon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
-// Данные о товарах из всех секций
 const products = [
 {
 id: 1,
@@ -252,23 +251,16 @@ colorVariants: [],
 },
 ];
 
-// Список категорий с соответствующими путями
 const categories = [
 { name: 'Сумки', path: '/bags' },
 { name: 'Пальто', path: '/coats' },
 { name: 'Платья', path: '/dress' },
 { name: 'Ароматы', path: '/fragrances' },
-{ name: 'Куртки', path: '/jackets' },
-{ name: 'Джинсы', path: '/jeans' },
 { name: 'Джемперы и кардиганы', path: '/jumpers-and-cardigans' },
 { name: 'Новинки', path: '/new' },
 { name: 'Брюки', path: '/pants' },
-{ name: 'Рубашки и блузки', path: '/shirts-and-blouses' },
+{ name: 'Рубашки и футболки', path: '/shirts-and-blouses' },
 { name: 'Обувь', path: '/shoes' },
-{ name: 'Топы', path: '/tops' },
-{ name: 'Футболки', path: '/tshirts' },
-{ name: 'Жилеты', path: '/vests' },
-{ name: 'вечерние', path: '/party' },
 ];
 
 export default function EwimvaJumpersAndCardigans(): JSX.Element {

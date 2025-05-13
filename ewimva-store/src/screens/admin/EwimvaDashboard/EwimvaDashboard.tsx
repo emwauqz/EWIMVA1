@@ -155,7 +155,7 @@ const recentOrders = [
 ];
 
 const months = ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'];
-const revenues = [240000, 180000, 150000, 120000, 110000, 50000, 0, 0, 0, 0, 0, 0]; // Выручка в копейках
+const revenues = [240000, 180000, 150000, 120000, 110000, 50000, 0]; 
 
 export default function EwimvaDashboard(): JSX.Element {
   const [orders, setOrders] = useState(recentOrders);

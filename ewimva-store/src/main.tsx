@@ -14,15 +14,10 @@ import EwimvaDress from "./screens/women/EwimvaDress/EwimvaDress";
 import EwimvaBags from "./screens/women/EwimvaBags/EwimvaBags";
 import EwimvaCoatsWomen from "./screens/women/EwimvaCoats/EwimvaCoats";
 import EwimvaFragrances from "./screens/women/EwimvaFragrances/EwimvaFragrances";
-import EwimvaJacketsWomen from "./screens/women/EwimvaJackets/EwimvaJackets";
-import EwimvaJeansWomen from "./screens/women/EwimvaJeans/EwimvaJeans";
 import EwimvaJumpersAndCardigans from "./screens/women/EwimvaJumpersAndCardigans/EwimvaJumpersAndCardigans";
 import EwimvaPantsWomen from "./screens/women/EwimvaPants/EwimvaPants";
 import EwimvaShirtsAndBlouses from "./screens/women/EwimvaShirtsAndBlouses/EwimvaShirtsAndBlouses";
 import EwimvaShoesWomen from "./screens/women/EwimvaShoes/EwimvaShoes";
-import EwimvaTops from "./screens/women/EwimvaTops/EwimvaTops";
-import EwimvaTshirtsWomen from "./screens/women/EwimvaTshirts/EwimvaTshirts";
-import EwimvaVests from "./screens/women/EwimvaVests/EwimvaVests";
 import EwimvaClothes from "./screens/EwimvaClothes/EwimvaClothes";
 import EwimvaMyAccount from "./screens/EwimvaMyAccount/EwimvaMyAccount";
 import EwimvaMyDetails from "./screens/EwimvaMyDetails/EwimvaMyDetails";
@@ -64,16 +59,11 @@ import { Product as BagsProduct } from "./screens/women/EwimvaBags/Product";
 import { Product as CoatsProduct } from "./screens/women/EwimvaCoats/Product";
 import { Product as DressProduct } from "./screens/women/EwimvaDress/Product";
 import { Product as FragrancesProduct } from "./screens/women/EwimvaFragrances/Product";
-import { Product as JacketsProduct } from "./screens/women/EwimvaJackets/Product";
-import { Product as JeansProduct } from "./screens/women/EwimvaJeans/Product";
 import { Product as JumpersAndCardigansProduct } from "./screens/women/EwimvaJumpersAndCardigans/Product";
 import { Product as NewProduct } from "./screens/women/EwimvaNewNow/Product";
 import { Product as PantsProduct } from "./screens/women/EwimvaPants/Product";
 import { Product as ShirtsAndBlousesProduct } from "./screens/women/EwimvaShirtsAndBlouses/Product";
 import { Product as ShoesProduct } from "./screens/women/EwimvaShoes/Product";
-import { Product as TopsProduct } from "./screens/women/EwimvaTops/Product";
-import { Product as TshirtsProduct } from "./screens/women/EwimvaTshirts/Product";
-import { Product as VestsProduct } from "./screens/women/EwimvaVests/Product";
 import { Product as PartyProduct } from "./screens/women/EwimvaPartyAndEvents/Product";
 
 import { Product as MenBackpacksAndBagsProduct } from "./screens/men/BackpacksAndBags/Product";
@@ -271,38 +261,6 @@ const AppContent = () => {
           }
         />
         <Route
-          path="/jackets"
-          element={
-            <ProtectedRoute>
-              <EwimvaJacketsWomen />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/jackets/product/:id"
-          element={
-            <ProtectedRoute>
-              <JacketsProduct />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/jeans"
-          element={
-            <ProtectedRoute>
-              <EwimvaJeansWomen />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/jeans/product/:id"
-          element={
-            <ProtectedRoute>
-              <JeansProduct />
-            </ProtectedRoute>
-          }
-        />
-        <Route
           path="/jumpers-and-cardigans"
           element={
             <ProtectedRoute>
@@ -363,54 +321,6 @@ const AppContent = () => {
           element={
             <ProtectedRoute>
               <ShoesProduct />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/tops"
-          element={
-            <ProtectedRoute>
-              <EwimvaTops />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/tops/product/:id"
-          element={
-            <ProtectedRoute>
-              <TopsProduct />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/tshirts"
-          element={
-            <ProtectedRoute>
-              <EwimvaTshirtsWomen />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/tshirts/product/:id"
-          element={
-            <ProtectedRoute>
-              <TshirtsProduct />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/vests"
-          element={
-            <ProtectedRoute>
-              <EwimvaVests />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/vests/product/:id"
-          element={
-            <ProtectedRoute>
-              <VestsProduct />
             </ProtectedRoute>
           }
         />
