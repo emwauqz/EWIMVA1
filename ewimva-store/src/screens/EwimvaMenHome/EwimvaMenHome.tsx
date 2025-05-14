@@ -6,7 +6,6 @@ import { Button } from "../../components/ui/button";
 export const EwimvaMenHome = (): JSX.Element => {
   const navigate = useNavigate();
 
-  // Данные категорий для секции ElementWrapperByAnima
   const categoryData = [
     {
       id: 1,
@@ -28,9 +27,9 @@ export const EwimvaMenHome = (): JSX.Element => {
     },
     {
       id: 4,
-      name: "ДВОЙКИ",
+      name: "КУРТКИ",
       image: "/complect.png",
-      path: "/men/sweaters", // Предполагаю, что "Двойки" может относиться к свитерам/комплектам
+      path: "/men/jackets-outerwear", 
     },
   ];
 
@@ -69,9 +68,8 @@ export const EwimvaMenHome = (): JSX.Element => {
       </nav> */}
 
       <div className="bg-white w-full max-w-[1920px] relative">
-        {/* Секция ElementByAnima */}
         <section className="relative w-full h-[1144px]" onClick={() => navigate('/men/new')}>
-          <div className="w-full h-full bg-[url(/ph1.png)] bg-cover bg-center flex flex-col items-center justify-center cursor-pointer">
+          <div className="w-full h-full bg-[url(/ph2.png)] bg-cover bg-center flex flex-col items-center justify-center cursor-pointer">
             <h2 className="[text-shadow:0px_0px_10px_#1313131a] font-['Inter',Helvetica] font-bold text-white text-[54.5px] text-center tracking-[0] leading-[68px] underline">
               NEW NOW
             </h2>
@@ -80,8 +78,7 @@ export const EwimvaMenHome = (): JSX.Element => {
             </span>
           </div>
         </section>
-
-        {/* Секция ElementWrapperByAnima */}
+        
         <div className="w-full mt-0">
           <div className="grid grid-cols-1 md:grid-cols-2">
             {categoryData.map((category) => (
@@ -105,7 +102,6 @@ export const EwimvaMenHome = (): JSX.Element => {
           </div>
         </div>
 
-        {/* Секция OverlapWrapperByAnima */}
         <section className="relative w-full h-[1144px]" onClick={() => navigate('/men/suit')}>
           <div className="w-full h-full bg-[url(/ph6.png)] bg-cover bg-center flex flex-col items-center justify-center cursor-pointer">
             <div className="flex flex-col items-center gap-6">

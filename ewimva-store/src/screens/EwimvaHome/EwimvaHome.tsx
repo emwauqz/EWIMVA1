@@ -6,7 +6,6 @@ import { Button } from "../../components/ui/button";
 export const EwimvaHome = (): JSX.Element => {
   const navigate = useNavigate();
 
-  // Данные категорий для секции ElementWrapperByAnima
   const categoryData = [
     {
       id: 1,
@@ -16,9 +15,9 @@ export const EwimvaHome = (): JSX.Element => {
     },
     {
       id: 2,
-      name: "ТОПЫ",
+      name: "РУБАШКИ",
       image: "/87069215-99-d6--1-.png",
-      path: "/tops",
+      path: "/shirts-and-blouses",
     },
     {
       id: 3,
@@ -39,7 +38,7 @@ export const EwimvaHome = (): JSX.Element => {
       className="bg-white flex flex-col items-center w-full"
       data-model-id="1:18"
     >
-      <nav className="bg-gray-800 p-20 w-full">
+      {/* <nav className="bg-gray-800 p-20 w-full">
         <ul className="flex flex-wrap justify-center space-x-4 text-white">
           <li><Link to="/">Главная</Link></li>
           <li><Link to="/men">Мужская</Link></li>
@@ -68,10 +67,9 @@ export const EwimvaHome = (): JSX.Element => {
           <li><Link to="/checkout">Оформление заказа</Link></li>
           <li><Link to="/cart">Корзина</Link></li>
         </ul>
-      </nav>
+      </nav> */}
 
       <div className="bg-white w-full max-w-[1920px] overflow-hidden relative">
-        {/* Секция ElementByAnima */}
         <section className="relative w-full h-[1144px]" onClick={() => navigate('/new')}>
           <div className="w-full h-full bg-[url(/tak1.png)] bg-cover bg-center flex flex-col items-center justify-center cursor-pointer">
             <h2 className="text-[54.5px] font-bold text-white text-center tracking-normal leading-[68px] underline [text-shadow:0px_0px_10px_#1313131a] font-['Inter',Helvetica] mb-8">
@@ -83,7 +81,6 @@ export const EwimvaHome = (): JSX.Element => {
           </div>
         </section>
 
-        {/* Секция ElementWrapperByAnima */}
         <div className="w-full mt-0">
           <div className="grid grid-cols-1 md:grid-cols-2">
             {categoryData.map((category) => (
@@ -107,7 +104,6 @@ export const EwimvaHome = (): JSX.Element => {
           </div>
         </div>
 
-        {/* Секция OverlapWrapperByAnima */}
         <section className="relative w-full h-[1144px]" onClick={() => navigate('/party')}>
           <div className="w-full h-full bg-[url(/landing-fiesta.png)] bg-cover bg-center flex flex-col items-center justify-center cursor-pointer">
             <div className="flex flex-col items-center gap-6">

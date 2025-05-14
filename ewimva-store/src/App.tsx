@@ -28,32 +28,20 @@ import { Product as ShoesProduct } from "./screens/women/EwimvaShoes/Product";
 import { Product as PartyProduct } from "./screens/women/EwimvaPartyAndEvents/Product";
 
 // Men imports
-import EwimvaBackpacksAndBags from './screens/men/BackpacksAndBags/EwimvaBackpacksAndBags';
-import EwimvaCoatsMen from './screens/men/Coats/EwimvaCoats';
-import EwimvaHoodies from './screens/men/Hoodies/EwimvaHoodies';
 import EwimvaJacketsOuterwear from './screens/men/JacketsOuterwear/EwimvaJacketsOuterwear';
-import EwimvaJeansMen from './screens/men/Jeans/EwimvaJeans';
 import EwimvaPantsMen from './screens/men/Pants/EwimvaPants';
 import EwimvaNewNowMen from './screens/men/NewNow/EwimvaNewNow';
 import EwimvaShirtsMen from './screens/men/Shirts/EwimvaShirts';
 import EwimvaShoesMen from './screens/men/Shoes/EwimvaShoes';
 import EwimvaSuit from './screens/men/Suit/EwimvaSuit';
-import EwimvaSweaters from './screens/men/Sweaters/EwimvaSweaters';
-import EwimvaTshirtsMen from './screens/men/Tshirts/EwimvaTshirts';
 
 // Импорты Product для каждой категории (Men)
-import { Product as MenBackpacksAndBagsProduct } from "./screens/men/BackpacksAndBags/Product";
-import { Product as MenCoatsProduct } from "./screens/men/Coats/Product";
-import { Product as MenHoodiesProduct } from "./screens/men/Hoodies/Product";
 import { Product as MenJacketsOuterwearProduct } from "./screens/men/JacketsOuterwear/Product";
-import { Product as MenJeansProduct } from "./screens/men/Jeans/Product";
 import { Product as MenNewProduct } from "./screens/men/NewNow/Product";
 import { Product as MenPantsProduct } from "./screens/men/Pants/Product";
 import { Product as MenShirtsProduct } from "./screens/men/Shirts/Product";
 import { Product as MenShoesProduct } from "./screens/men/Shoes/Product";
 import { Product as MenSuitProduct } from "./screens/men/Suit/Product";
-import { Product as MenSweatersProduct } from "./screens/men/Sweaters/Product";
-import { Product as MenTshirtsProduct } from "./screens/men/Tshirts/Product";
 
 const App: React.FC = () => {
   return (
@@ -85,16 +73,8 @@ const App: React.FC = () => {
             <Route path="/party/product/:id" element={<PartyProduct />} />
 
             {/* Men Routes */}
-            <Route path="/men/backpacks-and-bags" element={<EwimvaBackpacksAndBags />} />
-            <Route path="/men/backpacks-and-bags/product/:id" element={<MenBackpacksAndBagsProduct />} />
-            <Route path="/men/coats" element={<EwimvaCoatsMen />} />
-            <Route path="/men/coats/product/:id" element={<MenCoatsProduct />} />
-            <Route path="/men/hoodies" element={<EwimvaHoodies />} />
-            <Route path="/men/hoodies/product/:id" element={<MenHoodiesProduct />} />
             <Route path="/men/jackets-outerwear" element={<EwimvaJacketsOuterwear />} />
             <Route path="/men/jackets-outerwear/product/:id" element={<MenJacketsOuterwearProduct />} />
-            <Route path="/men/jeans" element={<EwimvaJeansMen />} />
-            <Route path="/men/jeans/product/:id" element={<MenJeansProduct />} />
             <Route path="/men/pants" element={<EwimvaPantsMen />} />
             <Route path="/men/pants/product/:id" element={<MenPantsProduct />} />
             <Route path="/men/new" element={<EwimvaNewNowMen />} />
@@ -105,10 +85,6 @@ const App: React.FC = () => {
             <Route path="/men/shoes/product/:id" element={<MenShoesProduct />} />
             <Route path="/men/suit" element={<EwimvaSuit />} />
             <Route path="/men/suit/product/:id" element={<MenSuitProduct />} />
-            <Route path="/men/sweaters" element={<EwimvaSweaters />} />
-            <Route path="/men/sweaters/product/:id" element={<MenSweatersProduct />} />
-            <Route path="/men/tshirts" element={<EwimvaTshirtsMen />} />
-            <Route path="/men/tshirts/product/:id" element={<MenTshirtsProduct />} />
 
             {/* Default Route */}
             <Route path="/" element={<EwimvaNewNow />} />

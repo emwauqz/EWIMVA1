@@ -254,18 +254,11 @@ colorVariants: [],
 
 // Список категорий с соответствующими путями
 const categories = [
-{ name: 'Рюкзаки и сумки', path: '/men/backpacks-and-bags' },
-{ name: 'Пальто', path: '/men/coats' },
-{ name: 'Худи', path: '/men/hoodies' },
 { name: 'Куртки и верхняя одежда', path: '/men/jackets-outerwear' },
-{ name: 'Джинсы', path: '/men/jeans' },
 { name: 'Новинки', path: '/men/new' },
 { name: 'Брюки', path: '/men/pants' },
 { name: 'Рубашки', path: '/men/shirts' },
-{ name: 'Обувь', path: '/men/shoes' },
 { name: 'Костюмы', path: '/men/suit' },
-{ name: 'Джемперы', path: '/men/sweaters' },
-{ name: 'Футболки', path: '/men/tshirts' },
 ];
 
 export default function NewNow(): JSX.Element {
