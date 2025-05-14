@@ -695,20 +695,6 @@ return (
                 </div>
 
                 <div className="flex items-center mb-6">
-                {/* <div className="w-[34px] h-[34px] relative">
-                    <div className="relative w-[18px] h-[18px] top-2 left-2">
-                    <div className="bg-[url(/----------------------.png)] absolute w-[18px] h-[18px] top-0 left-0 opacity-50 bg-cover bg-[50%_50%]" />
-                    <div className="absolute w-6 h-px top-2 left-[-3px] bg-[#131313] -rotate-45" />
-                    </div>
-                </div>
-
-                <div className="w-[34px] h-[34px] relative">
-                    <div className="absolute w-[18px] h-px top-[29px] left-2 bg-[#131313]" />
-                    <div className="absolute w-[18px] h-[18px] top-2 left-2">
-                    <div className="bg-[url(/--------------------.png)] absolute w-[18px] h-[18px] top-0 left-0 opacity-50 bg-cover bg-[50%_50%]" />
-                    <div className="absolute w-6 h-px top-2 left-[-3px] bg-[#131313] -rotate-45" />
-                    </div>
-                </div> */}
 
                 <div className="ml-auto font-normal text-[12.2px] text-[#131313] text-right">
                     {selectedProduct.color}
