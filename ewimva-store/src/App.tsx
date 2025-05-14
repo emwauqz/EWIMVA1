@@ -24,7 +24,6 @@ import { Product as NewProduct } from "./screens/women/EwimvaNewNow/Product";
 import { Product as PantsProduct } from "./screens/women/EwimvaPants/Product";
 import { Product as ShirtsAndBlousesProduct } from "./screens/women/EwimvaShirtsAndBlouses/Product";
 import { Product as ShoesProduct } from "./screens/women/EwimvaShoes/Product";
-
 import { Product as PartyProduct } from "./screens/women/EwimvaPartyAndEvents/Product";
 
 // Men imports
