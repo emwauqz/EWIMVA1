@@ -84,12 +84,12 @@ export const EwimvaMyDetails = (): JSX.Element => {
     >
       <div className="bg-white w-full max-w-[1920px] flex flex-col">
         <main className="flex flex-col items-center relative">
-          <h1 className="mt-[109px] [font-family:'Meow_Script',Helvetica] font-normal text-black text-5xl text-center tracking-[0] leading-normal">
+          <h1 className="mt-[109px] [font-family:'Meow_Script',Helvetica] font-normal text-black text-5xl text-center tracking-[0] leading-normal px-4 sm:px-0">
             {userData.name}
           </h1>
 
           <div className="w-full flex justify-center mt-10">
-            <div className="w-full max-w-[438px] space-y-6">
+            <div className="w-full max-w-[438px] space-y-6 px-4 sm:px-6 md:px-0">
               {profileData.map((item, index) => (
                 <div key={index} className="flex justify-between items-start">
                   <div className="space-y-1">

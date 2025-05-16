@@ -486,6 +486,8 @@ const savedFavorites = localStorage.getItem("favorites");
 return savedFavorites ? JSON.parse(savedFavorites) : [];
 });
 
+const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
 useEffect(() => {
 localStorage.setItem("favorites", JSON.stringify(favorites));
 }, [favorites]);
@@ -519,14 +521,56 @@ alert(`${product.name} добавлен в корзину!`);
 
 const selectedProduct = products.find((p) => p.id === productId) || products[0];
 
-// Size options data
+const allPhotos = [...selectedProduct.photosLarge, ...selectedProduct.photosSmall];
+
+const nextImage = () => {
+setCurrentImageIndex((prev) => (prev + 1) % allPhotos.length);
+};
+
+const prevImage = () => {
+setCurrentImageIndex((prev) => (prev - 1 + allPhotos.length) % allPhotos.length);
+};
+
 const sizes = ["XXS", "XS", "S", "M", "L", "XL"];
 
 return (
 <div className="bg-white flex flex-row justify-center w-full" style={{ marginTop: '56px' }}>
     <div className="bg-white w-full max-w-[1920px] relative">
-    <div className="flex">
-        <div className="flex-1 min-w-[1150px]">
+    <div className="flex flex-col md:flex-row">
+        {/* Mobile Carousel */}
+        <div className="md:hidden w-full relative">
+        <div className="relative w-full h-[500px] overflow-hidden">
+            <img
+            className="w-full h-auto max-h-[500px] object-contain"
+            src={allPhotos[currentImageIndex].src}
+            alt={allPhotos[currentImageIndex].alt}
+            />
+            <button
+            onClick={prevImage}
+            className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white p-2 rounded-full z-10"
+            >
+            ←
+            </button>
+            <button
+            onClick={nextImage}
+            className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white p-2 rounded-full z-10"
+            >
+            →
+            </button>
+        </div>
+        <div className="flex justify-center mt-4 space-x-2">
+            {allPhotos.map((_, index) => (
+            <button
+                key={index}
+                className={`w-2 h-2 rounded-full ${index === currentImageIndex ? 'bg-gray-800' : 'bg-gray-400'}`}
+                onClick={() => setCurrentImageIndex(index)}
+            />
+            ))}
+        </div>
+        </div>
+
+        {/* Desktop Photo Grid */}
+        <div className="hidden md:block flex-1 min-w-[1150px]">
         <div className="grid grid-cols-2">
             {selectedProduct.photosLarge.map((photo, index) => (
             <img
@@ -549,7 +593,8 @@ return (
         </div>
         </div>
 
-        <div className="w-[770px] bg-white px-8">
+        {/* Product Details */}
+        <div className="w-full md:w-[770px] bg-white px-8 md:px-8 py-4 md:py-0 relative z-10">
         <Card className="border-none shadow-none">
             <CardContent className="p-0">
             <Accordion type="single" collapsible className="w-full">
@@ -596,7 +641,7 @@ return (
                 </AccordionItem>
             </Accordion>
             <div className="w-full max-w-[592px] py-6">
-                <div className="mb-2 font-normal text-[13px] text-[#131313] leading-[18px]">
+                <div className="mb-2 font-bold text-[13px] text-[#131313] leading-[18px]">
                 {selectedProduct.name}
                 </div>
 
@@ -605,30 +650,32 @@ return (
                 </div>
 
                 <div className="flex items-center mb-6">
-
                 <div className="ml-auto font-normal text-[12.2px] text-[#131313] text-right">
                     {selectedProduct.color}
                 </div>
                 </div>
 
+                {/* Sizes (hidden on mobile, shown on desktop) */}
+                <div className="hidden md:block">
                 <Card className="border-0 shadow-none">
-                <CardContent className="p-0">
+                    <CardContent className="p-0">
                     <div className="border-t border-b border-[#d7d7d8]">
-                    {sizes.map((size, index) => (
+                        {sizes.map((size, index) => (
                         <div
-                        key={size}
-                        className={`h-9 flex items-center ${index !== sizes.length - 1 ? "border-b border-[#d7d7d8]" : ""}`}
+                            key={size}
+                            className={`h-9 flex items-center ${index !== sizes.length - 1 ? "border-b border-[#d7d7d8]" : ""}`}
                         >
-                        <div className="ml-4 font-normal text-[13px] text-[#131313]">
+                            <div className="ml-4 font-normal text-[13px] text-[#131313]">
                             {size}
+                            </div>
                         </div>
-                        </div>
-                    ))}
+                        ))}
                     </div>
-                </CardContent>
+                    </CardContent>
                 </Card>
+                </div>
 
-                <div className="mt-3 mb-6">
+                <div className="mt-3 mb-2 md:mb-6">
                 <button
                     className="font-bold text-[12.6px] text-[#131313] underline"
                     onClick={() => navigate("/help")}
@@ -668,7 +715,7 @@ return (
         </div>
     </div>
 
-    <div className="px-[196px] py-8">
+    <div className="px-8 md:px-[196px] py-8 relative z-10">
         <div className="font-bold text-[#131313] text-[12.7px] tracking-[0] leading-[18px] [font-family:'Inter',Helvetica]">
         ОПИСАНИЕ
         </div>
@@ -677,26 +724,26 @@ return (
         </div>
     </div>
 
-    <section className="w-full py-8 px-8">
-        <h2 className="font-bold text-[12.4px] text-[#131313] mb-[68px] font-['Inter',Helvetica] leading-[18px]">
+    <section className="w-full py-8 px-0 relative z-10">
+        <h2 className="font-bold text-[14px] text-[#131313] mb-[68px] font-['Inter',Helvetica] leading-[18px] px-8 md:px-9">
         В ТОМ ЖЕ СТИЛЕ
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-[1px]">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-0">
         {products.map((product) => (
             <Card
             key={product.id}
-            className="w-full max-w-[308px] h-[471px] bg-white border-none rounded-none"
+            className="w-full h-[550px] bg-white border-none rounded-none overflow-hidden"
             >
             <CardContent className="p-0">
                 <div className="relative h-full">
                 <img
-                    className="w-full h-[432px] object-cover"
+                    className="w-full h-[511px] object-cover"
                     alt={product.name}
                     src={product.image}
                 />
-                <div className="flex justify-between items-center px-2 mt-3">
-                    <p className="font-normal text-[11.9px] text-[#131313] leading-[18px] font-['Inter',Helvetica] truncate max-w-[238px]">
+                <div className="flex justify-between items-center px-2 mt-3 relative z-10">
+                    <p className="font-normal text-[11.9px] text-[#131313] leading-[18px] font-['Inter',Helvetica] truncate max-w-[80%]">
                     {product.name}
                     </p>
                     <HeartIcon className="w-4 h-[15px]" />

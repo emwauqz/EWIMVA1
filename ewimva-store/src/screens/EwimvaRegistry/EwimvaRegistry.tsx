@@ -12,7 +12,7 @@ export const EwimvaRegistry = (): JSX.Element => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  const [phone, setPhone] = useState("+996"); // Начинаем с фиксированного префикса
+  const [phone, setPhone] = useState("+996");
   const [birthDate, setBirthDate] = useState("");
   const [gender, setGender] = useState("");
   const [error, setError] = useState("");
@@ -27,8 +27,7 @@ export const EwimvaRegistry = (): JSX.Element => {
   };
 
   const formatPhoneNumber = (value: string) => {
-    // Удаляем всё, кроме цифр, после префикса +996
-    const digits = value.replace(/[^\d]/g, "").slice(3); // Убираем префикс +996
+    const digits = value.replace(/[^\d]/g, "").slice(3); 
     if (digits.length === 0) return "+996";
     if (digits.length <= 3) return `+996 (${digits})`;
     if (digits.length <= 6) return `+996 (${digits.slice(0, 3)}) ${digits.slice(3)}`;
@@ -38,12 +37,11 @@ export const EwimvaRegistry = (): JSX.Element => {
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    // Проверяем, что начинается с +996
     if (!value.startsWith("+996")) {
       setPhone("+996");
       return;
     }
-    // Ограничиваем ввод до 9 цифр после +996
+    
     const digits = value.replace(/[^\d]/g, "").slice(3);
     if (digits.length > 9) return;
     setPhone(formatPhoneNumber(value));
@@ -101,7 +99,7 @@ export const EwimvaRegistry = (): JSX.Element => {
   return (
     <div className="bg-white flex flex-row justify-center w-full">
       <div className="bg-white overflow-hidden w-[1920px] h-[1200px] relative">
-        <div className="absolute top-[234px] w-full flex justify-center">
+        <div className="absolute top-[170px] w-full flex justify-center">
           <Card className="w-[364px] h-[650px] border-none shadow-none">
             <CardContent className="p-0">
               <div className="w-[165px] [font-family:'Inter',Helvetica] font-bold text-[#131313] text-[15.8px] tracking-[0] leading-5 whitespace-nowrap mb-11">

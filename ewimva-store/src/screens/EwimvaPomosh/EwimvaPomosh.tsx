@@ -8,7 +8,7 @@ import {
   TableRow,
 } from "../../components/ui/table";
 
-// Компонент CareInstructions (ранее GroupByAnima)
+// Компонент CareInstructions
 const CareInstructions = (): JSX.Element => {
   const careInstructionsData = [
     {
@@ -111,14 +111,35 @@ const CareInstructions = (): JSX.Element => {
 
   return (
     <section className="w-full max-w-[708px] mx-auto py-8">
-      <h2 className="text-[15px] leading-5 font-bold text-[#131313] mb-8">
+      <style>
+        {`
+          @media (max-width: 640px) {
+            .care-section { max-width: 90%; padding: 10px 4px; }
+            .care-section h2 { font-size: 11px; margin-bottom: 6px; }
+            .care-section h3 { font-size: 10px; }
+            .care-section p { font-size: 10px; }
+            .care-section img { width: 30px; height: auto; }
+          }
+          @media (min-width: 641px) and (max-width: 1024px) {
+            .care-section { max-width: 700px; padding: 20px 6px; }
+            .care-section h2 { font-size: 11.5px; margin-bottom: 7px; }
+            .care-section h3 { font-size: 11px; }
+            .care-section p { font-size: 11px; }
+            .care-section img { width: 35px; height: auto; }
+          }
+          @media (min-width: 1025px) {
+            .care-section { max-width: 708px; padding: 8px; }
+          }
+        `}
+      </style>
+      <h2 className="text-[12px] leading-5 font-bold text-[#131313] mb-8">
         КАК УХАЖИВАТЬ ЗА ОДЕЖДОЙ?
       </h2>
 
       <div className="space-y-10">
         {careInstructionsData.map((category, categoryIndex) => (
           <div key={categoryIndex} className="space-y-4">
-            <h3 className="text-[12.2px] leading-[18px] font-bold text-[#131313]">
+            <h3 className="text-[12px] leading-[18px] font-bold text-[#131313]">
               {category.category}
             </h3>
 
@@ -134,7 +155,7 @@ const CareInstructions = (): JSX.Element => {
                       />
                     </div>
                   </div>
-                  <p className="text-[11.9px] leading-[18px] font-normal text-[#131313] ml-4">
+                  <p className="text-[12px] leading-[18px] font-normal text-[#131313] ml-4">
                     {item.description}
                   </p>
                 </div>
@@ -147,7 +168,7 @@ const CareInstructions = (): JSX.Element => {
   );
 };
 
-// Компонент SizeChartTable (ранее GroupWrapperByAnima)
+// Компонент SizeChartTable
 const SizeChartTable = (): JSX.Element => {
   const headers = ["РАЗМЕР", "ГРУДЬ", "ТАЛИЯ", "БЕДРА"];
   const sizeData = [
@@ -166,7 +187,26 @@ const SizeChartTable = (): JSX.Element => {
 
   return (
     <section className="w-full max-w-[1000px] mx-auto my-16">
-      <h2 className="font-bold text-[#131313] text-[12.7px] mb-4 [font-family:'Inter',Helvetica] tracking-[0] leading-[18px]">
+      <style>
+        {`
+          @media (max-width: 640px) {
+            .size-chart-section { max-width: 90%; margin: 10px auto; padding: 0 4px; }
+            .size-chart-section h2 { font-size: 11px; margin-bottom: 3px; }
+            .size-chart-section table { font-size: 11px; }
+            .size-chart-section th, .size-chart-section td { height: 30px; }
+          }
+          @media (min-width: 641px) and (max-width: 1024px) {
+            .size-chart-section { max-width: 900px; margin: 12px auto; padding: 0 6px; }
+            .size-chart-section h2 { font-size: 11.5px; margin-bottom: 3px; }
+            .size-chart-section table { font-size: 11.5px; }
+            .size-chart-section th, .size-chart-section td { height: 40px; }
+          }
+          @media (min-width: 1025px) {
+            .size-chart-section { max-width: 1000px; padding: 0 8px; }
+          }
+        `}
+      </style>
+      <h2 className="font-bold text-[#131313] text-[12px] mb-4 [font-family:'Inter',Helvetica] tracking-[0] leading-[18px]">
         ТАБЛИЦА РАЗМЕРОВ
       </h2>
 
@@ -179,7 +219,7 @@ const SizeChartTable = (): JSX.Element => {
                   key={index}
                   className="h-[46px] border border-solid border-[#d7d7d8] text-center"
                 >
-                  <div className="font-bold text-[#131313] text-[12.8px] [font-family:'Inter',Helvetica] tracking-[0] leading-[18px]">
+                  <div className="font-bold text-[#131313] text-[12px] [font-family:'Inter',Helvetica] tracking-[0] leading-[18px]">
                     {header}
                   </div>
                 </TableHead>
@@ -190,22 +230,22 @@ const SizeChartTable = (): JSX.Element => {
             {sizeData.map((row, index) => (
               <TableRow key={index}>
                 <TableCell className="h-[46px] border border-solid border-[#d7d7d8] text-center">
-                  <div className="[font-family:'Inter',Helvetica] font-normal text-[#131313] text-[13px] tracking-[0] leading-[18px]">
+                  <div className="[font-family:'Inter',Helvetica] font-normal text-[#131313] text-[12px] tracking-[0] leading-[18px]">
                     {row.size}
                   </div>
                 </TableCell>
                 <TableCell className="h-[46px] border border-solid border-[#d7d7d8] text-center">
-                  <div className="[font-family:'Inter',Helvetica] font-normal text-[#131313] text-[12.7px] tracking-[0] leading-[18px]">
+                  <div className="[font-family:'Inter',Helvetica] font-normal text-[#131313] text-[12px] tracking-[0] leading-[18px]">
                     {row.chest}
                   </div>
                 </TableCell>
                 <TableCell className="h-[46px] border border-solid border-[#d7d7d8] text-center">
-                  <div className="[font-family:'Inter',Helvetica] font-normal text-[#131313] text-[12.7px] tracking-[0] leading-[18px]">
+                  <div className="[font-family:'Inter',Helvetica] font-normal text-[#131313] text-[12px] tracking-[0] leading-[18px]">
                     {row.waist}
                   </div>
                 </TableCell>
                 <TableCell className="h-[46px] border border-solid border-[#d7d7d8] text-center">
-                  <div className="[font-family:'Inter',Helvetica] font-normal text-[#131313] text-[12.7px] tracking-[0] leading-[18px]">
+                  <div className="[font-family:'Inter',Helvetica] font-normal text-[#131313] text-[12px] tracking-[0] leading-[18px]">
                     {row.hips}
                   </div>
                 </TableCell>
@@ -218,7 +258,7 @@ const SizeChartTable = (): JSX.Element => {
   );
 };
 
-// Компонент SizeConversionTable (ранее DivWrapperByAnima)
+// Компонент SizeConversionTable
 const SizeConversionTable = (): JSX.Element => {
   const headers = ["CN", "DE", "EUR", "FR", "GB", "IT", "KR", "MEX", "US"];
   const sizeData = [
@@ -347,7 +387,26 @@ const SizeConversionTable = (): JSX.Element => {
 
   return (
     <section className="w-full max-w-[1002px] mx-auto my-8">
-      <h2 className="text-[12.7px] leading-[18px] font-bold text-[#131313] tracking-[0] whitespace-nowrap mb-4 font-sans">
+      <style>
+        {`
+          @media (max-width: 640px) {
+            .conversion-section { max-width: 90%; margin: 10px auto; padding: 0 4px; }
+            .conversion-section h2 { font-size: 11px; margin-bottom: 3px; }
+            .conversion-section table { font-size: 11px; }
+            .conversion-section th, .conversion-section td { height: 30px; }
+          }
+          @media (min-width: 641px) and (max-width: 1024px) {
+            .conversion-section { max-width: 900px; margin: 12px auto; padding: 0 6px; }
+            .conversion-section h2 { font-size: 11.5px; margin-bottom: 3px; }
+            .conversion-section table { font-size: 11.5px; }
+            .conversion-section th, .conversion-section td { height: 40px; }
+          }
+          @media (min-width: 1025px) {
+            .conversion-section { max-width: 1002px; padding: 0 8px; }
+          }
+        `}
+      </style>
+      <h2 className="text-[12px] leading-[18px] font-bold text-[#131313] tracking-[0] whitespace-nowrap mb-4 font-sans">
         СООТВЕТСТВИЕ МЕЖДУНАРОДНЫХ РАЗМЕРОВ
       </h2>
 
@@ -361,7 +420,7 @@ const SizeConversionTable = (): JSX.Element => {
                   className="h-10 border border-solid border-[#d7d7d8] text-center p-0"
                 >
                   <div className="flex items-center justify-center h-full">
-                    <span className="font-normal text-[#131313] text-[13px] tracking-[0] leading-[18px] whitespace-nowrap">
+                    <span className="font-normal text-[#131313] text-[12px] tracking-[0] leading-[18px] whitespace-nowrap">
                       {header}
                     </span>
                   </div>
@@ -374,63 +433,63 @@ const SizeConversionTable = (): JSX.Element => {
               <TableRow key={rowIndex}>
                 <TableCell className="h-10 border border-solid border-[#d7d7d8] text-center p-0">
                   <div className="flex items-center justify-center h-full">
-                    <span className="font-normal text-[#131313] text-[12.5px] tracking-[0] leading-[18px] whitespace-nowrap">
+                    <span className="font-normal text-[#131313] text-[12px] tracking-[0] leading-[18px] whitespace-nowrap">
                       {row.cn}
                     </span>
                   </div>
                 </TableCell>
                 <TableCell className="h-10 border border-solid border-[#d7d7d8] text-center p-0">
                   <div className="flex items-center justify-center h-full">
-                    <span className="font-normal text-[#131313] text-[13px] tracking-[0] leading-[18px] whitespace-nowrap">
+                    <span className="font-normal text-[#131313] text-[12px] tracking-[0] leading-[18px] whitespace-nowrap">
                       {row.de}
                     </span>
                   </div>
                 </TableCell>
                 <TableCell className="h-10 border border-solid border-[#d7d7d8] text-center p-0">
                   <div className="flex items-center justify-center h-full">
-                    <span className="font-normal text-[#131313] text-[13px] tracking-[0] leading-[18px] whitespace-nowrap">
+                    <span className="font-normal text-[#131313] text-[12px] tracking-[0] leading-[18px] whitespace-nowrap">
                       {row.eur}
                     </span>
                   </div>
                 </TableCell>
                 <TableCell className="h-10 border border-solid border-[#d7d7d8] text-center p-0">
                   <div className="flex items-center justify-center h-full">
-                    <span className="font-normal text-[#131313] text-[13px] tracking-[0] leading-[18px] whitespace-nowrap">
+                    <span className="font-normal text-[#131313] text-[12px] tracking-[0] leading-[18px] whitespace-nowrap">
                       {row.fr}
                     </span>
                   </div>
                 </TableCell>
                 <TableCell className="h-10 border border-solid border-[#d7d7d8] text-center p-0">
                   <div className="flex items-center justify-center h-full">
-                    <span className="font-normal text-[#131313] text-[13px] tracking-[0] leading-[18px] whitespace-nowrap">
+                    <span className="font-normal text-[#131313] text-[12px] tracking-[0] leading-[18px] whitespace-nowrap">
                       {row.gb}
                     </span>
                   </div>
                 </TableCell>
                 <TableCell className="h-10 border border-solid border-[#d7d7d8] text-center p-0">
                   <div className="flex items-center justify-center h-full">
-                    <span className="font-normal text-[#131313] text-[13px] tracking-[0] leading-[18px] whitespace-nowrap">
+                    <span className="font-normal text-[#131313] text-[12px] tracking-[0] leading-[18px] whitespace-nowrap">
                       {row.it}
                     </span>
                   </div>
                 </TableCell>
                 <TableCell className="h-10 border border-solid border-[#d7d7d8] text-center p-0">
                   <div className="flex items-center justify-center h-full">
-                    <span className="font-normal text-[#131313] text-[13px] tracking-[0] leading-[18px] whitespace-nowrap">
+                    <span className="font-normal text-[#131313] text-[12px] tracking-[0] leading-[18px] whitespace-nowrap">
                       {row.kr}
                     </span>
                   </div>
                 </TableCell>
                 <TableCell className="h-10 border border-solid border-[#d7d7d8] text-center p-0">
                   <div className="flex items-center justify-center h-full">
-                    <span className="font-normal text-[#131313] text-[13px] tracking-[0] leading-[18px] whitespace-nowrap">
+                    <span className="font-normal text-[#131313] text-[12px] tracking-[0] leading-[18px] whitespace-nowrap">
                       {row.mex}
                     </span>
                   </div>
                 </TableCell>
                 <TableCell className="h-10 border border-solid border-[#d7d7d8] text-center p-0">
                   <div className="flex items-center justify-center h-full">
-                    <span className="font-normal text-[#131313] text-[13px] tracking-[0] leading-[18px] whitespace-nowrap">
+                    <span className="font-normal text-[#131313] text-[12px] tracking-[0] leading-[18px] whitespace-nowrap">
                       {row.us}
                     </span>
                   </div>

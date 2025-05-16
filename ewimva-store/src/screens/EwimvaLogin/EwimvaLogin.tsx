@@ -35,10 +35,9 @@ export const EwimvaLogin = (): JSX.Element => {
       }
     }
 
-    if (email.toLowerCase() === "ewimva@example.com" && password === "Tokebellach_1") {
+    if (email.toLowerCase() === "ewimva@example.com" && password === "Example_12345") {
       console.log("Login successful with default credentials");
       localStorage.setItem('token', 'your_token');
-      localStorage.setItem('userRole', "admin"); // Устанавливаем userRole как admin для тестового пользователя
       navigate('/account');
     } else {
       console.log("Login failed");
