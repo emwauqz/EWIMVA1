@@ -140,3 +140,60 @@ button:focus-visible {
   }
 }
 
+
+
+.carousel-container {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  overflow: hidden;
+}
+
+.carousel-image {
+  width: 100%;
+  height: auto;
+  max-height: 500px;
+  object-fit: contain;
+}
+
+.carousel-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 50%;
+  z-index: 10;
+}
+
+.carousel-nav.prev {
+  left: 10px;
+}
+
+.carousel-nav.next {
+  right: 10px;
+}
+
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+  position: relative;
+  z-index: 10;
+}
+
+.carousel-dot {
+  width: 8px;
+  height: 8px;
+  background: #bbb;
+  border-radius: 50%;
+  margin: 0 4px;
+  cursor: pointer;
+}
+
+.carousel-dot.active {
+  background: #333;
+}

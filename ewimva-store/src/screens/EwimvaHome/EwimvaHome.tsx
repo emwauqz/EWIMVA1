@@ -38,7 +38,7 @@ export const EwimvaHome = (): JSX.Element => {
       className="bg-white flex flex-col items-center w-full"
       data-model-id="1:18"
     >
-      {/* <nav className="bg-gray-800 p-20 w-full">
+      <nav className="bg-gray-800 p-20 w-full">
         <ul className="flex flex-wrap justify-center space-x-4 text-white">
           <li><Link to="/">Главная</Link></li>
           <li><Link to="/men">Мужская</Link></li>
@@ -67,7 +67,7 @@ export const EwimvaHome = (): JSX.Element => {
           <li><Link to="/checkout">Оформление заказа</Link></li>
           <li><Link to="/cart">Корзина</Link></li>
         </ul>
-      </nav> */}
+      </nav>
 
       <div className="bg-white w-full max-w-[1920px] overflow-hidden relative">
         <section className="relative w-full h-[1144px]" onClick={() => navigate('/new')}>
