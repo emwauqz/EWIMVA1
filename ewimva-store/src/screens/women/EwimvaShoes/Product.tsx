@@ -10,179 +10,69 @@ import { Card, CardContent } from "../../../components/ui/card";
 import { HeartIcon } from "lucide-react";
 import { Button } from "../../../components/ui/button";
 
-// Данные о товарах (берем из EwimvaDress.tsx)
-const products = [
-{
-id: 1,
-name: 'Платье с цветами и разрезом',
-category: 'CAPSULE',
-price: 'KGS 5 999',
-image: '/Canvas leather trainers.png',
-colorVariants: [],
-composition: "63% viscose, 37% polyamide",
-origin: "Разработано в Барселоне, Производство: Китай",
-care: "Ручная стирка при 30 °С, Отбеливать запрещено, Гладить при 110 °С, Химчистка запрещена, Запрещено сушить в сушилке",
-photosLarge: [
-    { src: "/Canvas leather trainers.png", alt: "1" },
-    { src: "/Canvas leather trainers_2.png", alt: "2" },
-    { src: "/Canvas leather trainers_3.png", alt: "3" },
-    { src: "/Canvas leather trainers_4.png", alt: "4" },],
-photosSmall: [
-],
-color: "Белый",
-description: "Флэт. Круглый носок. Застежка на липучку. Резиновая подошва. Холщовая ткань. Бычья кожа. ",
-},
-{
-id: 2,
-name: 'Сникерсы с контрастными вставками',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 5 999',
-image: '/Сникерсы с контрастными вставками.png',
-colorVariants: [],
-composition: "65% cotton, 35% polyester",
-origin: "Разработано в Париже, Производство: Вьетнам",
-care: "Машинная стирка при 40 °С, Отбеливать запрещено, Гладить при 150 °С, Химчистка разрешена, Сушка в сушилке разрешена",
-photosLarge: [
-    { src: "/Сникерсы с контрастными вставками.png", alt: "1" },
-    { src: "/Сникерсы с контрастными вставками_2.png", alt: "2" },
-    { src: "/Сникерсы с контрастными вставками_3.png", alt: "3" },
-    { src: "/Сникерсы с контрастными вставками_4.png", alt: "4" },],
-photosSmall: [],
-color: "Белый",
-description: "В состав входит кожа. Круглый носок. Флэт. Контрастные вставки. Шнуровка. ",
-},
-{
-id: 3,
-name: 'Кроссовки из спилка со шнурками',
-category: 'CAPSULE',
-price: 'KGS 5 999',
-image: '/Кроссовки из спилка со шнурками.png',
-colorVariants: [],
-composition: "70% cotton, 30% elastane",
-origin: "Разработано в Милане, Производство: Турция",
-care: "Ручная стирка при 30 °С, Отбеливать запрещено, Гладить при 110 °С, Химчистка запрещена, Запрещено сушить в сушилке",
-photosLarge: [
-    { src: "/Кроссовки из спилка со шнурками.png", alt: "1" },
-    { src: "/Кроссовки из спилка со шнурками_2.png", alt: "2" },
-    { src: "/Кроссовки из спилка со шнурками_3.png", alt: "3" },
-    { src: "/Кроссовки из спилка со шнурками_4.png", alt: "4" },],
-photosSmall: [],
-color: "Белый",
-description: "В состав входит кожа. Вставки из спилка. Флэт. Круглый носок. Шнуровка. Внутренняя подкладка. ",
-},
-{
-id: 4,
-name: 'Кожаные сандалии с пряжкой',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 5 999',
-image: '/Кожаные сандалии с пряжкой.png',
-colorVariants: [],
-composition: "100% cotton",
-origin: "Разработано в Лондоне, Производство: Индия",
-care: "Машинная стирка при 40 °С, Отбеливать запрещено, Гладить при 150 °С, Химчистка разрешена, Сушка в сушилке разрешена",
-photosLarge: [
-    { src: "/Кожаные сандалии с пряжкой.png", alt: "1" },
-    { src: "/Кожаные сандалии с пряжкой_2.png", alt: "2" },
-    { src: "/Кожаные сандалии с пряжкой_3.png", alt: "3" },
-    { src: "/Кожаные сандалии с пряжкой_4.png", alt: "4" },],
-photosSmall: [
-],
-color: "Коричневый средний",
-description: "100% кожа быка. Флэт. Дизайн с ремешком. Открытый дизайн. Декоративная пряжка. Без застежки. ",
-},
-{
-id: 5,
-name: 'Кожаные мокасины с пряжкой',
-category: 'CAPSULE',
-price: 'KGS 5 999',
-image: '/Кожаные мокасины с пряжкой.png',
-colorVariants: [],
-composition: "60% wool, 40% acrylic",
-origin: "Разработано в Нью-Йорке, Производство: Китай",
-care: "Ручная стирка при 30 °С, Отбеливать запрещено, Гладить при 110 °С, Химчистка запрещена, Запрещено сушить в сушилке",
-photosLarge: [
-    { src: "/Кожаные мокасины с пряжкой.png", alt: "1" },
-    { src: "/Кожаные мокасины с пряжкой_2.png", alt: "2" },
-    { src: "/Кожаные мокасины с пряжкой_3.png", alt: "3" },
-    { src: "/Кожаные мокасины с пряжкой_4.png", alt: "4" },],
-photosSmall: [
-],
-color: "Табачно-коричневый",
-description: "100% кожа быка. Присборенная деталь. Квадратный мыс. Флэт. Декоративная пряжка. Металлическая пряжка. Без застежки. Внутренняя подкладка. ",
-},
-{
-id: 6,
-name: 'Ботильоны на каблуке с заостренным мысом',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 5 999',
-image: '/Ботильоны на каблуке с заостренным мысом.png',
-colorVariants: [],
-composition: "63% viscose, 37% polyamide",
-origin: "Разработано в Барселоне, Производство: Китай",
-care: "Ручная стирка при 30 °С, Отбеливать запрещено, Гладить при 110 °С, Химчистка запрещена, Запрещено сушить в сушилке",
-photosLarge: [
-    { src: "/Ботильоны на каблуке с заостренным мысом.png", alt: "1" },
-    { src: "/Ботильоны на каблуке с заостренным мысом_2.png", alt: "2" },
-    { src: "/Ботильоны на каблуке с заостренным мысом_3.png", alt: "3" },
-    { src: "/Ботильоны на каблуке с заостренным мысом_4.png", alt: "4" },],
-photosSmall: [],
-color: "Черный",
-description: "Эффект кожи. С острием. Каблук-блок. Высота каблука 8 см. Сбоку застежка на молнию. ",
-},
-{
-id: 7,
-name: 'Кожаные босоножки с контрастным каблуком',
-category: 'NEW NOW',
-price: 'KGS 5 999',
-image: '/Кожаные босоножки с контрастным каблуком.png',
-colorVariants: [
-],
-composition: "65% cotton, 35% polyester",
-origin: "Разработано в Париже, Производство: Вьетнам",
-care: "Машинная стирка при 40 °С, Отбеливать запрещено, Гладить при 150 °С, Химчистка разрешена, Сушка в сушилке разрешена",
-photosLarge: [
-    { src: "/Кожаные босоножки с контрастным каблуком.png", alt: "1" },
-    { src: "/Кожаные босоножки с контрастным каблуком_2.png", alt: "2" },
-    { src: "/Кожаные босоножки с контрастным каблуком_3.png", alt: "3" },
-    { src: "/Кожаные босоножки с контрастным каблуком_4.png", alt: "4" },],
-photosSmall: [
-],
-color: "Бежевый",
-description: "Элегантные босоножки с оригинальным дизайном благодаря асимметричным ремешкам. Эта идеальная обувь добавит современную изысканность любому наряду. 100% козья кожа. Комбинированные ремешки. Круглый носок. Высокий каблук. Застежка на ремешок с эластичной резинкой. Товары из коллекции CAPSULE можно обменять или вернуть в течение 14 дней с даты отправки. ",
-},
-{
-id: 8,
-name: 'Кожаные сандалии с плетеным ремешком',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 5 999',
-image: '/Кожаные сандалии с плетеным ремешком.png',
-colorVariants: [],
-composition: "70% cotton, 30% elastane",
-origin: "Разработано в Милане, Производство: Турция",
-care: "Ручная стирка при 30 °С, Отбеливать запрещено, Гладить при 110 °С, Химчистка запрещена, Запрещено сушить в сушилке",
-photosLarge: [
-    { src: "/Кожаные сандалии с плетеным ремешком.png", alt: "1" },
-    { src: "/Кожаные сандалии с плетеным ремешком_2.png", alt: "2" },
-    { src: "/Кожаные сандалии с плетеным ремешком_3.png", alt: "3" },
-    { src: "/Кожаные сандалии с плетеным ремешком_4.png", alt: "4" },],
-photosSmall: [
-],
-color: "Черный",
-description: "100% кожа быка. Дизайн с ремешком. Открытый дизайн. Плетение. Без застежки ",
-},
-];
+interface Photo {
+src: string;
+alt: string;
+}
+
+interface Product {
+id: number;
+name: string;
+category: string;
+price: string;
+image: string;
+colorVariants: any[];
+composition: string;
+origin: string;
+care: string;
+photosLarge: Photo[];
+photosSmall: Photo[];
+color: string;
+description: string;
+}
 
 export const Product = (): JSX.Element => {
 const { id } = useParams<{ id: string }>();
 const productId = id ? parseInt(id, 10) : 1;
 const navigate = useNavigate();
 
+const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+const [products, setProducts] = useState<Product[]>([]);
 const [favorites, setFavorites] = useState<number[]>(() => {
 const savedFavorites = localStorage.getItem("favorites");
 return savedFavorites ? JSON.parse(savedFavorites) : [];
 });
-
 const [currentImageIndex, setCurrentImageIndex] = useState(0);
+const [loading, setLoading] = useState(true);
+const [error, setError] = useState<string | null>(null);
+
+useEffect(() => {
+const fetchData = async () => {
+    try {
+    // Загрузка выбранного товара
+    const productResponse = await fetch(`http://localhost:3001/products/${productId}`);
+    if (!productResponse.ok) {
+        throw new Error('Товар не найден');
+    }
+    const productData: Product = await productResponse.json();
+    setSelectedProduct(productData);
+
+    // Загрузка всех товаров для секции "В том же стиле"
+    const productsResponse = await fetch('http://localhost:3001/products');
+    if (!productsResponse.ok) {
+        throw new Error('Ошибка загрузки товаров');
+    }
+    const productsData: Product[] = await productsResponse.json();
+    setProducts(productsData);
+    } catch (err) {
+    setError('Не удалось загрузить данные. Попробуйте позже.');
+    } finally {
+    setLoading(false);
+    }
+};
+
+fetchData();
+}, [productId]);
 
 useEffect(() => {
 localStorage.setItem("favorites", JSON.stringify(favorites));
@@ -196,7 +86,7 @@ setFavorites((prev) =>
 );
 };
 
-const handlePurchase = (product: any) => {
+const handlePurchase = (product: Product) => {
 const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
 const existingItem = cartItems.find((item: any) => item.id === product.id);
 if (existingItem) {
@@ -215,7 +105,13 @@ localStorage.setItem('cartItems', JSON.stringify(cartItems));
 alert(`${product.name} добавлен в корзину!`);
 };
 
-const selectedProduct = products.find((p) => p.id === productId) || products[0];
+if (loading) {
+return <div className="p-8 text-center font-['Inter'] text-[24px] text-[#131313]">Загрузка...</div>;
+}
+
+if (error || !selectedProduct) {
+return <div className="p-8 text-center font-['Inter'] text-[24px] text-red-500">{error || 'Товар не найден'}</div>;
+}
 
 const allPhotos = [...selectedProduct.photosLarge, ...selectedProduct.photosSmall];
 

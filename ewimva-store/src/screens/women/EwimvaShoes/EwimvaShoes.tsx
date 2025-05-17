@@ -1,76 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ProductSection } from "../../../components/ProductSection";
 import { ChevronDownIcon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
-const products = [
-{
-id: 1,
-name: 'Canvas leather trainers',
-category: 'CAPSULE',
-price: 'KGS 5 999',
-image: '/Canvas leather trainers.png',
-colorVariants: [],
-},
-{
-id: 2,
-name: 'Сникерсы с контрастными вставками',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 5 999',
-image: '/Сникерсы с контрастными вставками.png',
-colorVariants: [],
-},
-{
-id: 3,
-name: 'Полупрозрачное комбинированное платье',
-category: 'CAPSULE',
-price: 'KGS 5 999',
-image: '/Кроссовки из спилка со шнурками.png',
-colorVariants: [
-],
-},
-{
-id: 4,
-name: 'Кожаные сандалии с пряжкой',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 5 999',
-image: '/Кожаные сандалии с пряжкой.png',
-colorVariants: [],
-},
-{
-id: 5,
-name: 'Кожаные мокасины с пряжкой',
-category: 'CAPSULE',
-price: 'KGS 5 999',
-image: '/Кожаные мокасины с пряжкой.png',
-colorVariants: [],
-},
-{
-id: 6,
-name: 'Ботильоны на каблуке с заостренным мысом',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 5 999',
-image: '/Ботильоны на каблуке с заостренным мысом.png',
-colorVariants: [],
-},
-{
-id: 7,
-name: 'Кожаные босоножки с контрастным каблуком',
-category: 'NEW NOW',
-price: 'KGS 5 999',
-image: '/Кожаные босоножки с контрастным каблуком_2.png',
-colorVariants: [
-],
-},
-{
-id: 8,
-name: 'Кожаные сандалии с плетеным ремешком',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 5 999',
-image: '/Кожаные сандалии с плетеным ремешком.png',
-colorVariants: [],
-},
-];
+interface Product {
+id: number;
+name: string;
+category: string;
+price: string;
+image: string;
+colorVariants: any[];
+}
 
 const categories = [
 { name: 'Сумки', path: '/bags' },
@@ -86,29 +26,56 @@ const categories = [
 
 export default function EwimvaShoes(): JSX.Element {
 const [isCategoryOpen, setIsCategoryOpen] = useState(false);
+const [products, setProducts] = useState<Product[]>([]);
+const [loading, setLoading] = useState(true);
+const [error, setError] = useState<string | null>(null);
 const navigate = useNavigate();
+
+useEffect(() => {
+const fetchProducts = async () => {
+    try {
+    const response = await fetch('http://localhost:3001/products?category=Обувь');
+    if (!response.ok) {
+        throw new Error('Ошибка загрузки обуви');
+    }
+    const data: Product[] = await response.json();
+    setProducts(data);
+    } catch (err) {
+    setError('Не удалось загрузить обувь. Попробуйте позже.');
+    } finally {
+    setLoading(false);
+    }
+};
+
+fetchProducts();
+}, []);
+
+if (loading) {
+return <div className="p-8 text-center font-['Montserrat'] text-[24px] text-[#131313]">Загрузка...</div>;
+}
+
+if (error) {
+return <div className="p-8 text-center font-['Montserrat'] text-[24px] text-red-500">{error}</div>;
+}
 
 return (
 <>
     <style>
     {`
-        @media (max-width: 767px) {
-        /* Сетка */
+    @media (max-width: 767px) {
         .new-now-container div[class*="grid-cols-4"],
         .new-now-container div.grid-cols-4 {
-            display: grid !important;
-            grid-template-columns: repeat(2, 1fr) !important;
-            gap: 0px !important;
-            background-color: rgb(255, 255, 255) !important; /* Отладка */
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0px !important;
+        background-color: rgb(255, 255, 255) !important;
         }
-
-        /* Карточки */
         .new-now-container .product-card,
         .new-now-container .item-card,
         .new-now-container div[class*="product-card"],
         .new-now-container div[class*="item-card"] {
-            font-size: 12px !important;
-            background-color: rgb(255, 255, 255) !important; /* Отладка */
+        font-size: 12px !important;
+        background-color: rgb(255, 255, 255) !important;
         }
         .new-now-container .product-card p,
         .new-now-container .product-card span,
@@ -116,35 +83,29 @@ return (
         .new-now-container .item-card p,
         .new-now-container .item-card span,
         .new-now-container .item-card div {
-            font-size: 12px !important;
+        font-size: 12px !important;
         }
-
-        /* Заголовки и кнопка */
         .new-now-container h1,
         .new-now-container h2 {
-            font-size: 12px !important;
-            margin-left: 0 !important;
-            background-color: rgb(255, 255, 255) !important; /* Отладка */
+        font-size: 12px !important;
+        margin-left: 0 !important;
+        background-color: rgb(255, 255, 255) !important;
         }
         .new-now-container button[class*="text-[14px]"] {
-            font-size: 12px !important;
-            margin-left: 0 !important;
-            background-color: rgb(255, 255, 255) !important; /* Отладка */
+        font-size: 12px !important;
+        margin-left: 0 !important;
+        background-color: rgb(255, 255, 255) !important;
         }
-
-        /* Контейнер */
         .new-now-container .max-w-7xl {
-            padding-left: 8px !important;
-            padding-right: 8px !important;
+        padding-left: 8px !important;
+        padding-right: 8px !important;
         }
-
-        /* Защита от масштабирования */
         .new-now-container {
-            transform: none !important;
-            zoom: 1 !important;
-            scale: 1 !important;
+        transform: none !important;
+        zoom: 1 !important;
+        scale: 1 !important;
         }
-        }
+    }
     `}
     </style>
     <div className="new-now-container flex flex-col min-h-screen">
@@ -186,13 +147,21 @@ return (
             </div>
         </div>
         </div>
-        <ProductSection products={products.slice(0, 4)} />
-        <ProductSection products={products.slice(4, 8)} />
-        <ProductSection products={products.slice(8, 12)} />
-        <ProductSection products={products.slice(12, 16)} />
-        <ProductSection products={products.slice(16, 20)} />
-        <ProductSection products={products.slice(20, 24)} />
-        <ProductSection products={products.slice(24, 28)} />
+        {products.length > 0 ? (
+        <>
+            <ProductSection products={products.slice(0, 4)} />
+            {products.length > 4 && <ProductSection products={products.slice(4, 8)} />}
+            {products.length > 8 && <ProductSection products={products.slice(8, 12)} />}
+            {products.length > 12 && <ProductSection products={products.slice(12, 16)} />}
+            {products.length > 16 && <ProductSection products={products.slice(16, 20)} />}
+            {products.length > 20 && <ProductSection products={products.slice(20, 24)} />}
+            {products.length > 24 && <ProductSection products={products.slice(24, 28)} />}
+        </>
+        ) : (
+        <div className="p-8 text-center font-['Montserrat'] text-[24px] text-[#131313]">
+            Обувь не найдена
+        </div>
+        )}
     </main>
     </div>
 </>
