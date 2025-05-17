@@ -12,12 +12,13 @@ import EwimvaSeorch from "./screens/EwimvaSeorch/EwimvaSeorch";
 import EwimvaNewNow from "./screens/women/EwimvaNewNow/EwimvaNewNow";
 import EwimvaDress from "./screens/women/EwimvaDress/EwimvaDress";
 import EwimvaBags from "./screens/women/EwimvaBags/EwimvaBags";
-import EwimvaCoatsWomen from "./screens/women/EwimvaCoats/EwimvaCoats";
+import EwimvaCoats from "./screens/women/EwimvaCoats/EwimvaCoats";
 import EwimvaFragrances from "./screens/women/EwimvaFragrances/EwimvaFragrances";
 import EwimvaJumpersAndCardigans from "./screens/women/EwimvaJumpersAndCardigans/EwimvaJumpersAndCardigans";
-import EwimvaPantsWomen from "./screens/women/EwimvaPants/EwimvaPants";
+import EwimvaPants from "./screens/women/EwimvaPants/EwimvaPants";
 import EwimvaShirtsAndBlouses from "./screens/women/EwimvaShirtsAndBlouses/EwimvaShirtsAndBlouses";
-import EwimvaShoesWomen from "./screens/women/EwimvaShoes/EwimvaShoes";
+import EwimvaShoes from "./screens/women/EwimvaShoes/EwimvaShoes";
+import EwimvaPartyAndEvents from "./screens/women/EwimvaPartyAndEvents/EwimvaPartyAndEvents";
 import EwimvaClothes from "./screens/EwimvaClothes/EwimvaClothes";
 import EwimvaMyAccount from "./screens/EwimvaMyAccount/EwimvaMyAccount";
 import EwimvaMyDetails from "./screens/EwimvaMyDetails/EwimvaMyDetails";
@@ -39,29 +40,28 @@ import EwimvaCart from "./screens/EwimvaCart/EwimvaCart";
 import { EwimvaPokypka } from "./screens/EwimvaPokypka";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import EwimvaPartyAndEvents from "./screens/women/EwimvaPartyAndEvents/EwimvaPartyAndEvents";
 import EwimvaJacketsOuterwear from "./screens/men/JacketsOuterwear/EwimvaJacketsOuterwear";
 import EwimvaPantsMen from "./screens/men/Pants/EwimvaPants";
 import EwimvaShirtsMen from "./screens/men/Shirts/EwimvaShirts";
 import EwimvaShoesMen from "./screens/men/Shoes/EwimvaShoes";
 import EwimvaSuit from "./screens/men/Suit/EwimvaSuit";
 import EwimvaMenNewNow from "./screens/men/NewNow/EwimvaNewNow";
+import { Product as NewProduct } from "./screens/women/EwimvaNewNow/Product";
+import { Product as DressProduct } from "./screens/women/EwimvaDress/Product";
 import { Product as BagsProduct } from "./screens/women/EwimvaBags/Product";
 import { Product as CoatsProduct } from "./screens/women/EwimvaCoats/Product";
-import { Product as DressProduct } from "./screens/women/EwimvaDress/Product";
 import { Product as FragrancesProduct } from "./screens/women/EwimvaFragrances/Product";
 import { Product as JumpersAndCardigansProduct } from "./screens/women/EwimvaJumpersAndCardigans/Product";
-import { Product as NewProduct } from "./screens/women/EwimvaNewNow/Product";
 import { Product as PantsProduct } from "./screens/women/EwimvaPants/Product";
 import { Product as ShirtsAndBlousesProduct } from "./screens/women/EwimvaShirtsAndBlouses/Product";
 import { Product as ShoesProduct } from "./screens/women/EwimvaShoes/Product";
 import { Product as PartyProduct } from "./screens/women/EwimvaPartyAndEvents/Product";
+import { Product as MenNewNowProduct } from "./screens/men/NewNow/Product";
 import { Product as MenJacketsOuterwearProduct } from "./screens/men/JacketsOuterwear/Product";
 import { Product as MenPantsProduct } from "./screens/men/Pants/Product";
 import { Product as MenShirtsProduct } from "./screens/men/Shirts/Product";
 import { Product as MenShoesProduct } from "./screens/men/Shoes/Product";
 import { Product as MenSuitProduct } from "./screens/men/Suit/Product";
-import { Product as MenNewNowProduct } from "./screens/men/NewNow/Product";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -112,72 +112,83 @@ const AppContent = () => {
   );
 
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <Header isAuthenticated={isAuthenticated} />
-      <Routes>
-        <Route path="/" element={<EwimvaHome />} />
-        <Route path="/men" element={<EwimvaMenHome />} />
-        <Route path="/login" element={<EwimvaLogin />} />
-        <Route path="/register" element={<EwimvaRegistry />} />
-        <Route path="/recovery" element={<EwimvaRecovery />} />
-        <Route path="/favourites" element={<ProtectedRoute><EwimvaFavourite /></ProtectedRoute>} />
-        <Route path="/search" element={<ProtectedRoute><EwimvaSeorch /></ProtectedRoute>} />
-        <Route path="/checkout" element={<ProtectedRoute><EwimvaCheckout /></ProtectedRoute>} />
-        <Route path="/cart" element={<ProtectedRoute><EwimvaCart /></ProtectedRoute>} />
-        <Route path="/new" element={<ProtectedRoute><EwimvaNewNow /></ProtectedRoute>} />
-        <Route path="/new/product/:id" element={<ProtectedRoute><NewProduct /></ProtectedRoute>} />
-        <Route path="/dress" element={<ProtectedRoute><EwimvaDress /></ProtectedRoute>} />
-        <Route path="/dress/product/:id" element={<ProtectedRoute><DressProduct /></ProtectedRoute>} />
-        <Route path="/bags" element={<ProtectedRoute><EwimvaBags /></ProtectedRoute>} />
-        <Route path="/bags/product/:id" element={<ProtectedRoute><BagsProduct /></ProtectedRoute>} />
-        <Route path="/coats" element={<ProtectedRoute><EwimvaCoatsWomen /></ProtectedRoute>} />
-        <Route path="/coats/product/:id" element={<ProtectedRoute><CoatsProduct /></ProtectedRoute>} />
-        <Route path="/fragrances" element={<ProtectedRoute><EwimvaFragrances /></ProtectedRoute>} />
-        <Route path="/fragrances/product/:id" element={<ProtectedRoute><FragrancesProduct /></ProtectedRoute>} />
-        <Route path="/jumpers-and-cardigans" element={<ProtectedRoute><EwimvaJumpersAndCardigans /></ProtectedRoute>} />
-        <Route path="/jumpers-and-cardigans/product/:id" element={<ProtectedRoute><JumpersAndCardigansProduct /></ProtectedRoute>} />
-        <Route path="/pants" element={<ProtectedRoute><EwimvaPantsWomen /></ProtectedRoute>} />
-        <Route path="/pants/product/:id" element={<ProtectedRoute><PantsProduct /></ProtectedRoute>} />
-        <Route path="/shirts-and-blouses" element={<ProtectedRoute><EwimvaShirtsAndBlouses /></ProtectedRoute>} />
-        <Route path="/shirts-and-blouses/product/:id" element={<ProtectedRoute><ShirtsAndBlousesProduct /></ProtectedRoute>} />
-        <Route path="/shoes" element={<ProtectedRoute><EwimvaShoesWomen /></ProtectedRoute>} />
-        <Route path="/shoes/product/:id" element={<ProtectedRoute><ShoesProduct /></ProtectedRoute>} />
-        <Route path="/party" element={<ProtectedRoute><EwimvaPartyAndEvents /></ProtectedRoute>} />
-        <Route path="/party/product/:id" element={<ProtectedRoute><PartyProduct /></ProtectedRoute>} />
-        <Route path="/men/new" element={<ProtectedRoute><EwimvaMenNewNow /></ProtectedRoute>} />
-        <Route path="/men/new/product/:id" element={<ProtectedRoute><MenNewNowProduct /></ProtectedRoute>} />
-        <Route path="/men/jackets-outerwear" element={<ProtectedRoute><EwimvaJacketsOuterwear /></ProtectedRoute>} />
-        <Route path="/men/jackets-outerwear/product/:id" element={<ProtectedRoute><MenJacketsOuterwearProduct /></ProtectedRoute>} />
-        <Route path="/men/pants" element={<ProtectedRoute><EwimvaPantsMen /></ProtectedRoute>} />
-        <Route path="/men/pants/product/:id" element={<ProtectedRoute><MenPantsProduct /></ProtectedRoute>} />
-        <Route path="/men/shirts" element={<ProtectedRoute><EwimvaShirtsMen /></ProtectedRoute>} />
-        <Route path="/men/shirts/product/:id" element={<ProtectedRoute><MenShirtsProduct /></ProtectedRoute>} />
-        <Route path="/men/shoes" element={<ProtectedRoute><EwimvaShoesMen /></ProtectedRoute>} />
-        <Route path="/men/shoes/product/:id" element={<ProtectedRoute><MenShoesProduct /></ProtectedRoute>} />
-        <Route path="/men/suit" element={<ProtectedRoute><EwimvaSuit /></ProtectedRoute>} />
-        <Route path="/men/suit/product/:id" element={<ProtectedRoute><MenSuitProduct /></ProtectedRoute>} />
-        <Route path="/product/:id" element={<ProtectedRoute><EwimvaClothes /></ProtectedRoute>} />
-        <Route path="/account" element={<ProtectedRoute><EwimvaMyAccount /></ProtectedRoute>} />
-        <Route path="/details" element={<ProtectedRoute><EwimvaMyDetails /></ProtectedRoute>} />
-        <Route path="/help" element={<ProtectedRoute><EwimvaPomosh /></ProtectedRoute>} />
-        <Route path="/purchases" element={<ProtectedRoute><EwimvaPokypka /></ProtectedRoute>} />
-        <Route element={<AdminLayout />}>
-          <Route path="/dashboard" element={<ProtectedRoute isAdmin={true}><EwimvaDashboard /></ProtectedRoute>} />
-          <Route path="/products" element={<ProtectedRoute isAdmin={true}><EwimvaTovary /></ProtectedRoute>} />
-          <Route path="/products/:id/edit" element={<ProtectedRoute isAdmin={true}><EditProduct /></ProtectedRoute>} />
-          <Route path="/products/add" element={<ProtectedRoute isAdmin={true}><AddProduct /></ProtectedRoute>} />
-          <Route path="/orders" element={<ProtectedRoute isAdmin={true}><EwimvaZakazy /></ProtectedRoute>} />
-          <Route path="/orders/:id/details" element={<ProtectedRoute isAdmin={true}><OrderDetails /></ProtectedRoute>} />
-          <Route path="/orders/:id/edit" element={<ProtectedRoute isAdmin={true}><EditOrder /></ProtectedRoute>} />
-          <Route path="/users" element={<ProtectedRoute isAdmin={true}><EwimvaPolzovateli /></ProtectedRoute>} />
-          <Route path="/users/add" element={<ProtectedRoute isAdmin={true}><AddUser /></ProtectedRoute>} />
-          <Route path="/users/:id/details" element={<ProtectedRoute isAdmin={true}><UserDetails /></ProtectedRoute>} />
-          <Route path="/users/:id/edit" element={<ProtectedRoute isAdmin={true}><EditUser /></ProtectedRoute>} />
-        </Route>
-        <Route path="*" element={<Navigate to="/login" replace />} />
-      </Routes>
+      <main className="flex-grow">
+        <Routes>
+          {/* Main Routes */}
+          <Route path="/" element={<EwimvaHome />} />
+          <Route path="/men" element={<EwimvaMenHome />} />
+          <Route path="/login" element={<EwimvaLogin />} />
+          <Route path="/register" element={<EwimvaRegistry />} />
+          <Route path="/recovery" element={<EwimvaRecovery />} />
+          <Route path="/favourites" element={<ProtectedRoute><EwimvaFavourite /></ProtectedRoute>} />
+          <Route path="/search" element={<ProtectedRoute><EwimvaSeorch /></ProtectedRoute>} />
+          <Route path="/checkout" element={<ProtectedRoute><EwimvaCheckout /></ProtectedRoute>} />
+          <Route path="/cart" element={<ProtectedRoute><EwimvaCart /></ProtectedRoute>} />
+          <Route path="/account" element={<ProtectedRoute><EwimvaMyAccount /></ProtectedRoute>} />
+          <Route path="/details" element={<ProtectedRoute><EwimvaMyDetails /></ProtectedRoute>} />
+          <Route path="/help" element={<ProtectedRoute><EwimvaPomosh /></ProtectedRoute>} />
+          <Route path="/purchases" element={<ProtectedRoute><EwimvaPokypka /></ProtectedRoute>} />
+          <Route path="/product/:id" element={<ProtectedRoute><EwimvaClothes /></ProtectedRoute>} />
+
+          {/* Women Routes */}
+          <Route path="/new" element={<ProtectedRoute><EwimvaNewNow /></ProtectedRoute>} />
+          <Route path="/new/product/:id" element={<ProtectedRoute><NewProduct /></ProtectedRoute>} />
+          <Route path="/bags" element={<ProtectedRoute><EwimvaBags /></ProtectedRoute>} />
+          <Route path="/bags/product/:id" element={<ProtectedRoute><BagsProduct /></ProtectedRoute>} />
+          <Route path="/coats" element={<ProtectedRoute><EwimvaCoats /></ProtectedRoute>} />
+          <Route path="/coats/product/:id" element={<ProtectedRoute><CoatsProduct /></ProtectedRoute>} />
+          <Route path="/dress" element={<ProtectedRoute><EwimvaDress /></ProtectedRoute>} />
+          <Route path="/dress/product/:id" element={<ProtectedRoute><DressProduct /></ProtectedRoute>} />
+          <Route path="/fragrances" element={<ProtectedRoute><EwimvaFragrances /></ProtectedRoute>} />
+          <Route path="/fragrances/product/:id" element={<ProtectedRoute><FragrancesProduct /></ProtectedRoute>} />
+          <Route path="/jumpers-and-cardigans" element={<ProtectedRoute><EwimvaJumpersAndCardigans /></ProtectedRoute>} />
+          <Route path="/jumpers-and-cardigans/product/:id" element={<ProtectedRoute><JumpersAndCardigansProduct /></ProtectedRoute>} />
+          <Route path="/pants" element={<ProtectedRoute><EwimvaPants /></ProtectedRoute>} />
+          <Route path="/pants/product/:id" element={<ProtectedRoute><PantsProduct /></ProtectedRoute>} />
+          <Route path="/shirts-and-blouses" element={<ProtectedRoute><EwimvaShirtsAndBlouses /></ProtectedRoute>} />
+          <Route path="/shirts-and-blouses/product/:id" element={<ProtectedRoute><ShirtsAndBlousesProduct /></ProtectedRoute>} />
+          <Route path="/shoes" element={<ProtectedRoute><EwimvaShoes /></ProtectedRoute>} />
+          <Route path="/shoes/product/:id" element={<ProtectedRoute><ShoesProduct /></ProtectedRoute>} />
+          <Route path="/party" element={<ProtectedRoute><EwimvaPartyAndEvents /></ProtectedRoute>} />
+          <Route path="/party/product/:id" element={<ProtectedRoute><PartyProduct /></ProtectedRoute>} />
+
+          {/* Men Routes */}
+          <Route path="/men/new" element={<ProtectedRoute><EwimvaMenNewNow /></ProtectedRoute>} />
+          <Route path="/men/new/product/:id" element={<ProtectedRoute><MenNewNowProduct /></ProtectedRoute>} />
+          <Route path="/men/jackets-outerwear" element={<ProtectedRoute><EwimvaJacketsOuterwear /></ProtectedRoute>} />
+          <Route path="/men/jackets-outerwear/product/:id" element={<ProtectedRoute><MenJacketsOuterwearProduct /></ProtectedRoute>} />
+          <Route path="/men/pants" element={<ProtectedRoute><EwimvaPantsMen /></ProtectedRoute>} />
+          <Route path="/men/pants/product/:id" element={<ProtectedRoute><MenPantsProduct /></ProtectedRoute>} />
+          <Route path="/men/shirts" element={<ProtectedRoute><EwimvaShirtsMen /></ProtectedRoute>} />
+          <Route path="/men/shirts/product/:id" element={<ProtectedRoute><MenShirtsProduct /></ProtectedRoute>} />
+          <Route path="/men/shoes" element={<ProtectedRoute><EwimvaShoesMen /></ProtectedRoute>} />
+          <Route path="/men/shoes/product/:id" element={<ProtectedRoute><MenShoesProduct /></ProtectedRoute>} />
+          <Route path="/men/suit" element={<ProtectedRoute><EwimvaSuit /></ProtectedRoute>} />
+          <Route path="/men/suit/product/:id" element={<ProtectedRoute><MenSuitProduct /></ProtectedRoute>} />
+
+          {/* Admin Routes */}
+          <Route element={<AdminLayout />}>
+            <Route path="/dashboard" element={<ProtectedRoute isAdmin={true}><EwimvaDashboard /></ProtectedRoute>} />
+            <Route path="/products" element={<ProtectedRoute isAdmin={true}><EwimvaTovary /></ProtectedRoute>} />
+            <Route path="/products/:id/edit" element={<ProtectedRoute isAdmin={true}><EditProduct /></ProtectedRoute>} />
+            <Route path="/products/add" element={<ProtectedRoute isAdmin={true}><AddProduct /></ProtectedRoute>} />
+            <Route path="/orders" element={<ProtectedRoute isAdmin={true}><EwimvaZakazy /></ProtectedRoute>} />
+            <Route path="/orders/:id/details" element={<ProtectedRoute isAdmin={true}><OrderDetails /></ProtectedRoute>} />
+            <Route path="/orders/:id/edit" element={<ProtectedRoute isAdmin={true}><EditOrder /></ProtectedRoute>} />
+            <Route path="/users" element={<ProtectedRoute isAdmin={true}><EwimvaPolzovateli /></ProtectedRoute>} />
+            <Route path="/users/add" element={<ProtectedRoute isAdmin={true}><AddUser /></ProtectedRoute>} />
+            <Route path="/users/:id/details" element={<ProtectedRoute isAdmin={true}><UserDetails /></ProtectedRoute>} />
+            <Route path="/users/:id/edit" element={<ProtectedRoute isAdmin={true}><EditUser /></ProtectedRoute>} />
+          </Route>
+
+          {/* Fallback Route */}
+          <Route path="*" element={<Navigate to="/login" replace />} />
+        </Routes>
+      </main>
       {showFooter && <Footer />}
-    </>
+    </div>
   );
 };
 
