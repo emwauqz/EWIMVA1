@@ -1,207 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ProductSection } from "../../../components/ProductSection";
 import { ChevronDownIcon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
-const products = [
-{
-id: 1,
-name: 'Платье с цветами и разрезом',
-category: 'CAPSULE',
-price: 'KGS 26 490',
-image: '/Платье с цветами и разрезом.png',
-colorVariants: [],
-},
-{
-id: 2,
-name: 'Платье с пайетками и вырезом на спине',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 12 990,00',
-image: '/Платье с пайетками и вырезом на спине.png',
-colorVariants: [],
-},
-{
-id: 3,
-name: 'Платье миди с драпированным декольте',
-category: 'CAPSULE',
-price: 'KGS 12 990,00',
-image: '/Платье миди с драпированным декольте.png',
-colorVariants: [
-],
-},
-{
-id: 4,
-name: 'Прямой комбинезон с короткими рукавами и поясом',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 9 990',
-image: '/Прямой комбинезон с короткими рукавами и поясом.png',
-colorVariants: [],
-},
-{
-id: 5,
-name: 'Платье из смесового льна с оборкой',
-category: 'CAPSULE',
-price: 'KGS 22 999',
-image: '/Платье из смесового льна с оборкой.png',
-colorVariants: [],
-},
-{
-id: 6,
-name: 'Драпированное платье с цветочным принтом',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 8 990',
-image: '/Драпированное платье с цветочным принтом.png',
-colorVariants: [],
-},
-{
-id: 7,
-name: 'Платье из смесового льна с ажурным цветком',
-category: 'CAPSULE',
-price: 'KGS 9 990',
-image: '/Платье из смесового льна с ажурным цветком.png',
-colorVariants: [],
-},
-{
-id: 8,
-name: 'Асимметричное атласное платье с бахромой',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 20 990',
-image: '/Асимметричное атласное платье с бахромой.png',
-colorVariants: [],
-},
-{
-id: 9,
-name: 'Платье халтер с цветочным украшением',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 32 990',
-image: '/Платье халтер с цветочным украшением.png',
-colorVariants: [],
-},
-{
-id: 10,
-name: 'Платье с американской проймой и цветком',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 32 990',
-image: '/Платье с американской проймой и цветком.png',
-colorVariants: [],
-},
-{
-id: 11,
-name: 'Длинное платье с нашитыми бусинами',
-category: 'NEW NOW',
-price: 'KGS 32 990',
-image: '/Длинное платье с нашитыми бусинами.png',
-colorVariants: [
-],
-},
-{
-id: 12,
-name: 'Длинное платье с вырезом халтер',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 12 990',
-image: '/Длинное платье с вырезом халтер.png',
-colorVariants: [],
-},
-{
-id: 13,
-name: 'Асимметричное платье с воротником-бантом',
-category: 'CAPSULE',
-price: 'KGS 27 990',
-image: '/Асимметричное платье с воротником-бантом.png',
-colorVariants: [],
-},
-{
-id: 14,
-name: 'Платье из тонкого трикотажа с силуэтом "эвазе"',
-category: 'CAPSULE',
-price: 'KGS 12 990',
-image: '/Платье из тонкого трикотажа с силуэтом "эвазе".png',
-colorVariants: [],
-},
-{
-id: 15,
-name: 'Платье с бахромой и декольте на спине',
-category: 'NEW NOW',
-price: 'KGS 35 990',
-image: '/Платье с бахромой и декольте на спине.png',
-colorVariants: [
-],
-},
-{
-id: 16,
-name: 'Платье из смесового льна с вышивкой',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 15 990',
-image: '/Платье из смесового льна с вышивкой.png',
-colorVariants: [],
-},
-{
-id: 17,
-name: 'Платье-колокол с драпировкой на талии',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 6 990',
-image: '/Платье-колокол с драпировкой на талии.png',
-colorVariants: [],
-},
-{
-id: 18,
-name: 'Льняное платье с поясом',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 12 990',
-image: '/Льняное платье с поясом.png',
-colorVariants: [],
-},
-{
-id: 19,
-name: 'Платье А-силуэта из кружева',
-category: 'NEW NOW',
-price: 'KGS 6 990',
-image: '/87035749-30-d6.png',
-colorVariants: [
-],
-},
-{
-id: 20,
-name: 'Шелковое платье с драпированным декольте',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 22 990',
-image: '/Шелковое платье с драпированным декольте.png',
-colorVariants: [],
-},
-{
-id: 21,
-name: 'Платье с вышитыми цветами и бахромой',
-category: 'CAPSULE',
-price: 'KGS 55 990',
-image: '/Платье с вышитыми цветами и бахромой.png',
-colorVariants: [],
-},
-{
-id: 22,
-name: 'Асимметричное платье из сеточки с драпировкой',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 8 990',
-image: '/Асимметричное платье из сеточки с драпировкой.png',
-colorVariants: [],
-},
-{
-id: 23,
-name: 'ПДлинное плиссированное платье',
-category: 'NEW NOW',
-price: 'KGS 14 990',
-image: '/Длинное плиссированное платье.png',
-colorVariants: [
-],
-},
-{
-id: 24,
-name: 'Полосатое платье с атласным блеском',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 12 990',
-image: '/Полосатое платье с атласным блеском.png',
-colorVariants: [],
-},
-];
+interface Product {
+id: number;
+name: string;
+category: string;
+price: string;
+image: string;
+colorVariants: any[];
+}
 
 const categories = [
 { name: 'Сумки', path: '/bags' },
@@ -217,7 +26,37 @@ const categories = [
 
 export default function EwimvaDress(): JSX.Element {
 const [isCategoryOpen, setIsCategoryOpen] = useState(false);
+const [products, setProducts] = useState<Product[]>([]);
+const [loading, setLoading] = useState(true);
+const [error, setError] = useState<string | null>(null);
 const navigate = useNavigate();
+
+useEffect(() => {
+const fetchProducts = async () => {
+    try {
+    const response = await fetch('http://localhost:3001/products?category=Платья');
+    if (!response.ok) {
+        throw new Error('Ошибка загрузки платьев');
+    }
+    const data: Product[] = await response.json();
+    setProducts(data);
+    } catch (err) {
+    setError('Не удалось загрузить платья. Попробуйте позже.');
+    } finally {
+    setLoading(false);
+    }
+};
+
+fetchProducts();
+}, []);
+
+if (loading) {
+return <div className="p-8 text-center font-['Montserrat'] text-[24px] text-[#131313]">Загрузка...</div>;
+}
+
+if (error) {
+return <div className="p-8 text-center font-['Montserrat'] text-[24px] text-red-500">{error}</div>;
+}
 
 return (
 <>
@@ -317,13 +156,21 @@ return (
             </div>
         </div>
         </div>
-        <ProductSection products={products.slice(0, 4)} />
-        <ProductSection products={products.slice(4, 8)} />
-        <ProductSection products={products.slice(8, 12)} />
-        <ProductSection products={products.slice(12, 16)} />
-        <ProductSection products={products.slice(16, 20)} />
-        <ProductSection products={products.slice(20, 24)} />
-        <ProductSection products={products.slice(24, 28)} />
+        {products.length > 0 ? (
+        <>
+            <ProductSection products={products.slice(0, 4)} />
+            {products.length > 4 && <ProductSection products={products.slice(4, 8)} />}
+            {products.length > 8 && <ProductSection products={products.slice(8, 12)} />}
+            {products.length > 12 && <ProductSection products={products.slice(12, 16)} />}
+            {products.length > 16 && <ProductSection products={products.slice(16, 20)} />}
+            {products.length > 20 && <ProductSection products={products.slice(20, 24)} />}
+            {products.length > 24 && <ProductSection products={products.slice(24, 28)} />}
+        </>
+        ) : (
+        <div className="p-8 text-center font-['Montserrat'] text-[24px] text-[#131313]">
+            Платья не найдены
+        </div>
+        )}
     </main>
     </div>
 </>
