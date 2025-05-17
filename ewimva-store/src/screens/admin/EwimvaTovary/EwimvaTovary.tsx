@@ -21,6 +21,7 @@ import {
 import { ChevronDownIcon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { getProducts, Product } from '../../../data/productsData';
+import { categories } from '../../../data/categories';
 
 export default function EwimvaTovary(): JSX.Element {
   const [productsList, setProductsList] = useState<Product[]>([]);
@@ -30,6 +31,15 @@ export default function EwimvaTovary(): JSX.Element {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
+
+  // Функция форматирования цены
+  const formatPrice = (price: string): string => {
+    const cleanPrice = price.replace(/[^\d]/g, '');
+    if (!cleanPrice) return price;
+    const number = parseInt(cleanPrice, 10);
+    const formatted = number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+    return `KGS ${formatted}`;
+  };
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -59,17 +69,21 @@ export default function EwimvaTovary(): JSX.Element {
   // Функция для сортировки
   const sortedProducts = [...filteredProducts].sort((a, b) => {
     if (sortOption === 'price-asc') {
-      return parseFloat(a.price) - parseFloat(b.price);
+      const priceA = parseFloat(a.price.replace(/[^\d]/g, ''));
+      const priceB = parseFloat(b.price.replace(/[^\d]/g, ''));
+      return priceA - priceB;
     } else if (sortOption === 'price-desc') {
-      return parseFloat(b.price) - parseFloat(a.price);
+      const priceA = parseFloat(a.price.replace(/[^\d]/g, ''));
+      const priceB = parseFloat(b.price.replace(/[^\d]/g, ''));
+      return priceB - priceA;
     } else if (sortOption === 'name-asc') {
       return a.name.localeCompare(b.name);
     }
-    return 0; // По умолчанию новые (без сортировки)
+    return 0;
   });
 
   // Функция для удаления товара
-  const handleDelete = async (id: number) => {
+  const handleDelete = async (id: string) => {
     if (window.confirm('Вы уверены, что хотите удалить этот товар?')) {
       try {
         const response = await fetch(`http://localhost:3001/products/${id}`, {
@@ -98,82 +112,55 @@ export default function EwimvaTovary(): JSX.Element {
       <style>
         {`
           @media (max-width: 767px) {
-            /* Основной контейнер */
             main[class*="p-8"] {
               padding: 8px !important;
             }
-
-            /* Контейнер заголовка */
             div[class*="flex items-center justify-between mb-10"] {
               margin-top: 50px !important;
               margin-bottom: 8px !important;
             }
-
-            /* Заголовок */
             h1[class*="text-[40px]"] {
               font-size: 40px !important;
             }
-
-            /* Кнопка Добавить */
             button[class*="h-[30px]"] {
               height: 24px !important;
               padding: 0 10px !important;
               font-size: 12px !important;
             }
-
-            /* Панель поиска и фильтров */
             div[class*="flex items-center gap-4 mb-8"] {
               gap: 8px !important;
               margin-bottom: 8px !important;
               padding-bottom: 6px !important;
             }
-
-            /* Поле поиска */
             input[class*="w-[300px]"] {
               width: auto !important;
               padding: 4px !important;
               font-size: 12px !important;
             }
-
-            /* Текст SEARCH */
             div[class*="text-[13px]"] {
               font-size: 12px !important;
             }
-
-            /* Фильтры и сортировка */
             div[class*="text-[14px]"] {
               font-size: 12px !important;
             }
-
-            /* Иконка ChevronDown */
             svg[class*="w-4 h-4"] {
               width: 12px !important;
               height: 12px !important;
             }
-
-            /* Карточка таблицы */
             div[class*="border border-solid border-[#00000040] rounded-[10px]"] {
               width: 100% !important;
             }
-
-            /* Таблица - заголовки */
             table {
               font-size: 12px !important;
               display: block !important;
               overflow-x: auto !important;
             }
-
-            /* Таблица - данные */
             tbody td {
               font-size: 10px !important;
             }
-
-            /* Ячейки */
             th, td {
               padding: 4px !important;
             }
-
-            /* Чекбокс */
             div[class*="w-12 pl-10"],
             td[class*="pl-10"] {
               padding-left: 4px !important;
@@ -183,14 +170,10 @@ export default function EwimvaTovary(): JSX.Element {
               width: 10px !important;
               height: 10px !important;
             }
-
-            /* Бейдж статуса */
             div[class*="rounded-full"] {
               padding: 1px 15px !important;
               font-size: 9px !important;
             }
-
-            /* Действия (три точки) */
             div[class*="w-12"] {
               width: 24px !important;
             }
@@ -237,15 +220,11 @@ export default function EwimvaTovary(): JSX.Element {
                 <DropdownMenuItem onClick={() => setCategoryFilter('all')}>
                   Все категории
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setCategoryFilter('Одежда')}>
-                  Одежда
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setCategoryFilter('Обувь')}>
-                  Обувь
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setCategoryFilter('Аксессуары')}>
-                  Аксессуары
-                </DropdownMenuItem>
+                {categories.map((cat) => (
+                  <DropdownMenuItem key={cat.id} onClick={() => setCategoryFilter(cat.name)}>
+                    {cat.name}
+                  </DropdownMenuItem>
+                ))}
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
@@ -347,7 +326,7 @@ export default function EwimvaTovary(): JSX.Element {
                       {product.stock}
                     </TableCell>
                     <TableCell className="font-['Inter'] font-semibold text-[#131313] text-sm">
-                      {product.price}
+                      {formatPrice(product.price)}
                     </TableCell>
                     <TableCell>
                       <DropdownMenu>

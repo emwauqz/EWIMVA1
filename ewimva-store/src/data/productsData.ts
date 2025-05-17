@@ -1,5 +1,5 @@
 export interface Product {
-id: number;
+id: string;
 name: string;
 category: string;
 price: string;
@@ -25,14 +25,14 @@ const response = await fetch('http://localhost:3001/products', {
     },
     body: JSON.stringify({
     ...product,
-    colorVariants: [], // Default empty array
-    composition: 'Не указано', // Default value
-    origin: 'Не указано', // Default value
-    care: 'Не указано', // Default value
-    photosLarge: [], // Default empty array
-    photosSmall: [], // Default empty array
-    description: 'Описание отсутствует', // Default value
-    color: product.color || 'Не указано', // Ensure color is set
+    colorVariants: [],
+    composition: 'Не указано',
+    origin: 'Не указано',
+    care: 'Не указано',
+    photosLarge: [],
+    photosSmall: [],
+    description: 'Описание отсутствует',
+    color: product.color || 'Не указано',
     }),
 });
 
@@ -51,7 +51,9 @@ const response = await fetch('http://localhost:3001/products');
 if (!response.ok) {
     throw new Error('Ошибка при получении товаров');
 }
-return await response.json();
+const products = await response.json();
+console.log('Fetched products:', products);
+return products;
 } catch (error) {
 console.error('Error fetching products:', error);
 throw error;

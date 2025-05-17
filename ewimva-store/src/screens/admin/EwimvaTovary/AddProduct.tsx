@@ -34,6 +34,15 @@ const [image, setImage] = useState('');
 const [errors, setErrors] = useState<FormErrors>({});
 const navigate = useNavigate();
 
+// Функция форматирования цены
+const formatPrice = (value: string): string => {
+const cleanValue = value.replace(/[^\d]/g, ''); // Удаляем всё, кроме цифр
+if (!cleanValue) return '';
+const number = parseInt(cleanValue, 10);
+const formatted = number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+return `KGS ${formatted}`;
+};
+
 const validateForm = (): FormErrors => {
 const newErrors: FormErrors = {};
 if (!name.trim()) {
@@ -48,13 +57,20 @@ if (!color.trim()) {
 if (!stock || isNaN(Number(stock)) || Number(stock) < 0) {
     newErrors.stock = 'Остаток должен быть числом больше или равным 0';
 }
-if (!price || !/^\d+\s*с$/.test(price.trim())) {
-    newErrors.price = 'Цена должна быть в формате "число с" (например, "12450 с")';
+if (!price || !/^KGS\s*\d{1,3}(?:\s*\d{3})*$/.test(price.trim())) {
+    newErrors.price = 'Цена должна быть в формате "KGS число" (например, "KGS 6 990")';
 }
 if (!image.trim()) {
     newErrors.image = 'Путь к изображению обязателен';
 }
 return newErrors;
+};
+
+const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+const value = e.target.value;
+// Разрешаем ввод только цифр и форматируем
+const cleanValue = value.replace(/[^\d]/g, '');
+setPrice(cleanValue ? formatPrice(cleanValue) : '');
 };
 
 const handleSubmit = async (e: React.FormEvent) => {
@@ -209,8 +225,8 @@ return (
             id="price"
             type="text"
             value={price}
-            onChange={(e) => setPrice(e.target.value)}
-            placeholder="Введите цену (например, 12450 с)"
+            onChange={handlePriceChange}
+            placeholder="Введите цену (например, KGS 6 990)"
             className={`w-full border-[#00000040] rounded-md focus:border-[#131313] focus:ring-1 focus:ring-[#131313] p-2 ${errors.price ? 'border-red-500' : ''}`}
             />
             {errors.price && (
