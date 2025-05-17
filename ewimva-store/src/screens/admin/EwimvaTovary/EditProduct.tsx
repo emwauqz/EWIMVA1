@@ -10,58 +10,71 @@ SelectTrigger,
 SelectValue,
 } from '../../../components/ui/select';
 import { Card, CardContent, CardHeader, CardTitle } from '../../../components/ui/card';
-import { Badge } from '../../../components/ui/badge';
-
-const products = [
-{
-id: 1,
-name: 'Костюмный блейзер из смесового льна с поясом',
-category: 'Одежда',
-status: 'available',
-stock: 30,
-price: '12 450 с',
-},
-{
-id: 2,
-name: 'Замшевый ремень',
-category: 'Аксессуары',
-status: 'available',
-stock: 15,
-price: '5 000 с',
-},
-];
+import { Product, getProducts, updateProduct } from '../../../data/productsData';
 
 export default function EditProduct(): JSX.Element {
 const { id } = useParams<{ id: string }>();
 const navigate = useNavigate();
-const [product, setProduct] = useState(products.find((p) => p.id === Number(id)) || {
-id: 0, name: '', category: '', status: '', stock: 0, price: '',
-});
-const [name, setName] = useState(product.name);
-const [category, setCategory] = useState(product.category);
-const [status, setStatus] = useState(product.status);
-const [stock, setStock] = useState(product.stock.toString());
-const [price, setPrice] = useState(product.price);
+const [product, setProduct] = useState<Product | null>(null);
+const [name, setName] = useState('');
+const [category, setCategory] = useState('');
+const [status, setStatus] = useState<'available' | 'low' | 'unavailable'>('available');
+const [stock, setStock] = useState('');
+const [price, setPrice] = useState('');
+const [loading, setLoading] = useState(true);
+const [error, setError] = useState<string | null>(null);
 
 useEffect(() => {
-const foundProduct = products.find((p) => p.id === Number(id));
-if (foundProduct) {
-    setProduct(foundProduct);
-    setName(foundProduct.name);
-    setCategory(foundProduct.category);
-    setStatus(foundProduct.status);
-    setStock(foundProduct.stock.toString());
-    setPrice(foundProduct.price);
-}
+const fetchProduct = async () => {
+    try {
+    const products = await getProducts();
+    const foundProduct = products.find((p) => p.id === Number(id));
+    if (foundProduct) {
+        setProduct(foundProduct);
+        setName(foundProduct.name);
+        setCategory(foundProduct.category);
+        setStatus(foundProduct.status || 'available');
+        setStock(foundProduct.stock?.toString() || '0');
+        setPrice(foundProduct.price);
+    } else {
+        setError('Товар не найден');
+    }
+    setLoading(false);
+    } catch (err) {
+    setError('Не удалось загрузить товар');
+    setLoading(false);
+    }
+};
+fetchProduct();
 }, [id]);
 
-const handleSubmit = (e: React.FormEvent) => {
+const handleSubmit = async (e: React.FormEvent) => {
 e.preventDefault();
-// Имитация обновления товара
-console.log({ id: product.id, name, category, status, stock, price });
-alert('Товар обновлён! (Это имитация)');
-navigate('/products');
+if (!product) return;
+
+try {
+    await updateProduct({
+    ...product,
+    name,
+    category,
+    status,
+    stock: Number(stock),
+    price,
+    });
+    alert('Товар обновлён!');
+    navigate('/products');
+} catch (err) {
+    alert('Не удалось обновить товар');
+}
 };
+
+if (loading) {
+return <div className="flex-1 p-8">Загрузка...</div>;
+}
+
+if (error || !product) {
+return <div className="flex-1 p-8 text-red-500">{error || 'Товар не найден'}</div>;
+}
 
 return (
 <main className="flex-1 p-8">
@@ -88,7 +101,7 @@ return (
             <label className="font-['Inter'] font-normal text-[#131313] text-sm mb-2 block">
             Категория
             </label>
-            <Select onValueChange={setCategory} value={category}>
+            <Select onValueChange={(value: string) => setCategory(value)} value={category}>
             <SelectTrigger className="w-full border-[#00000040] rounded-md focus:border-[#131313] focus:ring-1 focus:ring-[#131313] p-2">
                 <SelectValue />
             </SelectTrigger>
@@ -103,7 +116,7 @@ return (
             <label className="font-['Inter'] font-normal text-[#131313] text-sm mb-2 block">
             Статус
             </label>
-            <Select onValueChange={setStatus} value={status}>
+            <Select onValueChange={(value: 'available' | 'low' | 'unavailable') => setStatus(value)} value={status}>
             <SelectTrigger className="w-full border-[#00000040] rounded-md focus:border-[#131313] focus:ring-1 focus:ring-[#131313] p-2">
                 <SelectValue />
             </SelectTrigger>

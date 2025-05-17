@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Badge } from '../../../components/ui/badge';
 import { Button } from '../../../components/ui/button';
 import { Card, CardContent } from '../../../components/ui/card';
@@ -20,104 +20,37 @@ import {
 } from '../../../components/ui/table';
 import { ChevronDownIcon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-
-// Product data for mapping
-const products = [
-  {
-    id: 1,
-    name: 'Костюмный блейзер из смесового льна с поясом',
-    category: 'Одежда',
-    status: 'available',
-    stock: 30,
-    price: '12 450 с',
-  },
-  {
-    id: 2,
-    name: 'Костюмный блейзер из смесового льна с поясом',
-    category: 'Одежда',
-    status: 'available',
-    stock: 20,
-    price: '12 450 с',
-  },
-  {
-    id: 3,
-    name: 'Костюмный блейзер из смесового льна с поясом',
-    category: 'Обувь',
-    status: 'available',
-    stock: 18,
-    price: '12 450 с',
-  },
-  {
-    id: 4,
-    name: 'Костюмный блейзер из смесового льна с поясом',
-    category: 'Одежда',
-    status: 'unavailable',
-    stock: 0,
-    price: '12 450 с',
-  },
-  {
-    id: 5,
-    name: 'Замшевый ремень',
-    category: 'Аксессуары',
-    status: 'available',
-    stock: 15,
-    price: '12 450 с',
-  },
-  {
-    id: 6,
-    name: 'Костюмный блейзер из смесового льна с поясом',
-    category: 'Одежда',
-    status: 'available',
-    stock: 27,
-    price: '12 450 с',
-  },
-  {
-    id: 7,
-    name: 'Костюмный блейзер из смесового льна с поясом',
-    category: 'Одежда',
-    status: 'low',
-    stock: 3,
-    price: '12 450 с',
-  },
-  {
-    id: 8,
-    name: 'Костюмный блейзер из смесового льна с поясом',
-    category: 'Одежда',
-    status: 'available',
-    stock: 43,
-    price: '12 450 с',
-  },
-  {
-    id: 9,
-    name: 'Костюмный блейзер из смесового льна с поясом',
-    category: 'Одежда',
-    status: 'available',
-    stock: 55,
-    price: '12 450 с',
-  },
-  {
-    id: 10,
-    name: 'Костюмный блейзер из смесового льна с поясом',
-    category: 'Одежда',
-    status: 'available',
-    stock: 24,
-    price: '12 450 с',
-  },
-];
+import { getProducts, Product } from '../../../data/productsData';
 
 export default function EwimvaTovary(): JSX.Element {
-  const [productsList, setProductsList] = useState(products);
+  const [productsList, setProductsList] = useState<Product[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('all');
   const [sortOption, setSortOption] = useState('newest');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const products = await getProducts();
+        setProductsList(products);
+        setLoading(false);
+      } catch (err) {
+        setError('Не удалось загрузить товары');
+        setLoading(false);
+      }
+    };
+    fetchProducts();
+  }, []);
 
   // Функция для фильтрации по поиску
   const filteredProducts = productsList.filter((product) =>
     searchQuery
       ? product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         product.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        product.status.toLowerCase().includes(searchQuery.toLowerCase())
+        product.status?.toLowerCase().includes(searchQuery.toLowerCase())
       : true
   ).filter((product) =>
     categoryFilter === 'all' ? true : product.category === categoryFilter
@@ -136,11 +69,29 @@ export default function EwimvaTovary(): JSX.Element {
   });
 
   // Функция для удаления товара
-  const handleDelete = (id: number) => {
+  const handleDelete = async (id: number) => {
     if (window.confirm('Вы уверены, что хотите удалить этот товар?')) {
-      setProductsList(productsList.filter((product) => product.id !== id));
+      try {
+        const response = await fetch(`http://localhost:3001/products/${id}`, {
+          method: 'DELETE',
+        });
+        if (!response.ok) {
+          throw new Error('Ошибка при удалении товара');
+        }
+        setProductsList(productsList.filter((product) => product.id !== id));
+      } catch (err) {
+        alert('Не удалось удалить товар');
+      }
     }
   };
+
+  if (loading) {
+    return <div className="flex-1 p-8">Загрузка...</div>;
+  }
+
+  if (error) {
+    return <div className="flex-1 p-8 text-red-500">{error}</div>;
+  }
 
   return (
     <>
@@ -403,8 +354,7 @@ export default function EwimvaTovary(): JSX.Element {
                         <DropdownMenuTrigger className="font-['Inter'] font-semibold text-[#131313] text-sm">
                           •••
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent className="bg-white shadow-lg rounded-md숙
-                        border border-gray-200">
+                        <DropdownMenuContent className="bg-white shadow-lg rounded-md border border-gray-200">
                           <DropdownMenuItem onClick={() => navigate(`/products/${product.id}/edit`)}>
                             Редактировать
                           </DropdownMenuItem>

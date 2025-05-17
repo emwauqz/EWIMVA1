@@ -48,8 +48,8 @@ if (!color.trim()) {
 if (!stock || isNaN(Number(stock)) || Number(stock) < 0) {
     newErrors.stock = 'Остаток должен быть числом больше или равным 0';
 }
-if (!price || !/^\d+\s*руб$/.test(price.trim())) {
-    newErrors.price = 'Цена должна быть в формате "число руб" (например, "12450 руб")';
+if (!price || !/^\d+\s*с$/.test(price.trim())) {
+    newErrors.price = 'Цена должна быть в формате "число с" (например, "12450 с")';
 }
 if (!image.trim()) {
     newErrors.image = 'Путь к изображению обязателен';
@@ -120,7 +120,7 @@ return (
             >
             Категория
             </Label>
-            <Select onValueChange={setCategory} defaultValue={category}>
+            <Select onValueChange={(value: string) => setCategory(value)} defaultValue={category}>
             <SelectTrigger
                 id="category"
                 className={`w-full border-[#00000040] rounded-md focus:border-[#131313] focus:ring-1 focus:ring-[#131313] p-2 ${errors.category ? 'border-red-500' : ''}`}
@@ -165,7 +165,7 @@ return (
             >
             Статус
             </Label>
-            <Select onValueChange={setStatus} defaultValue={status}>
+            <Select onValueChange={(value: 'available' | 'low' | 'unavailable') => setStatus(value)} defaultValue={status}>
             <SelectTrigger
                 id="status"
                 className="w-full border-[#00000040] rounded-md focus:border-[#131313] focus:ring-1 focus:ring-[#131313] p-2"
@@ -210,7 +210,7 @@ return (
             type="text"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
-            placeholder="Введите цену"
+            placeholder="Введите цену (например, 12450 с)"
             className={`w-full border-[#00000040] rounded-md focus:border-[#131313] focus:ring-1 focus:ring-[#131313] p-2 ${errors.price ? 'border-red-500' : ''}`}
             />
             {errors.price && (

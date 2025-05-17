@@ -44,3 +44,34 @@ console.error('Error adding product:', error);
 throw error;
 }
 };
+
+export const getProducts = async (): Promise<Product[]> => {
+try {
+const response = await fetch('http://localhost:3001/products');
+if (!response.ok) {
+    throw new Error('Ошибка при получении товаров');
+}
+return await response.json();
+} catch (error) {
+console.error('Error fetching products:', error);
+throw error;
+}
+};
+
+export const updateProduct = async (product: Product): Promise<void> => {
+try {
+const response = await fetch(`http://localhost:3001/products/${product.id}`, {
+    method: 'PUT',
+    headers: {
+    'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(product),
+});
+if (!response.ok) {
+    throw new Error('Ошибка при обновлении товара');
+}
+} catch (error) {
+console.error('Error updating product:', error);
+throw error;
+}
+};
