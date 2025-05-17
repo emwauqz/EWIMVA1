@@ -10,43 +10,69 @@ import { Card, CardContent } from "../../../components/ui/card";
 import { HeartIcon } from "lucide-react";
 import { Button } from "../../../components/ui/button";
 
-const products = [
-{
-id: 1,
-name: 'Духи Iris Cashmere 80 мл',
-category: 'CAPSULE',
-price: 'KGS 3 499',
-image: '/Духи Iris Cashmere 80 мл.png',
-colorVariants: [],
-composition: "63% viscose, 37% polyamide",
-origin: "Разработано в Барселоне, Производство: Китай",
-care: "Ручная стирка при 30 °С, Отбеливать запрещено, Гладить при 110 °С, Химчистка запрещена, Запрещено сушить в сушилке",
-photosLarge: [
-    { src: "/Духи Iris Cashmere 80 мл.png", alt: "1" },
-    { src: "/Духи Iris Cashmere 80 мл_2.png", alt: "2" },
-],
-photosSmall: [
-    { src: "/Духи Iris Cashmere 80 мл_3.png", alt: "3" },
-    { src: "/Духи Iris Cashmere 80 мл_4.png", alt: "4" },
-    { src: "/Духи Iris Cashmere 80 мл_5.png", alt: "5" },
-    { src: "/Духи Iris Cashmere 80 мл_6.png", alt: "6" },
-],
-color: "Серебристая норка",
-description: "Духи 80мл. Les Icônes. Коллекция из шести различных ароматов, каждый из которых призван стать неотъемлемой частью Вашего парфюмерного гардероба, точно также как маленькое черное платье и синие джинсы. Романтизм ириса сочетается с мягкостью кашемира в этом аромате, вызывающем ассоциации с изысканностью и чистотой. Iris Cashmere — это чувственное путешествие через пудровые и древесные ноты. ",
+interface Photo {
+src: string;
+alt: string;
 }
-];
+
+interface Product {
+id: number;
+name: string;
+category: string;
+price: string;
+image: string;
+colorVariants: any[];
+composition: string;
+origin: string;
+care: string;
+photosLarge: Photo[];
+photosSmall: Photo[];
+color: string;
+description: string;
+}
 
 export const Product = (): JSX.Element => {
 const { id } = useParams<{ id: string }>();
 const productId = id ? parseInt(id, 10) : 1;
 const navigate = useNavigate();
 
+const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+const [products, setProducts] = useState<Product[]>([]);
 const [favorites, setFavorites] = useState<number[]>(() => {
 const savedFavorites = localStorage.getItem("favorites");
 return savedFavorites ? JSON.parse(savedFavorites) : [];
 });
-
 const [currentImageIndex, setCurrentImageIndex] = useState(0);
+const [loading, setLoading] = useState(true);
+const [error, setError] = useState<string | null>(null);
+
+useEffect(() => {
+const fetchData = async () => {
+    try {
+    // Загрузка выбранного товара
+    const productResponse = await fetch(`http://localhost:3001/products/${productId}`);
+    if (!productResponse.ok) {
+        throw new Error('Товар не найден');
+    }
+    const productData: Product = await productResponse.json();
+    setSelectedProduct(productData);
+
+    // Загрузка всех товаров для секции "В том же стиле"
+    const productsResponse = await fetch('http://localhost:3001/products');
+    if (!productsResponse.ok) {
+        throw new Error('Ошибка загрузки товаров');
+    }
+    const productsData: Product[] = await productsResponse.json();
+    setProducts(productsData);
+    } catch (err) {
+    setError('Не удалось загрузить данные. Попробуйте позже.');
+    } finally {
+    setLoading(false);
+    }
+};
+
+fetchData();
+}, [productId]);
 
 useEffect(() => {
 localStorage.setItem("favorites", JSON.stringify(favorites));
@@ -60,7 +86,7 @@ setFavorites((prev) =>
 );
 };
 
-const handlePurchase = (product: any) => {
+const handlePurchase = (product: Product) => {
 const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
 const existingItem = cartItems.find((item: any) => item.id === product.id);
 if (existingItem) {
@@ -79,7 +105,13 @@ localStorage.setItem('cartItems', JSON.stringify(cartItems));
 alert(`${product.name} добавлен в корзину!`);
 };
 
-const selectedProduct = products.find((p) => p.id === productId) || products[0];
+if (loading) {
+return <div className="p-8 text-center font-['Inter'] text-[24px] text-[#131313]">Загрузка...</div>;
+}
+
+if (error || !selectedProduct) {
+return <div className="p-8 text-center font-['Inter'] text-[24px] text-red-500">{error || 'Товар не найден'}</div>;
+}
 
 const allPhotos = [...selectedProduct.photosLarge, ...selectedProduct.photosSmall];
 
