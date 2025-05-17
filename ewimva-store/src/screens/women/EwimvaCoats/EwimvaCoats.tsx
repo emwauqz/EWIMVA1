@@ -1,173 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ProductSection } from "../../../components/ProductSection";
 import { ChevronDownIcon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
-const products = [
-{
-id: 1,
-name: 'Двубортное пальто с шерстью',
-category: 'CAPSULE',
-price: 'KGS 32 990',
-image: '/Двубортное пальто с шерстью.png',
-colorVariants: [],
-},
-{
-id: 2,
-name: 'Классический тренч с поясом',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 12 990',
-image: '/Классический тренч с поясом.png',
-colorVariants: [],
-},
-{
-id: 3,
-name: 'Длинное структурное пальто из шерсти',
-category: 'CAPSULE',
-price: 'KGS 25 990',
-image: '/Длинное структурное пальто из шерсти.png',
-colorVariants: [],
-},
-{
-id: 4,
-name: 'Пальто из шерсти ручной работы с поясом',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 12 990',
-image: '/Пальто из шерсти ручной работы с поясом.png',
-colorVariants: [],
-},
-{
-id: 5,
-name: 'Пальто из шерсти в мелкую гусиную лапку',
-category: 'CAPSULE',
-price: 'KGS 12 990',
-image: '/Пальто из шерсти в мелкую гусиную лапку.png',
-colorVariants: [],
-},
-{
-id: 6,
-name: 'Пальто с лацканами шерсть',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 13 990',
-image: '/Пальто с лацканами шерсть.png',
-colorVariants: [],
-},
-{
-id: 7,
-name: 'Пальто из искусственного меха с аппликациями',
-category: 'NEW NOW',
-price: 'KGS 17 990',
-image: '/Пальто из искусственного меха с аппликациями.png',
-colorVariants: [],
-},
-{
-id: 8,
-name: 'Объемное пальто из шерсти ручной работы',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 15 990',
-image: '/Объемное пальто из шерсти ручной работы.png',
-colorVariants: [],
-},
-{
-id: 9,
-name: 'Двубортное пальто с шерстью',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 12 990',
-image: '/Двубортное пальто с шерстью1.png',
-colorVariants: [],
-},
-{
-id: 10,
-name: 'Вязаное пальто со съемным шарфом',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 12 990',
-image: '/Вязаное пальто со съемным шарфом.png',
-colorVariants: [],
-},
-{
-id: 11,
-name: 'Пальто из шерсти с поясом',
-category: 'NEW NOW',
-price: 'KGS 25 990',
-image: '/Пальто из шерсти с поясом.png',
-colorVariants: [
-],
-},
-{
-id: 12,
-name: 'Пальто миди из шерсти с уютным воротником',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 12 990',
-image: '/Пальто миди из шерсти с уютным воротником.png',
-colorVariants: [],
-},
-{
-id: 13,
-name: 'Пальто из шерсти с поясом',
-category: 'CAPSULE',
-price: 'KGS 25 990',
-image: '/Пальто из шерсти с поясом1.png',
-colorVariants: [],
-},
-{
-id: 14,
-name: 'Объемное пальто из шерсти ручной работы',
-category: 'CAPSULE',
-price: 'KGS 12 990',
-image: '/Объемное пальто из шерсти ручной работы1.png',
-colorVariants: [],
-},
-{
-id: 15,
-name: 'Короткое пальто из чистой шерсти',
-category: 'NEW NOW',
-price: 'KGS 25 990',
-image: '/Короткое пальто из чистой шерсти.png',
-colorVariants: [
-],
-},
-{
-id: 16,
-name: 'Длинное структурное пальто из шерсти',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 17 990',
-image: '/Длинное структурное пальто из шерсти1.png',
-colorVariants: [],
-},
-{
-id: 17,
-name: 'Длинное пальто оверсайз ручной работы',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 12 990',
-image: '/Длинное пальто оверсайз ручной работы2.png',
-colorVariants: [],
-},
-{
-id: 18,
-name: 'Пальто миди из шерсти с высоким воротником',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 16 990',
-image: '/Пальто миди из шерсти с высоким воротником.png',
-colorVariants: [],
-},
-{
-id: 19,
-name: 'Пальто из шерсти с высоким воротником3',
-category: 'NEW NOW',
-price: 'KGS 22 990',
-image: '/Пальто из шерсти с высоким воротником3.png',
-colorVariants: [
-],
-},
-{
-id: 20,
-name: 'Двубортное пальто с лацканами3',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 22 990',
-image: '/Двубортное пальто с лацканами3.png',
-colorVariants: [],
-},
-];
+interface Product {
+id: number;
+name: string;
+category: string;
+price: string;
+image: string;
+colorVariants: any[];
+}
 
 const categories = [
 { name: 'Сумки', path: '/bags' },
@@ -183,29 +26,56 @@ const categories = [
 
 export default function EwimvaCoats(): JSX.Element {
 const [isCategoryOpen, setIsCategoryOpen] = useState(false);
+const [products, setProducts] = useState<Product[]>([]);
+const [loading, setLoading] = useState(true);
+const [error, setError] = useState<string | null>(null);
 const navigate = useNavigate();
+
+useEffect(() => {
+const fetchProducts = async () => {
+    try {
+    const response = await fetch('http://localhost:3001/products?category=Пальто');
+    if (!response.ok) {
+        throw new Error('Ошибка загрузки пальто');
+    }
+    const data: Product[] = await response.json();
+    setProducts(data);
+    } catch (err) {
+    setError('Не удалось загрузить пальто. Попробуйте позже.');
+    } finally {
+    setLoading(false);
+    }
+};
+
+fetchProducts();
+}, []);
+
+if (loading) {
+return <div className="p-8 text-center font-['Montserrat'] text-[24px] text-[#131313]">Загрузка...</div>;
+}
+
+if (error) {
+return <div className="p-8 text-center font-['Montserrat'] text-[24px] text-red-500">{error}</div>;
+}
 
 return (
 <>
     <style>
     {`
         @media (max-width: 767px) {
-        /* Сетка */
         .new-now-container div[class*="grid-cols-4"],
         .new-now-container div.grid-cols-4 {
             display: grid !important;
             grid-template-columns: repeat(2, 1fr) !important;
             gap: 0px !important;
-            background-color: rgb(255, 255, 255) !important; /* Отладка */
+            background-color: rgb(255, 255, 255) !important;
         }
-
-        /* Карточки */
         .new-now-container .product-card,
         .new-now-container .item-card,
         .new-now-container div[class*="product-card"],
         .new-now-container div[class*="item-card"] {
             font-size: 12px !important;
-            background-color: rgb(255, 255, 255) !important; /* Отладка */
+            background-color: rgb(255, 255, 255) !important;
         }
         .new-now-container .product-card p,
         .new-now-container .product-card span,
@@ -215,27 +85,21 @@ return (
         .new-now-container .item-card div {
             font-size: 12px !important;
         }
-
-        /* Заголовки и кнопка */
         .new-now-container h1,
         .new-now-container h2 {
             font-size: 12px !important;
             margin-left: 0 !important;
-            background-color: rgb(255, 255, 255) !important; /* Отладка */
+            background-color: rgb(255, 255, 255) !important;
         }
         .new-now-container button[class*="text-[14px]"] {
             font-size: 12px !important;
             margin-left: 0 !important;
-            background-color: rgb(255, 255, 255) !important; /* Отладка */
+            background-color: rgb(255, 255, 255) !important;
         }
-
-        /* Контейнер */
         .new-now-container .max-w-7xl {
             padding-left: 8px !important;
             padding-right: 8px !important;
         }
-
-        /* Защита от масштабирования */
         .new-now-container {
             transform: none !important;
             zoom: 1 !important;
@@ -283,13 +147,21 @@ return (
             </div>
         </div>
         </div>
-        <ProductSection products={products.slice(0, 4)} />
-        <ProductSection products={products.slice(4, 8)} />
-        <ProductSection products={products.slice(8, 12)} />
-        <ProductSection products={products.slice(12, 16)} />
-        <ProductSection products={products.slice(16, 20)} />
-        <ProductSection products={products.slice(20, 24)} />
-        <ProductSection products={products.slice(24, 28)} />
+        {products.length > 0 ? (
+        <>
+            <ProductSection products={products.slice(0, 4)} />
+            {products.length > 4 && <ProductSection products={products.slice(4, 8)} />}
+            {products.length > 8 && <ProductSection products={products.slice(8, 12)} />}
+            {products.length > 12 && <ProductSection products={products.slice(12, 16)} />}
+            {products.length > 16 && <ProductSection products={products.slice(16, 20)} />}
+            {products.length > 20 && <ProductSection products={products.slice(20, 24)} />}
+            {products.length > 24 && <ProductSection products={products.slice(24, 28)} />}
+        </>
+        ) : (
+        <div className="p-8 text-center font-['Montserrat'] text-[24px] text-[#131313]">
+            Пальто не найдены
+        </div>
+        )}
     </main>
     </div>
 </>
