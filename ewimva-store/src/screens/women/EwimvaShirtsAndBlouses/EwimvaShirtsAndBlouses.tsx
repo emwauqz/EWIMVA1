@@ -1,107 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ProductSection } from "../../../components/ProductSection";
 import { ChevronDownIcon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
-const products = [
-{
-id: 1,
-name: 'Шелковая рубашка с фуляром и бахромой',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 17 990',
-image: '/Шелковая рубашка с фуляром и бахромой.png',
-colorVariants: [],
-},
-{
-id: 2,
-name: 'Асимметричная блузка с фуляром и бахромой',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 5 990',
-image: '/Асимметричная блузка с фуляром и бахромой.png',
-colorVariants: [],
-},
-{
-id: 3,
-name: 'Рубашка regular из смесового льна',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 6 490',
-image: '/Рубашка regular из смесового льна.png',
-colorVariants: [],
-},
-{
-id: 4,
-name: 'Объемная рубашка с вышивкой',
-category: 'NEW NOW',
-price: 'KGS 6 490',
-image: '/Объемная рубашка с вышивкой.png',
-colorVariants: [],
-},
-{
-id: 5,
-name: 'Джинсы wideleg с необработанными краями',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 6 990',
-image: '/Джинсы wideleg с необработанными краями.png',
-colorVariants: [],
-},
-{
-id: 6,
-name: 'Топ из лиоцелла с пуговицами на спине',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 8 990',
-image: '/Топ из лиоцелла с пуговицами на спине.png',
-colorVariants: [],
-},
-{
-id: 7,
-name: 'Рубашка из лиоцелла с запахом и завязками',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 5 999',
-image: '/Рубашка из лиоцелла с запахом и завязками.png',
-colorVariants: [],
-},
-{
-id: 8,
-name: 'Объемная рубашка изо льна',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 7 990',
-image: '/Объемная рубашка изо льна.png',
-colorVariants: [],
-},
-{
-id: 9,
-name: 'Вязаный жилет с нарядными пуговицами',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 5 990',
-image: '/Вязаный жилет с нарядными пуговицами.png',
-colorVariants: [],
-},
-{
-id: 10,
-name: 'Объемная рубашка из лиоцелла',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 6 990',
-image: '/Объемная рубашка из лиоцелла.png',
-colorVariants: [],
-},
-{
-id: 11,
-name: 'Блузка со сборками и открытыми плечами',
-category: 'NEW NOW',
-price: 'KGS 6 990',
-image: '/Блузка со сборками и открытыми плечами.png',
-colorVariants: [
-],
-},
-{
-id: 12,
-name: 'Рубашка с вышивкой',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 7 990',
-image: '/Рубашка с вышивкой.png',
-colorVariants: [],
-},
-];
+interface Product {
+id: number;
+name: string;
+category: string;
+price: string;
+image: string;
+colorVariants: any[];
+}
 
 const categories = [
 { name: 'Сумки', path: '/bags' },
@@ -117,29 +26,56 @@ const categories = [
 
 export default function EwimvaShirtsAndBlouses(): JSX.Element {
 const [isCategoryOpen, setIsCategoryOpen] = useState(false);
+const [products, setProducts] = useState<Product[]>([]);
+const [loading, setLoading] = useState(true);
+const [error, setError] = useState<string | null>(null);
 const navigate = useNavigate();
+
+useEffect(() => {
+const fetchProducts = async () => {
+    try {
+    const response = await fetch('http://localhost:3001/products?category=Рубашки и футболки');
+    if (!response.ok) {
+        throw new Error('Ошибка загрузки рубашек и футболок');
+    }
+    const data: Product[] = await response.json();
+    setProducts(data);
+    } catch (err) {
+    setError('Не удалось загрузить рубашки и футболки. Попробуйте позже.');
+    } finally {
+    setLoading(false);
+    }
+};
+
+fetchProducts();
+}, []);
+
+if (loading) {
+return <div className="p-8 text-center font-['Montserrat'] text-[24px] text-[#131313]">Загрузка...</div>;
+}
+
+if (error) {
+return <div className="p-8 text-center font-['Montserrat'] text-[24px] text-red-500">{error}</div>;
+}
 
 return (
 <>
     <style>
     {`
         @media (max-width: 767px) {
-        /* Сетка */
         .new-now-container div[class*="grid-cols-4"],
         .new-now-container div.grid-cols-4 {
             display: grid !important;
             grid-template-columns: repeat(2, 1fr) !important;
             gap: 0px !important;
-            background-color: rgb(255, 255, 255) !important; /* Отладка */
+            background-color: rgb(255, 255, 255) !important;
         }
-
-        /* Карточки */
         .new-now-container .product-card,
         .new-now-container .item-card,
         .new-now-container div[class*="product-card"],
         .new-now-container div[class*="item-card"] {
             font-size: 12px !important;
-            background-color: rgb(255, 255, 255) !important; /* Отладка */
+            background-color: rgb(255, 255, 255) !important;
         }
         .new-now-container .product-card p,
         .new-now-container .product-card span,
@@ -149,27 +85,21 @@ return (
         .new-now-container .item-card div {
             font-size: 12px !important;
         }
-
-        /* Заголовки и кнопка */
         .new-now-container h1,
         .new-now-container h2 {
             font-size: 12px !important;
             margin-left: 0 !important;
-            background-color: rgb(255, 255, 255) !important; /* Отладка */
+            background-color: rgb(255, 255, 255) !important;
         }
         .new-now-container button[class*="text-[14px]"] {
             font-size: 12px !important;
             margin-left: 0 !important;
-            background-color: rgb(255, 255, 255) !important; /* Отладка */
+            background-color: rgb(255, 255, 255) !important;
         }
-
-        /* Контейнер */
         .new-now-container .max-w-7xl {
             padding-left: 8px !important;
             padding-right: 8px !important;
         }
-
-        /* Защита от масштабирования */
         .new-now-container {
             transform: none !important;
             zoom: 1 !important;
@@ -217,13 +147,21 @@ return (
             </div>
         </div>
         </div>
-        <ProductSection products={products.slice(0, 4)} />
-        <ProductSection products={products.slice(4, 8)} />
-        <ProductSection products={products.slice(8, 12)} />
-        <ProductSection products={products.slice(12, 16)} />
-        <ProductSection products={products.slice(16, 20)} />
-        <ProductSection products={products.slice(20, 24)} />
-        <ProductSection products={products.slice(24, 28)} />
+        {products.length > 0 ? (
+        <>
+            <ProductSection products={products.slice(0, 4)} />
+            {products.length > 4 && <ProductSection products={products.slice(4, 8)} />}
+            {products.length > 8 && <ProductSection products={products.slice(8, 12)} />}
+            {products.length > 12 && <ProductSection products={products.slice(12, 16)} />}
+            {products.length > 16 && <ProductSection products={products.slice(16, 20)} />}
+            {products.length > 20 && <ProductSection products={products.slice(20, 24)} />}
+            {products.length > 24 && <ProductSection products={products.slice(24, 28)} />}
+        </>
+        ) : (
+        <div className="p-8 text-center font-['Montserrat'] text-[24px] text-[#131313]">
+            Рубашки и футболки не найдены
+        </div>
+        )}
     </main>
     </div>
 </>
