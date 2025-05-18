@@ -10,8 +10,43 @@ SelectTrigger,
 SelectValue,
 } from '../../../components/ui/select';
 import { Card, CardContent, CardHeader, CardTitle } from '../../../components/ui/card';
-import { Product, getProducts, updateProduct } from '../../../data/productsData';
 import { categories } from '../../../data/categories';
+
+interface ColorVariant {
+color: string;
+image: string;
+}
+
+interface Product {
+id: number;
+name: string;
+category: string;
+price: string;
+image: string;
+colorVariants: ColorVariant[];
+gender?: 'male' | 'female' | 'unisex';
+color?: string;
+stock?: number;
+status?: 'available' | 'low' | 'unavailable';
+}
+
+const getProducts = async (): Promise<Product[]> => {
+const response = await fetch('http://localhost:3001/products');
+const data = await response.json();
+return data.map((item: any) => ({
+...item,
+id: Number(item.id),
+colorVariants: item.colorVariants || [],
+}));
+};
+
+const updateProduct = async (product: Product): Promise<void> => {
+await fetch(`http://localhost:3001/products/${product.id}`, {
+method: 'PUT',
+headers: { 'Content-Type': 'application/json' },
+body: JSON.stringify(product),
+});
+};
 
 export default function EditProduct(): JSX.Element {
 const { id } = useParams<{ id: string }>();
@@ -23,10 +58,12 @@ const [status, setStatus] = useState<'available' | 'low' | 'unavailable'>('avail
 const [stock, setStock] = useState('');
 const [price, setPrice] = useState('');
 const [priceError, setPriceError] = useState<string | null>(null);
+const [gender, setGender] = useState<'male' | 'female' | 'unisex'>('female');
+const [color, setColor] = useState('');
+const [image, setImage] = useState('');
 const [loading, setLoading] = useState(true);
 const [error, setError] = useState<string | null>(null);
 
-// Функция форматирования цены
 const formatPrice = (value: string): string => {
 const cleanValue = value.replace(/[^\d]/g, '');
 if (!cleanValue) return '';
@@ -39,26 +76,23 @@ useEffect(() => {
 const fetchProduct = async () => {
     try {
     const products = await getProducts();
-    console.log('Products fetched for edit:', products);
-    console.log('Searching for product with id:', id);
-    const foundProduct = products.find((p) => p.id === id);
+    const foundProduct = products.find((p) => p.id === Number(id));
     if (foundProduct) {
-        console.log('Found product:', foundProduct);
         setProduct(foundProduct);
         setName(foundProduct.name);
         setCategory(foundProduct.category);
         setStatus(foundProduct.status || 'available');
         setStock(foundProduct.stock?.toString() || '0');
-        // Преобразуем цену из "35990с" или числа в "KGS 35 990"
+        setGender(foundProduct.gender || 'female');
+        setColor(foundProduct.color || 'Не указано');
+        setImage(foundProduct.image || '');
         const rawPrice = foundProduct.price.replace(/[^\d]/g, '');
         setPrice(rawPrice ? formatPrice(rawPrice) : foundProduct.price);
     } else {
-        console.log('Product not found for id:', id);
         setError('Товар не найден');
     }
     setLoading(false);
     } catch (err) {
-    console.error('Error fetching product:', err);
     setError('Не удалось загрузить товар');
     setLoading(false);
     }
@@ -94,6 +128,9 @@ try {
     status,
     stock: Number(stock),
     price,
+    gender,
+    color,
+    image,
     });
     alert('Товар обновлён!');
     navigate('/products');
@@ -147,6 +184,43 @@ return (
                 ))}
             </SelectContent>
             </Select>
+        </div>
+        <div>
+            <label className="font-['Inter'] font-normal text-[#131313] text-sm mb-2 block">
+            Пол
+            </label>
+            <Select onValueChange={(value: 'male' | 'female' | 'unisex') => setGender(value)} value={gender}>
+            <SelectTrigger className="w-full border-[#00000040] rounded-md focus:border-[#131313] focus:ring-1 focus:ring-[#131313] p-2">
+                <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+                <SelectItem value="female">Женский</SelectItem>
+                <SelectItem value="male">Мужской</SelectItem>
+                <SelectItem value="unisex">Унисекс</SelectItem>
+            </SelectContent>
+            </Select>
+        </div>
+        <div>
+            <label className="font-['Inter'] font-normal text-[#131313] text-sm mb-2 block">
+            Цвет
+            </label>
+            <Input
+            type="text"
+            value={color}
+            onChange={(e) => setColor(e.target.value)}
+            className="w-full border-[#00000040] rounded-md focus:border-[#131313] focus:ring-1 focus:ring-[#131313] p-2"
+            />
+        </div>
+        <div>
+            <label className="font-['Inter'] font-normal text-[#131313] text-sm mb-2 block">
+            Изображение
+            </label>
+            <Input
+            type="text"
+            value={image}
+            onChange={(e) => setImage(e.target.value)}
+            className="w-full border-[#00000040] rounded-md focus:border-[#131313] focus:ring-1 focus:ring-[#131313] p-2"
+            />
         </div>
         <div>
             <label className="font-['Inter'] font-normal text-[#131313] text-sm mb-2 block">

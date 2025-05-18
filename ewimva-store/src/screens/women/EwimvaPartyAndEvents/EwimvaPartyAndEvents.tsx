@@ -2,6 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { ProductSection } from "../../../components/ProductSection";
 import { ChevronDownIcon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { categories } from '../../../data/categories';
+
+interface ColorVariant {
+color: string;
+image: string;
+}
 
 interface Product {
 id: number;
@@ -9,20 +15,9 @@ name: string;
 category: string;
 price: string;
 image: string;
-colorVariants: any[];
+colorVariants: ColorVariant[];
+gender?: 'male' | 'female' | 'unisex';
 }
-
-const categories = [
-{ name: 'Сумки', path: '/bags' },
-{ name: 'Пальто', path: '/coats' },
-{ name: 'Платья', path: '/dress' },
-{ name: 'Ароматы', path: '/fragrances' },
-{ name: 'Джемперы и кардиганы', path: '/jumpers-and-cardigans' },
-{ name: 'Новинки', path: '/new' },
-{ name: 'Брюки', path: '/pants' },
-{ name: 'Рубашки и футболки', path: '/shirts-and-blouses' },
-{ name: 'Обувь', path: '/shoes' },
-];
 
 export default function EwimvaPartyAndEvents(): JSX.Element {
 const [isCategoryOpen, setIsCategoryOpen] = useState(false);
@@ -34,14 +29,23 @@ const navigate = useNavigate();
 useEffect(() => {
 const fetchProducts = async () => {
     try {
-    const response = await fetch('http://localhost:3001/products?category=Платья');
+    const response = await fetch('http://localhost:3001/products?category=Вечерние&gender=female');
     if (!response.ok) {
-        throw new Error('Ошибка загрузки платьев');
+        throw new Error('Ошибка загрузки вечерних платьев');
     }
-    const data: Product[] = await response.json();
-    setProducts(data);
+    const data = await response.json();
+    const formattedData: Product[] = data.map((item: any) => ({
+        id: Number(item.id),
+        name: item.name,
+        category: item.category,
+        price: item.price,
+        image: item.image,
+        colorVariants: item.colorVariants || [],
+        gender: item.gender,
+    }));
+    setProducts(formattedData);
     } catch (err) {
-    setError('Не удалось загрузить платья. Попробуйте позже.');
+    setError('Не удалось загрузить вечерние платья. Попробуйте позже.');
     } finally {
     setLoading(false);
     }
@@ -111,7 +115,7 @@ return (
     <div className="new-now-container flex flex-col min-h-screen">
     <main className="flex-1">
         <div className="max-w-7xl mx-auto px-2 py-4">
-        <h1 className="font-['Montserrat'] font-medium text-[24px] text-[#131313] leading-[28px] ml-[-20px]">
+        <h1 className="font-['Montserrat'] font-medium text-[24px] text-[#131313] leading-[28px]">
             Вечерние
         </h1>
         </div>
@@ -129,10 +133,10 @@ return (
                 <ChevronDownIcon className={`w-4 h-4 transition-transform ${isCategoryOpen ? 'rotate-180' : ''}`} />
             </button>
             {isCategoryOpen && (
-                <div className="absolute z-50 mt-2 w-[250px] bg-white shadow-lg rounded-md py-2 max-h-[400px] overflow-y-auto">
-                {categories.map((category, index) => (
+                <div className="absolute z-50 mt-2 ml-[-250px] w-[250px] bg-white shadow-lg rounded-md py-2 max-h-[400px] overflow-y-auto">
+                {categories.filter(cat => cat.type === 'women').map((category) => (
                     <button
-                    key={index}
+                    key={category.id}
                     onClick={() => {
                         navigate(category.path);
                         setIsCategoryOpen(false);
@@ -159,7 +163,7 @@ return (
         </>
         ) : (
         <div className="p-8 text-center font-['Montserrat'] text-[24px] text-[#131313]">
-            Платья не найдены
+            Вечерние платья не найдены
         </div>
         )}
     </main>

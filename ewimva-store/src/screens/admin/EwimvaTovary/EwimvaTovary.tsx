@@ -27,12 +27,12 @@ export default function EwimvaTovary(): JSX.Element {
   const [productsList, setProductsList] = useState<Product[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('all');
+  const [genderFilter, setGenderFilter] = useState('all');
   const [sortOption, setSortOption] = useState('newest');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
-  // Функция форматирования цены
   const formatPrice = (price: string): string => {
     const cleanPrice = price.replace(/[^\d]/g, '');
     if (!cleanPrice) return price;
@@ -55,7 +55,6 @@ export default function EwimvaTovary(): JSX.Element {
     fetchProducts();
   }, []);
 
-  // Функция для фильтрации по поиску
   const filteredProducts = productsList.filter((product) =>
     searchQuery
       ? product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -64,9 +63,10 @@ export default function EwimvaTovary(): JSX.Element {
       : true
   ).filter((product) =>
     categoryFilter === 'all' ? true : product.category === categoryFilter
+  ).filter((product) =>
+    genderFilter === 'all' ? true : product.gender === genderFilter
   );
 
-  // Функция для сортировки
   const sortedProducts = [...filteredProducts].sort((a, b) => {
     if (sortOption === 'price-asc') {
       const priceA = parseFloat(a.price.replace(/[^\d]/g, ''));
@@ -82,7 +82,6 @@ export default function EwimvaTovary(): JSX.Element {
     return 0;
   });
 
-  // Функция для удаления товара
   const handleDelete = async (id: string) => {
     if (window.confirm('Вы уверены, что хотите удалить этот товар?')) {
       try {
@@ -201,7 +200,7 @@ export default function EwimvaTovary(): JSX.Element {
             <div className="font-['Inter'] font-light text-black text-[13px] tracking-[0.80px]">
               SEARCH
             </div>
-            <input
+            <Input
               type="text"
               placeholder="Поиск по названию, категории или статусу..."
               value={searchQuery}
@@ -225,6 +224,30 @@ export default function EwimvaTovary(): JSX.Element {
                     {cat.name}
                   </DropdownMenuItem>
                 ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+          <div className="flex items-center gap-2">
+            <DropdownMenu>
+              <DropdownMenuTrigger className="flex items-center gap-1 font-['Inter'] font-normal text-[14px] text-[#131313] hover:underline focus:outline-none">
+                {genderFilter === 'all' ? 'Все товары' :
+                 genderFilter === 'female' ? 'Женские' :
+                 genderFilter === 'male' ? 'Мужские' : 'Унисекс'}
+                <ChevronDownIcon className="w-4 h-4" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="bg-white shadow-lg rounded-md border border-gray-200">
+                <DropdownMenuItem onClick={() => setGenderFilter('all')}>
+                  Все товары
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setGenderFilter('female')}>
+                  Женские
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setGenderFilter('male')}>
+                  Мужские
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setGenderFilter('unisex')}>
+                  Унисекс
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
@@ -270,6 +293,9 @@ export default function EwimvaTovary(): JSX.Element {
                     Категория
                   </TableHead>
                   <TableHead className="font-['Inter'] font-normal text-[#131313] text-sm">
+                    Пол
+                  </TableHead>
+                  <TableHead className="font-['Inter'] font-normal text-[#131313] text-sm">
                     Статус
                   </TableHead>
                   <TableHead className="font-['Inter'] font-normal text-[#131313] text-sm">
@@ -295,6 +321,11 @@ export default function EwimvaTovary(): JSX.Element {
                     </TableCell>
                     <TableCell className="font-['Inter'] font-semibold text-[#131313] text-sm">
                       {product.category}
+                    </TableCell>
+                    <TableCell className="font-['Inter'] font-semibold text-[#131313] text-sm">
+                      {product.gender === 'female' ? 'Женский' :
+                       product.gender === 'male' ? 'Мужской' :
+                       product.gender === 'unisex' ? 'Унисекс' : 'Не указано'}
                     </TableCell>
                     <TableCell>
                       {product.status === 'available' && (

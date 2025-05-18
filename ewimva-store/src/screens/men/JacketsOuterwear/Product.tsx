@@ -9,302 +9,64 @@ AccordionTrigger,
 import { Card, CardContent } from "../../../components/ui/card";
 import { HeartIcon } from "lucide-react";
 import { Button } from "../../../components/ui/button";
+import { Product } from "../../../data/productsData";
 
-const products = [
-{
-id: 1,
-name: 'Рубашка лен и хлопок с карманом',
-category: 'CAPSULE',
-price: 'KGS 7 990',
-image: '/Рубашка лен и хлопок с карманом.png',
-colorVariants: [],
-composition: "63% viscose, 37% polyamide",
-origin: "Разработано в Барселоне, Производство: Китай",
-care: "Ручная стирка при 30 °С, Отбеливать запрещено, Гладить при 110 °С, Химчистка запрещена, Запрещено сушить в сушилке",
-photosLarge: [
-    { src: "/Рубашка лен и хлопок с карманом.png", alt: "1" },
-    { src: "/Рубашка лен и хлопок с карманом_2.png", alt: "2" },
-],
-photosSmall: [
-    { src: "/Рубашка лен и хлопок с карманом_3.png", alt: "3" },
-    { src: "/Рубашка лен и хлопок с карманом_4.png", alt: "4" },
-    { src: "/Рубашка лен и хлопок с карманом_5.png", alt: "5" },
-    { src: "/Рубашка лен и хлопок с карманом_6.png", alt: "6" },
-],
-color: "Экрю",
-description: "Прямой крой. Ткань из смеси льна и хлопка. Рубашечный воротник. Передняя застежка на пуговицы. Накладной карман на груди. Манжеты на пуговицах. Прямой низ. Модель ростом 190 см и носит размер M. В наличии комплект для создания тотального образа. ",
-},
-{
-id: 2,
-name: 'Куртка-бомбер с эффектом замши',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 6 990',
-image: '/Куртка-бомбер с эффектом замши.png',
-colorVariants: [],
-composition: "65% cotton, 35% polyester",
-origin: "Разработано в Париже, Производство: Вьетнам",
-care: "Машинная стирка при 40 °С, Отбеливать запрещено, Гладить при 150 °С, Химчистка разрешена, Сушка в сушилке разрешена",
-photosLarge: [
-    { src: "/Куртка-бомбер с эффектом замши.png", alt: "1" },
-    { src: "/Куртка-бомбер с эффектом замши_2.png", alt: "2" },
-],
-photosSmall: [
-    { src: "/Куртка-бомбер с эффектом замши_3.png", alt: "3" },
-    { src: "/Куртка-бомбер с эффектом замши_4.png", alt: "4" },
-    { src: "/Куртка-бомбер с эффектом замши_5.png", alt: "5" },
-    { src: "/Куртка-бомбер с эффектом замши_6.png", alt: "6" },
-],
-color: "Песочный",
-description: "Коричневый цвет эксклюзивно онлайн. Фасон бомбер. Выделка под замшу. Спереди застежка на молнию. Длинные рукава с эластичными манжетами. Два боковых кармана с застежкой на молнию. Низ с эластичной резинкой. Внутри карман на молнии. Подкладка. Рост модели: 183 см, размер: М. ",
-},
-{
-id: 3,
-name: 'Куртка-бомбер с эффектом замши',
-category: 'CAPSULE',
-price: 'KGS 5 990',
-image: '/Куртка-бомбер с эффектом замши.png',
-colorVariants: [],
-composition: "70% cotton, 30% elastane",
-origin: "Разработано в Милане, Производство: Турция",
-care: "Ручная стирка при 30 °С, Отбеливать запрещено, Гладить при 110 °С, Химчистка запрещена, Запрещено сушить в сушилке",
-photosLarge: [
-    { src: "/Куртка-бомбер с эффектом замши1.png", alt: "1" },
-    { src: "/Куртка-бомбер с эффектом замши1_2.png", alt: "2" },
-],
-photosSmall: [
-    { src: "/Куртка-бомбер с эффектом замши1_3.png", alt: "3" },
-    { src: "/Куртка-бомбер с эффектом замши1_4.png", alt: "4" },
-    { src: "/Куртка-бомбер с эффектом замши1_5.png", alt: "5" },
-],
-color: "Бежевый",
-description: "Фасон бомбер. Выделка под замшу. Спереди застежка на молнию. Длинные рукава с эластичными манжетами. Два боковых кармана с застежкой на молнию. Низ с эластичной резинкой. Внутри карман на молнии. Подкладка. Рост модели: 183 см, размер: М. Коричневый цвет эксклюзивно онлайн. ",
-},
-{
-id: 4,
-name: 'Quilted water-repellent bomber jacket',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 7 990',
-image: '/Quilted water-repellent bomber jacket.png',
-colorVariants: [],
-composition: "100% cotton",
-origin: "Разработано в Лондоне, Производство: Индия",
-care: "Машинная стирка при 40 °С, Отбеливать запрещено, Гладить при 150 °С, Химчистка разрешена, Сушка в сушилке разрешена",
-photosLarge: [
-    { src: "/Quilted water-repellent bomber jacket.png", alt: "1" },
-    { src: "/Quilted water-repellent bomber jacket_2.png", alt: "2" },
-],
-photosSmall: [
-    { src: "/Quilted water-repellent bomber jacket_3.png", alt: "3" },
-    { src: "/Quilted water-repellent bomber jacket_4.png", alt: "4" },
-    { src: "/Quilted water-repellent bomber jacket_5.png", alt: "5" },
-    { src: "/Quilted water-repellent bomber jacket_6.png", alt: "6" },
-],
-color: "Темно-синий",
-description: "Непромокаемая ткань. Стеганый дизайн. Прямой крой. Переработанный полиэстер. Воротник-бомбер из трикотажа. Спереди застежка на металлическую молнию. Длинные рукава с эластичными манжетами. Два кармана с клапанами спереди. Низ с эластичной резинкой. Модель ростом 190 см и носит размер M. Водоотталкивающая: Прочное покрытие этого изделия защищает от легкого дождя, отталкивая воду и капли дождя. ",
-},
-{
-id: 5,
-name: 'Куртка regular fit из шерсти',
-category: 'CAPSULE',
-price: 'KGS 6 990',
-image: '/Куртка regular fit из шерсти.png',
-colorVariants: [],
-composition: "60% wool, 40% acrylic",
-origin: "Разработано в Нью-Йорке, Производство: Китай",
-care: "Ручная стирка при 30 °С, Отбеливать запрещено, Гладить при 110 °С, Химчистка запрещена, Запрещено сушить в сушилке",
-photosLarge: [
-    { src: "/Куртка regular fit из шерсти.png", alt: "1" },
-    { src: "/Куртка regular fit из шерсти_2.png", alt: "2" },
-],
-photosSmall: [
-    { src: "/Куртка regular fit из шерсти_3.png", alt: "3" },
-    { src: "/Куртка regular fit из шерсти_4.png", alt: "4" },
-    { src: "/Куртка regular fit из шерсти_5.png", alt: "5" },
-    { src: "/Куртка regular fit из шерсти_6.png", alt: "6" },
-],
-color: "Угольно-серый",
-description: "ESSENTIALS: Сделано, чтобы служить долго. Шерсть. Воротник-стойка. Спереди застежка на молнию. По бокам карманы с застежкой на кнопки. Регулируемый низ. Подкладка. Модель ростом 187 см и носит размер M. Длинный рукав с эластичными и собранными манжетами. ",
-},
-{
-id: 6,
-name: 'Водоотталкивающий бомбер с карманами',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 5 990',
-image: '/Водоотталкивающий бомбер с карманами.png',
-colorVariants: [],
-composition: "63% viscose, 37% polyamide",
-origin: "Разработано в Барселоне, Производство: Китай",
-care: "Ручная стирка при 30 °С, Отбеливать запрещено, Гладить при 110 °С, Химчистка запрещена, Запрещено сушить в сушилке",
-photosLarge: [
-    { src: "/Водоотталкивающий бомбер с карманами.png", alt: "1" },
-    { src: "/Водоотталкивающий бомбер с карманами_2.png", alt: "2" },
-],
-photosSmall: [
-    { src: "/Водоотталкивающий бомбер с карманами_3.png", alt: "3" },
-    { src: "/Водоотталкивающий бомбер с карманами_4.png", alt: "4" },
-    { src: "/Водоотталкивающий бомбер с карманами_5.png", alt: "5" },
-    { src: "/Водоотталкивающий бомбер с карманами_6.png", alt: "6" },
-],
-color: "Синяя ночь",
-description: "ESSENTIALS: Сделано, чтобы служить долго. Ветрозащитный: Этот прочный материал обеспечивает защиту от ветра для большего комфорта в активном образе жизни. Water Repellent: Техническая ткань, отталкивающая воду. Фасон бомбер. Техническая ткань. Воротник-бомбер из трикотажа. Спереди застежка на молнию. Длинные рукава с эластичными манжетами. На бедрах два накладных кармана с клапанами. Без подкладки. Внутренний карман. Низ с эластичной резинкой. Модель ростом 190 см и носит размер M. ",
-},
-{
-id: 7,
-name: 'Классический водоотталкивающий тренч',
-category: 'NEW NOW',
-price: 'KGS 6 990',
-image: '/Классический водоотталкивающий тренч.png',
-colorVariants: [],
-composition: "65% cotton, 35% polyester",
-origin: "Разработано в Париже, Производство: Вьетнам",
-care: "Машинная стирка при 40 °С, Отбеливать запрещено, Гладить при 150 °С, Химчистка разрешена, Сушка в сушилке разрешена",
-photosLarge: [
-    { src: "/Классический водоотталкивающий тренч.png", alt: "1" },
-    { src: "/Классический водоотталкивающий тренч_2.png", alt: "2" },
-],
-photosSmall: [
-    { src: "/Классический водоотталкивающий тренч_3.png", alt: "3" },
-    { src: "/Классический водоотталкивающий тренч_4.png", alt: "4" },
-    { src: "/Классический водоотталкивающий тренч_5.png", alt: "5" },
-    { src: "/Классический водоотталкивающий тренч_6.png", alt: "6" },
-],
-color: "Белый",
-description: "Удобный ",
-},
-{
-id: 8,
-name: 'Водоотталкивающий плащ из хлопка',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 8 990',
-image: '/Водоотталкивающий плащ из хлопка.png',
-colorVariants: [],
-composition: "70% cotton, 30% elastane",
-origin: "Разработано в Милане, Производство: Турция",
-care: "Ручная стирка при 30 °С, Отбеливать запрещено, Гладить при 110 °С, Химчистка запрещена, Запрещено сушить в сушилке",
-photosLarge: [
-    { src: "/Водоотталкивающий плащ из хлопка.png", alt: "1" },
-    { src: "/Водоотталкивающий плащ из хлопка_2.png", alt: "2" },
-],
-photosSmall: [
-    { src: "/Водоотталкивающий плащ из хлопка_3.png", alt: "3" },
-    { src: "/Водоотталкивающий плащ из хлопка_4.png", alt: "4" },
-    { src: "/Водоотталкивающий плащ из хлопка_5.png", alt: "5" },
-    { src: "/Водоотталкивающий плащ из хлопка_6.png", alt: "6" },
-],
-color: "Черный",
-description: "ESSENTIALS: Сделано, чтобы служить долго. Черный цвет эксклюзивно онлайн. Water Repellent: Техническая ткань, отталкивающая воду. Классический воротник. Передняя застежка на пуговицы. Длинные рукава с пуговицами на манжетах. Два передних прорезных кармана. Задний разрез внизу. Внутренняя подкладка. Внутренний карман. Модель ростом 190 см и носит размер M. ",
-},
-{
-id: 9,
-name: 'Водоотталкивающая куртка с карманами',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 5 990',
-image: '/Водоотталкивающая куртка с карманами.png',
-colorVariants: [],
-composition: "100% cotton",
-origin: "Разработано в Лондоне, Производство: Индия",
-care: "Машинная стирка при 40 °С, Отбеливать запрещено, Гладить при 150 °С, Химчистка разрешена, Сушка в сушилке разрешена",
-photosLarge: [
-    { src: "/Водоотталкивающая куртка с карманами.png", alt: "1" },
-    { src: "/Водоотталкивающая куртка с карманами_2.png", alt: "2" },
-],
-photosSmall: [
-    { src: "/Водоотталкивающая куртка с карманами_3.png", alt: "3" },
-    { src: "/Водоотталкивающая куртка с карманами_4.png", alt: "4" },
-    { src: "/Водоотталкивающая куртка с карманами_5.png", alt: "5" },
-    { src: "/Водоотталкивающая куртка с карманами_6.png", alt: "6" },
-],
-color: "Золотисто-оранжевый",
-description: "Коллекция Performance. Терморегулятор: эта ткань обеспечивает оптимальную воздухопроницаемость для поддержания стабильной температуры. Comfort Stretch: эластичная ткань, обеспечивающая дополнительный комфорт. Водоотталкивающая: Прочное покрытие этого изделия защищает от легкого дождя, отталкивая воду и капли дождя. Рубашечный воротник. Потайная застежка на кнопки. На груди накладной карман с клапаном. Спереди два прорезных кармана с застежкой на водонепроницаемую молнию. Длинные рукава с регулируемыми шлейками. Без подкладки. Внутренние карманы. Внутренние швы с термозапаянным усилением. Модель ростом 190 см и носит размер M. ",
-},
-{
-id: 10,
-name: 'Стеганая куртка с перьевым наполнителем',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 6 990',
-image: '/Стеганая куртка с перьевым наполнителем.png',
-colorVariants: [],
-composition: "60% wool, 40% acrylic",
-origin: "Разработано в Нью-Йорке, Производство: Китай",
-care: "Ручная стирка при 30 °С, Отбеливать запрещено, Гладить при 110 °С, Химчистка запрещена, Запрещено сушить в сушилке",
-photosLarge: [
-    { src: "/Стеганая куртка с перьевым наполнителем.png", alt: "1" },
-    { src: "/Стеганая куртка с перьевым наполнителем_2.png", alt: "2" },
-],
-photosSmall: [
-    { src: "/Стеганая куртка с перьевым наполнителем_3.png", alt: "3" },
-    { src: "/Стеганая куртка с перьевым наполнителем_4.png", alt: "4" },
-    { src: "/Стеганая куртка с перьевым наполнителем_5.png", alt: "5" },
-    { src: "/Стеганая куртка с перьевым наполнителем_6.png", alt: "6" },
-],
-color: "Темно-синий",
-description: "Прямой крой. ESSENTIALS: Сделано, чтобы служить долго. Наполнитель из пуха и пера 80/20. Водоотталкивающая: Прочное покрытие этого изделия защищает от легкого дождя, отталкивая воду и капли дождя. Терморегулятор: эта ткань обеспечивает оптимальную воздухопроницаемость для поддержания стабильной температуры. Стеганый дизайн. Воротник перкинс. Спереди застежка на молнию. Спереди два прорезных кармана с застежкой на молнию. Длинный рукав. Прямой низ. Подкладка. Внутри карман на молнии. Модель ростом 185 см и носит размер M. ",
-},
-{
-id: 11,
-name: 'Куртка-бомбер из искусственной кожи',
-category: 'NEW NOW',
-price: 'KGS 7 990',
-image: '/Куртка-бомбер из искусственной кожи.png',
-colorVariants: [],
-composition: "63% viscose, 37% polyamide",
-origin: "Разработано в Барселоне, Производство: Китай",
-care: "Ручная стирка при 30 °С, Отбеливать запрещено, Гладить при 110 °С, Химчистка запрещена, Запрещено сушить в сушилке",
-photosLarge: [
-    { src: "/Куртка-бомбер из искусственной кожи.png", alt: "1" },
-    { src: "/Куртка-бомбер из искусственной кожи_2.png", alt: "2" },
-],
-photosSmall: [
-    { src: "/Куртка-бомбер из искусственной кожи_3.png", alt: "3" },
-    { src: "/Куртка-бомбер из искусственной кожи_4.png", alt: "4" },
-    { src: "/Куртка-бомбер из искусственной кожи_5.png", alt: "5" },
-    { src: "/Куртка-бомбер из искусственной кожи_6.png", alt: "6" },
-],
-color: "Черный",
-description: "Фасон бомбер. Эффект кожи. Контрастный воротник, манжеты и низ. Подкладка. Два боковых кармана с клапанами. Модель ростом 185 см и носит размер M. ",
-},
-{
-id: 12,
-name: 'Бомбер regular fit из фланели',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 12 990',
-image: '/Бомбер regular fit из фланели.png',
-colorVariants: [],
-composition: "65% cotton, 35% polyester",
-origin: "Разработано в Париже, Производство: Вьетнам",
-care: "Машинная стирка при 40 °С, Отбеливать запрещено, Гладить при 150 °С, Химчистка разрешена, Сушка в сушилке разрешена",
-photosLarge: [
-    { src: "/Бомбер regular fit из фланели.png", alt: "1" },
-    { src: "/Бомбер regular fit из фланели_2.png", alt: "2" },
-],
-photosSmall: [
-    { src: "/Бомбер regular fit из фланели_3.png", alt: "3" },
-    { src: "/Бомбер regular fit из фланели_4.png", alt: "4" },
-    { src: "/Бомбер regular fit из фланели_5.png", alt: "5" },
-    { src: "/Бомбер regular fit из фланели_6.png", alt: "6" },
-],
-color: "Меланжевый темно-серый",
-description: "Прямой крой. Фланель. Воротник бомбер. Края связаны резинкой. Два боковых кармана с кантом. Застежка-молния. Модель ростом 185 см и носит размер M. ",
-},
-];
+interface Photo {
+src: string;
+alt: string;
+}
 
-export const Product = (): JSX.Element => {
+export default function MenJacketsOuterwearProduct(): JSX.Element {
 const { id } = useParams<{ id: string }>();
-const productId = id ? parseInt(id, 10) : 1;
+const productId = id || "1";
 const navigate = useNavigate();
 
-const [favorites, setFavorites] = useState<number[]>(() => {
+const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+const [products, setProducts] = useState<Product[]>([]);
+const [favorites, setFavorites] = useState<string[]>(() => {
 const savedFavorites = localStorage.getItem("favorites");
 return savedFavorites ? JSON.parse(savedFavorites) : [];
 });
-
 const [currentImageIndex, setCurrentImageIndex] = useState(0);
+const [loading, setLoading] = useState(true);
+const [error, setError] = useState<string | null>(null);
+
+useEffect(() => {
+const fetchData = async () => {
+    try {
+    // Загрузка выбранного товара
+    const productResponse = await fetch(`http://localhost:3001/products/${productId}`);
+    if (!productResponse.ok) {
+        throw new Error('Товар не найден');
+    }
+    const productData: Product = await productResponse.json();
+    if (productData.gender !== 'male' && productData.gender !== 'unisex') {
+        throw new Error('Товар не относится к мужской категории');
+    }
+    setSelectedProduct(productData);
+
+    // Загрузка всех товаров для секции "В том же стиле"
+    const productsResponse = await fetch('http://localhost:3001/products?gender=male');
+    if (!productsResponse.ok) {
+        throw new Error('Ошибка загрузки товаров');
+    }
+    const productsData: Product[] = await productsResponse.json();
+    setProducts(productsData.filter(p => p.id !== productId && p.category === productData.category));
+    } catch (err) {
+    setError('Не удалось загрузить данные. Попробуйте позже.');
+    } finally {
+    setLoading(false);
+    }
+};
+
+fetchData();
+}, [productId]);
 
 useEffect(() => {
 localStorage.setItem("favorites", JSON.stringify(favorites));
 }, [favorites]);
 
-const handleFavoriteToggle = (productId: number) => {
+const handleFavoriteToggle = (productId: string) => {
 setFavorites((prev) =>
     prev.includes(productId)
     ? prev.filter((id) => id !== productId)
@@ -312,7 +74,7 @@ setFavorites((prev) =>
 );
 };
 
-const handlePurchase = (product: any) => {
+const handlePurchase = (product: Product) => {
 const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
 const existingItem = cartItems.find((item: any) => item.id === product.id);
 if (existingItem) {
@@ -331,7 +93,13 @@ localStorage.setItem('cartItems', JSON.stringify(cartItems));
 alert(`${product.name} добавлен в корзину!`);
 };
 
-const selectedProduct = products.find((p) => p.id === productId) || products[0];
+if (loading) {
+return <div className="p-8 text-center font-['Inter'] text-[24px] text-[#131313]">Загрузка...</div>;
+}
+
+if (error || !selectedProduct) {
+return <div className="p-8 text-center font-['Inter'] text-[24px] text-red-500">{error || 'Товар не найден'}</div>;
+}
 
 const allPhotos = [...selectedProduct.photosLarge, ...selectedProduct.photosSmall];
 
@@ -569,6 +337,4 @@ return (
     </div>
 </div>
 );
-};
-
-export default Product;
+}

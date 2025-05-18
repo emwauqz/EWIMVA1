@@ -14,6 +14,7 @@ photosSmall: { src: string; alt: string }[];
 description: string;
 stock?: number;
 status?: 'available' | 'low' | 'unavailable';
+gender?: 'male' | 'female' | 'unisex';
 }
 
 export const addProduct = async (product: Omit<Product, 'id' | 'colorVariants' | 'composition' | 'origin' | 'care' | 'photosLarge' | 'photosSmall' | 'description'>): Promise<void> => {
