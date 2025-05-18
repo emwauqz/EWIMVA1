@@ -1,108 +1,85 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ProductSection } from "../../../components/ProductSection";
 import { ChevronDownIcon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { categories } from '../../../data/categories';
 
-const products = [
-{
-id: 1,
-name: 'Рубашка с жатым эффектом',
-category: 'CAPSULE',
-price: 'KGS 7 990',
-image: '/Рубашка с жатым эффектом.png',
-colorVariants: [],
-},
-{
-id: 2,
-name: 'Рубашка из ажурного трикотажа',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 6 990',
-image: '/Рубашка из ажурного трикотажа.png',
-colorVariants: [],
-},
-{
-id: 3,
-name: 'Рубашка оксфорд',
-category: 'CAPSULE',
-price: 'KGS 5 990',
-image: '/Рубашка оксфорд.png',
-colorVariants: [],
-},
-{
-id: 4,
-name: 'Рубашка комфорт стретч non iron',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 7 990',
-image: '/Рубашка комфорт стретч non iron.png',
-colorVariants: [],
-},
-{
-id: 5,
-name: 'Рубашка для боулинга со структурой кроше',
-category: 'CAPSULE',
-price: 'KGS 6 990',
-image: '/Рубашка в полоску.png',
-colorVariants: [],
-},
-{
-id: 6,
-name: 'Рубашка в полоску',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 5 990',
-image: '/Рубашка в полоску1.png',
-colorVariants: [],
-},
-{
-id: 7,
-name: 'Рубашка из лиоцелла с карманом',
-category: 'NEW NOW',
-price: 'KGS 6 990',
-image: '/Рубашка из лиоцелла с карманом.png',
-colorVariants: [],
-},
-{
-id: 8,
-name: 'Рубашка лен',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 8 990',
-image: '/Рубашка лен.png',
-colorVariants: [],
-},
-];
+interface ColorVariant {
+color: string;
+image: string;
+}
 
-const categories = [
-{ name: 'Куртки и верхняя одежда', path: '/men/jackets-outerwear' },
-{ name: 'Новинки', path: '/men/new' },
-{ name: 'Брюки', path: '/men/pants' },
-{ name: 'Рубашки', path: '/men/shirts' },
-{ name: 'Костюмы', path: '/men/suit' },
-];
+interface Product {
+id: number;
+name: string;
+category: string;
+price: string;
+image: string;
+colorVariants: ColorVariant[];
+gender?: 'male' | 'female' | 'unisex';
+}
 
-export default function Shirts(): JSX.Element {
+export default function EwimvaShirts(): JSX.Element {
 const [isCategoryOpen, setIsCategoryOpen] = useState(false);
+const [products, setProducts] = useState<Product[]>([]);
+const [loading, setLoading] = useState(true);
+const [error, setError] = useState<string | null>(null);
 const navigate = useNavigate();
+
+useEffect(() => {
+const fetchProducts = async () => {
+    try {
+    const response = await fetch('http://localhost:3001/products?category=Рубашки&gender=male');
+    if (!response.ok) {
+        throw new Error('Ошибка загрузки рубашек');
+    }
+    const data = await response.json();
+    const formattedData: Product[] = data.map((item: any) => ({
+        id: Number(item.id),
+        name: item.name,
+        category: item.category,
+        price: item.price,
+        image: item.image,
+        colorVariants: item.colorVariants || [],
+        gender: item.gender,
+    }));
+    setProducts(formattedData);
+    } catch (err) {
+    setError('Не удалось загрузить рубашки. Попробуйте позже.');
+    } finally {
+    setLoading(false);
+    }
+};
+
+fetchProducts();
+}, []);
+
+if (loading) {
+return <div className="p-8 text-center font-['Montserrat'] text-[24px] text-[#131313]">Загрузка...</div>;
+}
+
+if (error) {
+return <div className="p-8 text-center font-['Montserrat'] text-[24px] text-red-500">{error}</div>;
+}
 
 return (
 <>
     <style>
     {`
         @media (max-width: 767px) {
-        /* Сетка */
         .new-now-container div[class*="grid-cols-4"],
         .new-now-container div.grid-cols-4 {
             display: grid !important;
             grid-template-columns: repeat(2, 1fr) !important;
             gap: 0px !important;
-            background-color: rgb(255, 255, 255) !important; /* Отладка */
+            background-color: rgb(255, 255, 255) !important;
         }
-
-        /* Карточки */
         .new-now-container .product-card,
         .new-now-container .item-card,
         .new-now-container div[class*="product-card"],
         .new-now-container div[class*="item-card"] {
             font-size: 12px !important;
-            background-color: rgb(255, 255, 255) !important; /* Отладка */
+            background-color: rgb(255, 255, 255) !important;
         }
         .new-now-container .product-card p,
         .new-now-container .product-card span,
@@ -112,27 +89,21 @@ return (
         .new-now-container .item-card div {
             font-size: 12px !important;
         }
-
-        /* Заголовки и кнопка */
         .new-now-container h1,
         .new-now-container h2 {
             font-size: 12px !important;
             margin-left: 0 !important;
-            background-color: rgb(255, 255, 255) !important; /* Отладка */
+            background-color: rgb(255, 255, 255) !important;
         }
         .new-now-container button[class*="text-[14px]"] {
             font-size: 12px !important;
             margin-left: 0 !important;
-            background-color: rgb(255, 255, 255) !important; /* Отладка */
+            background-color: rgb(255, 255, 255) !important;
         }
-
-        /* Контейнер */
         .new-now-container .max-w-7xl {
             padding-left: 8px !important;
             padding-right: 8px !important;
         }
-
-        /* Защита от масштабирования */
         .new-now-container {
             transform: none !important;
             zoom: 1 !important;
@@ -144,7 +115,7 @@ return (
     <div className="new-now-container flex flex-col min-h-screen">
     <main className="flex-1">
         <div className="max-w-7xl mx-auto px-2 py-4">
-        <h1 className="font-['Montserrat'] font-medium text-[24px] text-[#131313] leading-[28px] ml-[-20px]">
+        <h1 className="font-['Montserrat'] font-medium text-[24px] text-[#131313] leading-[28px]">
             Рубашки
         </h1>
         </div>
@@ -162,10 +133,10 @@ return (
                 <ChevronDownIcon className={`w-4 h-4 transition-transform ${isCategoryOpen ? 'rotate-180' : ''}`} />
             </button>
             {isCategoryOpen && (
-                <div className="absolute z-50 mt-2 w-[250px] bg-white shadow-lg rounded-md py-2 max-h-[400px] overflow-y-auto">
-                {categories.map((category, index) => (
+                <div className="absolute z-50 ml-[-250px] w-[250px] bg-white shadow-lg rounded-md py-2 max-h-[400px] overflow-y-auto">
+                {categories.filter(cat => cat.type === 'men').map((category) => (
                     <button
-                    key={index}
+                    key={category.id}
                     onClick={() => {
                         navigate(category.path);
                         setIsCategoryOpen(false);
@@ -180,13 +151,21 @@ return (
             </div>
         </div>
         </div>
-        <ProductSection products={products.slice(0, 4)} />
-        <ProductSection products={products.slice(4, 8)} />
-        <ProductSection products={products.slice(8, 12)} />
-        <ProductSection products={products.slice(12, 16)} />
-        <ProductSection products={products.slice(16, 20)} />
-        <ProductSection products={products.slice(20, 24)} />
-        <ProductSection products={products.slice(24, 28)} />
+        {products.length > 0 ? (
+        <>
+            <ProductSection products={products.slice(0, 4)} />
+            {products.length > 4 && <ProductSection products={products.slice(4, 8)} />}
+            {products.length > 8 && <ProductSection products={products.slice(8, 12)} />}
+            {products.length > 12 && <ProductSection products={products.slice(12, 16)} />}
+            {products.length > 16 && <ProductSection products={products.slice(16, 20)} />}
+            {products.length > 20 && <ProductSection products={products.slice(20, 24)} />}
+            {products.length > 24 && <ProductSection products={products.slice(24, 28)} />}
+        </>
+        ) : (
+        <div className="p-8 text-center font-['Montserrat'] text-[24px] text-[#131313]">
+            Рубашки не найдены
+        </div>
+        )}
     </main>
     </div>
 </>

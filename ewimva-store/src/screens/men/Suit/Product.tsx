@@ -9,211 +9,64 @@ AccordionTrigger,
 import { Card, CardContent } from "../../../components/ui/card";
 import { HeartIcon } from "lucide-react";
 import { Button } from "../../../components/ui/button";
+import { Product } from "../../../data/productsData";
 
-const products = [
-{
-id: 1,
-name: 'Костюмный пиджак Amalfi slim fit',
-category: 'CAPSULE',
-price: 'KGS 7 990',
-image: '/Костюмный пиджак Amalfi slim fit.png',
-colorVariants: [],
-composition: "63% viscose, 37% polyamide",
-origin: "Разработано в Барселоне, Производство: Китай",
-care: "Ручная стирка при 30 °С, Отбеливать запрещено, Гладить при 110 °С, Химчистка запрещена, Запрещено сушить в сушилке",
-photosLarge: [
-    { src: "/Костюмный пиджак Amalfi slim fit.png", alt: "1" },
-    { src: "/Костюмный пиджак Amalfi slim fit_2.png", alt: "2" },
-],
-photosSmall: [
-    { src: "/Костюмный пиджак Amalfi slim fit_3.png", alt: "3" },
-    { src: "/Костюмный пиджак Amalfi slim fit_4.png", alt: "4" },
-    { src: "/Костюмный пиджак Amalfi slim fit_5.png", alt: "5" },
-    { src: "/Костюмный пиджак Amalfi slim fit_6.png", alt: "6" },
-],
-color: "Хаки",
-description: "Приталенный крой. Ткань 100% лен. Фактурная выделка в мельчайшую клетку. Коллекция портновских изделий. Лацканы с вырезом и петля. Нагрудный прорезной карман. Два кармана с клапанами спереди. Манжеты с застежкой на пуговицы. Внутренняя подкладка. Внутренние карманы. Модель ростом 190 см и носит размер 50. ",
-},
-{
-id: 2,
-name: 'Костюмный пиджак Amalfi slim fit blue',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 6 990',
-image: '/Костюмный пиджак Amalfi slim fit blue.png',
-colorVariants: [],
-composition: "65% cotton, 35% polyester",
-origin: "Разработано в Париже, Производство: Вьетнам",
-care: "Машинная стирка при 40 °С, Отбеливать запрещено, Гладить при 150 °С, Химчистка разрешена, Сушка в сушилке разрешена",
-photosLarge: [
-    { src: "/Костюмный пиджак Amalfi slim fit blue.png", alt: "1" },
-    { src: "/Костюмный пиджак Amalfi slim fit blue_2.png", alt: "2" },
-],
-photosSmall: [
-    { src: "/Костюмный пиджак Amalfi slim fit blue_3.png", alt: "3" },
-    { src: "/Костюмный пиджак Amalfi slim fit blue_4.png", alt: "4" },
-    { src: "/Костюмный пиджак Amalfi slim fit blue_5.png", alt: "5" },
-    { src: "/Костюмный пиджак Amalfi slim fit blue_6.png", alt: "6" },
-],
-color: "Темно-синий",
-description: "Приталенный крой. 100% лен. Лацканы с вырезом и петля. Нагрудный прорезной карман. Два кармана с клапанами спереди. Длинные рукава с манжетами на пуговицах. Внутренняя подкладка. Внутренние карманы. Коллекция портновских изделий. Модель ростом 190 см и носит размер 50. ",
-},
-{
-id: 3,
-name: 'Костюмный пиджак Milan slim fit',
-category: 'CAPSULE',
-price: 'KGS 5 990',
-image: '/Костюмный пиджак Milan slim fit.png',
-colorVariants: [],
-composition: "70% cotton, 30% elastane",
-origin: "Разработано в Милане, Производство: Турция",
-care: "Ручная стирка при 30 °С, Отбеливать запрещено, Гладить при 110 °С, Химчистка запрещена, Запрещено сушить в сушилке",
-photosLarge: [
-    { src: "/Костюмный пиджак Milan slim fit.png", alt: "1" },
-    { src: "/Костюмный пиджак Milan slim fit_2.png", alt: "2" },
-],
-photosSmall: [
-    { src: "/Костюмный пиджак Milan slim fit_3.png", alt: "3" },
-    { src: "/Костюмный пиджак Milan slim fit_4.png", alt: "4" },
-    { src: "/Костюмный пиджак Milan slim fit_5.png", alt: "5" },
-    { src: "/Костюмный пиджак Milan slim fit_6.png", alt: "6" },
-],
-color: "Темно-синий",
-description: "Приталенный крой. Воротник с лацканами. Передняя застежка на пуговицы. Длинные рукава с манжетами на пуговицах. Нагрудный прорезной карман. Спереди два прорезных кармана с клапаном. Двойной разрез сзади на подоле. Внутренняя подкладка. Внутренний карман. Модель ростом 190 см и носит размер 50. ",
-},
-{
-id: 4,
-name: 'Костюмный пиджак París super slim fit',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 7 990',
-image: '/Костюмный пиджак París super slim fit.png',
-colorVariants: [],
-composition: "100% cotton",
-origin: "Разработано в Лондоне, Производство: Индия",
-care: "Машинная стирка при 40 °С, Отбеливать запрещено, Гладить при 150 °С, Химчистка разрешена, Сушка в сушилке разрешена",
-photosLarge: [
-    { src: "/Костюмный пиджак París super slim fit.png", alt: "1" },
-    { src: "/Костюмный пиджак París super slim fit_2.png", alt: "2" },
-],
-photosSmall: [
-    { src: "/Костюмный пиджак París super slim fit_3.png", alt: "3" },
-    { src: "/Костюмный пиджак París super slim fit_4.png", alt: "4" },
-    { src: "/Костюмный пиджак París super slim fit_5.png", alt: "5" },
-    { src: "/Костюмный пиджак París super slim fit_6.png", alt: "6" },
-],
-color: "Черный",
-description: "Super slim fit. Ткань стрейч. Воротник с лацканами. Передняя застежка на пуговицы. Нагрудный прорезной карман. Спереди два прорезных кармана с клапаном. Длинные рукава с пуговицами на манжетах. Двойной разрез сзади на подоле. Внутренняя подкладка. Внутри два кармана. Модель ростом 190 см и носит размер 50. Comfort Stretch: эластичная ткань, обеспечивающая дополнительный комфорт. Принт в клетку принц Уэльский. Лацканы с вырезом и петля. Два кармана с клапанами спереди. Три внутренних кармана. Подкладка. Коллекция портновских изделий. Рост модели: 185 см, размер: 50. Комфорт: одежда обеспечивает полную свободу движений и восстанавливает свою первоначальную форму. ",
-},
-{
-id: 5,
-name: 'Костюмный пиджак París super slim fit blue',
-category: 'CAPSULE',
-price: 'KGS 6 990',
-image: '/Костюмный пиджак París super slim fit blue.png',
-colorVariants: [],
-composition: "60% wool, 40% acrylic",
-origin: "Разработано в Нью-Йорке, Производство: Китай",
-care: "Ручная стирка при 30 °С, Отбеливать запрещено, Гладить при 110 °С, Химчистка запрещена, Запрещено сушить в сушилке",
-photosLarge: [
-    { src: "/Костюмный пиджак París super slim fit blue.png", alt: "1" },
-    { src: "/Костюмный пиджак París super slim fit blue_2.png", alt: "2" },
-],
-photosSmall: [
-    { src: "/Костюмный пиджак París super slim fit blue_3.png", alt: "3" },
-    { src: "/Костюмный пиджак París super slim fit blue_4.png", alt: "4" },
-    { src: "/Костюмный пиджак París super slim fit blue_5.png", alt: "5" },
-    { src: "/Костюмный пиджак París super slim fit blue_6.png", alt: "6" },
-],
-color: "Чернильный",
-description: "Линия Tailored. Super slim fit. Мелкая фактурная выделка. Лацканы с вырезом. Длинные рукава с манжетами на пуговицах. Нагрудный прорезной карман. Спереди два кармана с клапанами. Сзади разрез. Подкладка. Внутренний карман. Застежка на пуговицы. Модель ростом 190 см и носит размер 50. Короткий крой. Текучая ткань. Воротник regular. Легкая ткань. Застежка спереди. Стандартный дизайн. Длинный рукав. Прямой крой. Прямой крой. ",
-},
-{
-id: 6,
-name: 'Костюмный пиджак París super slim fit black',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 5 990',
-image: '/Костюмный пиджак París super slim fit black.png',
-colorVariants: [],
-composition: "63% viscose, 37% polyamide",
-origin: "Разработано в Барселоне, Производство: Китай",
-care: "Ручная стирка при 30 °С, Отбеливать запрещено, Гладить при 110 °С, Химчистка запрещена, Запрещено сушить в сушилке",
-photosLarge: [
-    { src: "/Костюмный пиджак París super slim fit black.png", alt: "1" },
-    { src: "/Костюмный пиджак París super slim fit black_2.png", alt: "2" },
-],
-photosSmall: [
-    { src: "/Костюмный пиджак París super slim fit black_3.png", alt: "3" },
-    { src: "/Костюмный пиджак París super slim fit black_4.png", alt: "4" },
-    { src: "/Костюмный пиджак París super slim fit black_5.png", alt: "5" },
-    { src: "/Костюмный пиджак París super slim fit black_6.png", alt: "6" },
-],
-color: "Черный",
-description: "Super slim fit. Ткань стрейч. Воротник с лацканами. Передняя застежка на пуговицы. Нагрудный прорезной карман. Спереди два прорезных кармана с клапаном. Длинные рукава с пуговицами на манжетах. Двойной разрез сзади на подоле. Внутренняя подкладка. Внутри два кармана. Модель ростом 190 см и носит размер 50. Comfort Stretch: эластичная ткань, обеспечивающая дополнительный комфорт. Принт в клетку принц Уэльский. Лацканы с вырезом и петля. Два кармана с клапанами спереди. Три внутренних кармана. Подкладка. Коллекция портновских изделий. Рост модели: 185 см, размер: 50. Комфорт: одежда обеспечивает полную свободу движений и восстанавливает свою первоначальную форму. ",
-},
-{
-id: 7,
-name: 'Костюмный пиджак Venice slim fit чистая шерсть',
-category: 'NEW NOW',
-price: 'KGS 6 990',
-image: '/Костюмный пиджак Venice slim fit чистая шерсть.png',
-colorVariants: [],
-composition: "65% cotton, 35% polyester",
-origin: "Разработано в Париже, Производство: Вьетнам",
-care: "Машинная стирка при 40 °С, Отбеливать запрещено, Гладить при 150 °С, Химчистка разрешена, Сушка в сушилке разрешена",
-photosLarge: [
-    { src: "/Костюмный пиджак Venice slim fit чистая шерсть.png", alt: "1" },
-    { src: "/Костюмный пиджак Venice slim fit чистая шерсть_2.png", alt: "2" },
-],
-photosSmall: [
-    { src: "/Костюмный пиджак Venice slim fit чистая шерсть_3.png", alt: "3" },
-    { src: "/Костюмный пиджак Venice slim fit чистая шерсть_4.png", alt: "4" },
-    { src: "/Костюмный пиджак Venice slim fit чистая шерсть_5.png", alt: "5" },
-    { src: "/Костюмный пиджак Venice slim fit чистая шерсть_6.png", alt: "6" },
-],
-color: "Серый",
-description: "Приталенный крой. Ткань 100% чистая шерсть. Принт в клетку принц Уэльский. Воротник с лацканами и вырезом. Двубортная застежка. Нагрудный прорезной карман. Два накладных кармана с клапаном спереди. Манжеты на пуговицах. Рост модели: 185 см, размер: 50. ",
-},
-{
-id: 8,
-name: 'Двубортный костюмный пиджак в елочку шерсть',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 8 990',
-image: '/Двубортный костюмный пиджак в елочку шерсть.png',
-colorVariants: [],
-composition: "70% cotton, 30% elastane",
-origin: "Разработано в Милане, Производство: Турция",
-care: "Ручная стирка при 30 °С, Отбеливать запрещено, Гладить при 110 °С, Химчистка запрещена, Запрещено сушить в сушилке",
-photosLarge: [
-    { src: "/Двубортный костюмный пиджак в елочку шерсть.png", alt: "1" },
-    { src: "/Двубортный костюмный пиджак в елочку шерсть_2.png", alt: "2" },
-],
-photosSmall: [
-    { src: "/Двубортный костюмный пиджак в елочку шерсть_3.png", alt: "3" },
-    { src: "/Двубортный костюмный пиджак в елочку шерсть_4.png", alt: "4" },
-    { src: "/Двубортный костюмный пиджак в елочку шерсть_5.png", alt: "5" },
-    { src: "/Двубортный костюмный пиджак в елочку шерсть_6.png", alt: "6" },
-],
-color: "Белый",
-description: "Удобный ",
-},
-];
+interface Photo {
+src: string;
+alt: string;
+}
 
-export const Product = (): JSX.Element => {
+export default function MenJacketsOuterwearProduct(): JSX.Element {
 const { id } = useParams<{ id: string }>();
-const productId = id ? parseInt(id, 10) : 1;
+const productId = id || "1";
 const navigate = useNavigate();
 
-const [favorites, setFavorites] = useState<number[]>(() => {
+const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+const [products, setProducts] = useState<Product[]>([]);
+const [favorites, setFavorites] = useState<string[]>(() => {
 const savedFavorites = localStorage.getItem("favorites");
 return savedFavorites ? JSON.parse(savedFavorites) : [];
 });
-
 const [currentImageIndex, setCurrentImageIndex] = useState(0);
+const [loading, setLoading] = useState(true);
+const [error, setError] = useState<string | null>(null);
+
+useEffect(() => {
+const fetchData = async () => {
+    try {
+    // Загрузка выбранного товара
+    const productResponse = await fetch(`http://localhost:3001/products/${productId}`);
+    if (!productResponse.ok) {
+        throw new Error('Товар не найден');
+    }
+    const productData: Product = await productResponse.json();
+    if (productData.gender !== 'male' && productData.gender !== 'unisex') {
+        throw new Error('Товар не относится к мужской категории');
+    }
+    setSelectedProduct(productData);
+
+    // Загрузка всех товаров для секции "В том же стиле"
+    const productsResponse = await fetch('http://localhost:3001/products?gender=male');
+    if (!productsResponse.ok) {
+        throw new Error('Ошибка загрузки товаров');
+    }
+    const productsData: Product[] = await productsResponse.json();
+    setProducts(productsData.filter(p => p.id !== productId && p.category === productData.category));
+    } catch (err) {
+    setError('Не удалось загрузить данные. Попробуйте позже.');
+    } finally {
+    setLoading(false);
+    }
+};
+
+fetchData();
+}, [productId]);
 
 useEffect(() => {
 localStorage.setItem("favorites", JSON.stringify(favorites));
 }, [favorites]);
 
-const handleFavoriteToggle = (productId: number) => {
+const handleFavoriteToggle = (productId: string) => {
 setFavorites((prev) =>
     prev.includes(productId)
     ? prev.filter((id) => id !== productId)
@@ -221,7 +74,7 @@ setFavorites((prev) =>
 );
 };
 
-const handlePurchase = (product: any) => {
+const handlePurchase = (product: Product) => {
 const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
 const existingItem = cartItems.find((item: any) => item.id === product.id);
 if (existingItem) {
@@ -240,7 +93,13 @@ localStorage.setItem('cartItems', JSON.stringify(cartItems));
 alert(`${product.name} добавлен в корзину!`);
 };
 
-const selectedProduct = products.find((p) => p.id === productId) || products[0];
+if (loading) {
+return <div className="p-8 text-center font-['Inter'] text-[24px] text-[#131313]">Загрузка...</div>;
+}
+
+if (error || !selectedProduct) {
+return <div className="p-8 text-center font-['Inter'] text-[24px] text-red-500">{error || 'Товар не найден'}</div>;
+}
 
 const allPhotos = [...selectedProduct.photosLarge, ...selectedProduct.photosSmall];
 
@@ -478,6 +337,4 @@ return (
     </div>
 </div>
 );
-};
-
-export default Product;
+}

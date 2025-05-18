@@ -9,303 +9,64 @@ AccordionTrigger,
 import { Card, CardContent } from "../../../components/ui/card";
 import { HeartIcon } from "lucide-react";
 import { Button } from "../../../components/ui/button";
+import { Product } from "../../../data/productsData";
 
-const products = [
-{
-id: 1,
-name: 'Куртка-бомбер с эффектом замши',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 6 990',
-image: '/Куртка-бомбер с эффектом замши.png',
-colorVariants: [],
-composition: "65% cotton, 35% polyester",
-origin: "Разработано в Париже, Производство: Вьетнам",
-care: "Машинная стирка при 40 °С, Отбеливать запрещено, Гладить при 150 °С, Химчистка разрешена, Сушка в сушилке разрешена",
-photosLarge: [
-    { src: "/Куртка-бомбер с эффектом замши.png", alt: "1" },
-    { src: "/Куртка-бомбер с эффектом замши_2.png", alt: "2" },
-],
-photosSmall: [
-    { src: "/Куртка-бомбер с эффектом замши_3.png", alt: "3" },
-    { src: "/Куртка-бомбер с эффектом замши_4.png", alt: "4" },
-    { src: "/Куртка-бомбер с эффектом замши_5.png", alt: "5" },
-    { src: "/Куртка-бомбер с эффектом замши_6.png", alt: "6" },
-],
-color: "Песочный",
-description: "Коричневый цвет эксклюзивно онлайн. Фасон бомбер. Выделка под замшу. Спереди застежка на молнию. Длинные рукава с эластичными манжетами. Два боковых кармана с застежкой на молнию. Низ с эластичной резинкой. Внутри карман на молнии. Подкладка. Рост модели: 183 см, размер: М. ",
-},
-{
-id: 2,
-name: 'Рубашка в полоску',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 5 990',
-image: '/Рубашка в полоску1.png',
-colorVariants: [],
-composition: "63% viscose, 37% polyamide",
-origin: "Разработано в Барселоне, Производство: Китай",
-care: "Ручная стирка при 30 °С, Отбеливать запрещено, Гладить при 110 °С, Химчистка запрещена, Запрещено сушить в сушилке",
-photosLarge: [
-    { src: "/Рубашка в полоску1.png", alt: "1" },
-    { src: "/Рубашка в полоску1_2.png", alt: "2" },
-],
-photosSmall: [
-    { src: "/Рубашка в полоску1_3.png", alt: "3" },
-    { src: "/Рубашка в полоску1_4.png", alt: "4" },
-    { src: "/Рубашка в полоску1_5.png", alt: "5" },
-    { src: "/Рубашка в полоску1_6.png", alt: "6" },
-],
-color: "Небесно-голубой",
-description: "ESSENTIALS: Сделано, чтобы служить долго. Прямой крой. Ткань 100% хлопок. Принт в мельчайшую полоску. Итальянский воротник. Передняя застежка на пуговицы. Длинные рукава с манжетами на пуговицах. Закругленный низ. Модель ростом 190 см и носит размер M. ",
-},
-{
-id: 3,
-name: 'Quilted water-repellent bomber jacket',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 7 990',
-image: '/Quilted water-repellent bomber jacket.png',
-colorVariants: [],
-composition: "100% cotton",
-origin: "Разработано в Лондоне, Производство: Индия",
-care: "Машинная стирка при 40 °С, Отбеливать запрещено, Гладить при 150 °С, Химчистка разрешена, Сушка в сушилке разрешена",
-photosLarge: [
-    { src: "/Quilted water-repellent bomber jacket.png", alt: "1" },
-    { src: "/Quilted water-repellent bomber jacket_2.png", alt: "2" },
-],
-photosSmall: [
-    { src: "/Quilted water-repellent bomber jacket_3.png", alt: "3" },
-    { src: "/Quilted water-repellent bomber jacket_4.png", alt: "4" },
-    { src: "/Quilted water-repellent bomber jacket_5.png", alt: "5" },
-    { src: "/Quilted water-repellent bomber jacket_6.png", alt: "6" },
-],
-color: "Темно-синий",
-description: "Непромокаемая ткань. Стеганый дизайн. Прямой крой. Переработанный полиэстер. Воротник-бомбер из трикотажа. Спереди застежка на металлическую молнию. Длинные рукава с эластичными манжетами. Два кармана с клапанами спереди. Низ с эластичной резинкой. Модель ростом 190 см и носит размер M. Водоотталкивающая: Прочное покрытие этого изделия защищает от легкого дождя, отталкивая воду и капли дождя. ",
-},
-{
-id: 4,
-name: 'Двубортный костюмный пиджак в елочку шерсть',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 8 990',
-image: '/Двубортный костюмный пиджак в елочку шерсть.png',
-colorVariants: [],
-composition: "70% cotton, 30% elastane",
-origin: "Разработано в Милане, Производство: Турция",
-care: "Ручная стирка при 30 °С, Отбеливать запрещено, Гладить при 110 °С, Химчистка запрещена, Запрещено сушить в сушилке",
-photosLarge: [
-    { src: "/Двубортный костюмный пиджак в елочку шерсть.png", alt: "1" },
-    { src: "/Двубортный костюмный пиджак в елочку шерсть_2.png", alt: "2" },
-],
-photosSmall: [
-    { src: "/Двубортный костюмный пиджак в елочку шерсть_3.png", alt: "3" },
-    { src: "/Двубортный костюмный пиджак в елочку шерсть_4.png", alt: "4" },
-    { src: "/Двубортный костюмный пиджак в елочку шерсть_5.png", alt: "5" },
-    { src: "/Двубортный костюмный пиджак в елочку шерсть_6.png", alt: "6" },
-],
-color: "Белый",
-description: "Удобный ",
-},
-{
-id: 5,
-name: 'Водоотталкивающий бомбер с карманами',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 5 990',
-image: '/Водоотталкивающий бомбер с карманами.png',
-colorVariants: [],
-composition: "63% viscose, 37% polyamide",
-origin: "Разработано в Барселоне, Производство: Китай",
-care: "Ручная стирка при 30 °С, Отбеливать запрещено, Гладить при 110 °С, Химчистка запрещена, Запрещено сушить в сушилке",
-photosLarge: [
-    { src: "/Водоотталкивающий бомбер с карманами.png", alt: "1" },
-    { src: "/Водоотталкивающий бомбер с карманами_2.png", alt: "2" },
-],
-photosSmall: [
-    { src: "/Водоотталкивающий бомбер с карманами_3.png", alt: "3" },
-    { src: "/Водоотталкивающий бомбер с карманами_4.png", alt: "4" },
-    { src: "/Водоотталкивающий бомбер с карманами_5.png", alt: "5" },
-    { src: "/Водоотталкивающий бомбер с карманами_6.png", alt: "6" },
-],
-color: "Синяя ночь",
-description: "ESSENTIALS: Сделано, чтобы служить долго. Ветрозащитный: Этот прочный материал обеспечивает защиту от ветра для большего комфорта в активном образе жизни. Water Repellent: Техническая ткань, отталкивающая воду. Фасон бомбер. Техническая ткань. Воротник-бомбер из трикотажа. Спереди застежка на молнию. Длинные рукава с эластичными манжетами. На бедрах два накладных кармана с клапанами. Без подкладки. Внутренний карман. Низ с эластичной резинкой. Модель ростом 190 см и носит размер M. ",
-},
-{
-id: 6,
-name: 'Рубашка из ажурного трикотажа',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 6 990',
-image: '/Рубашка из ажурного трикотажа.png',
-colorVariants: [],
-composition: "65% cotton, 35% polyester",
-origin: "Разработано в Париже, Производство: Вьетнам",
-care: "Машинная стирка при 40 °С, Отбеливать запрещено, Гладить при 150 °С, Химчистка разрешена, Сушка в сушилке разрешена",
-photosLarge: [
-    { src: "/Рубашка из ажурного трикотажа.png", alt: "1" },
-    { src: "/Рубашка из ажурного трикотажа_2.png", alt: "2" },
-],
-photosSmall: [
-    { src: "/Рубашка из ажурного трикотажа_3.png", alt: "3" },
-    { src: "/Рубашка из ажурного трикотажа_4.png", alt: "4" },
-    { src: "/Рубашка из ажурного трикотажа_5.png", alt: "5" },
-    { src: "/Рубашка из ажурного трикотажа_6.png", alt: "6" },
-],
-color: "Белый",
-description: "Прямой крой. Смесь хлопка. Короткий рукав. Воротник в стиле боулинг. Ажурный узор. Передняя застежка на пуговицы. Модель ростом 190 см и носит размер M. ",
-},
-{
-id: 7,
-name: 'Бермуды из хлопка с вышивкой',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 5 990',
-image: '/Бермуды из хлопка с вышивкой.png',
-colorVariants: [],
-composition: "63% viscose, 37% polyamide",
-origin: "Разработано в Барселоне, Производство: Китай",
-care: "Ручная стирка при 30 °С, Отбеливать запрещено, Гладить при 110 °С, Химчистка запрещена, Запрещено сушить в сушилке",
-photosLarge: [
-    { src: "/Бермуды из хлопка с вышивкой.png", alt: "1" },
-    { src: "/Бермуды из хлопка с вышивкой_2.png", alt: "2" },
-],
-photosSmall: [
-    { src: "/Бермуды из хлопка с вышивкой_3.png", alt: "3" },
-    { src: "/Бермуды из хлопка с вышивкой_4.png", alt: "4" },
-    { src: "/Бермуды из хлопка с вышивкой_5.png", alt: "5" },
-    { src: "/Бермуды из хлопка с вышивкой_6.png", alt: "6" },
-],
-color: "Глубокий темно-синий",
-description: "Прямой крой. Хлопковая ткань. Пояс с регулируемым шнуром. Два боковых кармана. Сбоку вышитый логотип Mango Tennis Club. Сзади накладной карман. Модель ростом 190 см и носит размер M. Коллекция Mango Tennis Club. ",
-},
-{
-id: 8,
-name: 'Костюмный пиджак Venice slim fit чистая шерсть',
-category: 'NEW NOW',
-price: 'KGS 6 990',
-image: '/Костюмный пиджак Venice slim fit чистая шерсть.png',
-colorVariants: [],
-composition: "65% cotton, 35% polyester",
-origin: "Разработано в Париже, Производство: Вьетнам",
-care: "Машинная стирка при 40 °С, Отбеливать запрещено, Гладить при 150 °С, Химчистка разрешена, Сушка в сушилке разрешена",
-photosLarge: [
-    { src: "/Костюмный пиджак Venice slim fit чистая шерсть.png", alt: "1" },
-    { src: "/Костюмный пиджак Venice slim fit чистая шерсть_2.png", alt: "2" },
-],
-photosSmall: [
-    { src: "/Костюмный пиджак Venice slim fit чистая шерсть_3.png", alt: "3" },
-    { src: "/Костюмный пиджак Venice slim fit чистая шерсть_4.png", alt: "4" },
-    { src: "/Костюмный пиджак Venice slim fit чистая шерсть_5.png", alt: "5" },
-    { src: "/Костюмный пиджак Venice slim fit чистая шерсть_6.png", alt: "6" },
-],
-color: "Серый",
-description: "Приталенный крой. Ткань 100% чистая шерсть. Принт в клетку принц Уэльский. Воротник с лацканами и вырезом. Двубортная застежка. Нагрудный прорезной карман. Два накладных кармана с клапаном спереди. Манжеты на пуговицах. Рост модели: 185 см, размер: 50. ",
-},
-{
-id: 9,
-name: 'Костюмные брюки Monaco slim fit',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 7 990',
-image: '/Костюмные брюки Monaco slim fit1.png',
-colorVariants: [],
-composition: "100% cotton",
-origin: "Разработано в Лондоне, Производство: Индия",
-care: "Машинная стирка при 40 °С, Отбеливать запрещено, Гладить при 150 °С, Химчистка разрешена, Сушка в сушилке разрешена",
-photosLarge: [
-    { src: "/Костюмные брюки Monaco slim fit1.png", alt: "1" },
-    { src: "/Костюмные брюки Monaco slim fit1_2.png", alt: "2" },
-],
-photosSmall: [
-    { src: "/Костюмные брюки Monaco slim fit1_3.png", alt: "3" },
-    { src: "/Костюмные брюки Monaco slim fit1_4.png", alt: "4" },
-    { src: "/Костюмные брюки Monaco slim fit1_5.png", alt: "5" },
-    { src: "/Костюмные брюки Monaco slim fit1_6.png", alt: "6" },
-],
-color: "Коричневый средний",
-description: "Приталенный крой. Коллекция портновских изделий. Шлевки для ремня. Спереди двубортная застежка на пуговицы и молнию. Два боковых кармана. Два прорезных кармана с пуговицей сзади. Спереди и сзади стрелки. Модель ростом 190 см и носит размер 42. ",
-},
-{
-id: 10,
-name: 'Джинсы хлопок и лен regular fit с',
-category: 'CAPSULE',
-price: 'KGS 6 990',
-image: '/Джинсы хлопок и лен regular fit с.png',
-colorVariants: [],
-composition: "60% wool, 40% acrylic",
-origin: "Разработано в Нью-Йорке, Производство: Китай",
-care: "Ручная стирка при 30 °С, Отбеливать запрещено, Гладить при 110 °С, Химчистка запрещена, Запрещено сушить в сушилке",
-photosLarge: [
-    { src: "/Джинсы хлопок и лен regular fit с.png", alt: "1" },
-    { src: "/Джинсы хлопок и лен regular fit с_2.png", alt: "2" },
-],
-photosSmall: [
-    { src: "/Джинсы хлопок и лен regular fit с_3.png", alt: "3" },
-    { src: "/Джинсы хлопок и лен regular fit с_4.png", alt: "4" },
-    { src: "/Джинсы хлопок и лен regular fit с_5.png", alt: "5" },
-    { src: "/Джинсы хлопок и лен regular fit с_6.png", alt: "6" },
-],
-color: "Экрю",
-description: "Прямой крой. Ткань из смеси льна и хлопка. Двойная застежка на пуговицу и молнию. Деталь передних складок. Сзади два накладных кармана с окантовкой и пуговицей. Модель ростом 190 см и носит размер M. ",
-},
-{
-id: 11,
-name: 'Рубашка для боулинга со структурой кроше',
-category: 'CAPSULE',
-price: 'KGS 6 990',
-image: '/Рубашка в полоску.png',
-colorVariants: [],
-composition: "60% wool, 40% acrylic",
-origin: "Разработано в Нью-Йорке, Производство: Китай",
-care: "Ручная стирка при 30 °С, Отбеливать запрещено, Гладить при 110 °С, Химчистка запрещена, Запрещено сушить в сушилке",
-photosLarge: [
-    { src: "/Рубашка в полоску.png", alt: "1" },
-    { src: "/Рубашка в полоску_2.png", alt: "2" },
-],
-photosSmall: [
-    { src: "/Рубашка в полоску_3.png", alt: "3" },
-    { src: "/Рубашка в полоску_4.png", alt: "4" },
-    { src: "/Рубашка в полоску_5.png", alt: "5" },
-    { src: "/Рубашка в полоску_6.png", alt: "6" },
-],
-color: "Слоновая кость",
-description: "Прямой крой. Смесь хлопка. Ажурная ткань. Геометрическая структура. Короткий рукав. Передняя застежка на пуговицы. Воротник, манжеты и низ с отделкой в рубчик. Модель ростом 190 см и носит размер M. ",
-},
-{
-id: 12,
-name: 'Рубашка с жатым эффектом',
-category: 'CAPSULE',
-price: 'KGS 7 990',
-image: '/Рубашка с жатым эффектом.png',
-colorVariants: [],
-composition: "63% viscose, 37% polyamide",
-origin: "Разработано в Барселоне, Производство: Китай",
-care: "Ручная стирка при 30 °С, Отбеливать запрещено, Гладить при 110 °С, Химчистка запрещена, Запрещено сушить в сушилке",
-photosLarge: [
-    { src: "/Рубашка с жатым эффектом.png", alt: "1" },
-    { src: "/Рубашка с жатым эффектом_2.png", alt: "2" },
-],
-photosSmall: [
-    { src: "/Рубашка с жатым эффектом_3.png", alt: "3" },
-    { src: "/Рубашка с жатым эффектом_4.png", alt: "4" },
-    { src: "/Рубашка с жатым эффектом_5.png", alt: "5" },
-    { src: "/Рубашка с жатым эффектом_6.png", alt: "6" },
-],
-color: "Коричневый",
-description: "В состав входит лиоцелл. Прямой крой. Воротник в стиле боулинг. Эффект смятия. Накладной карман на груди. Короткий рукав. Прямой низ. Небольшие боковые разрезы внизу ",
-},
-];
+interface Photo {
+src: string;
+alt: string;
+}
 
-export const Product = (): JSX.Element => {
+export default function MenJacketsOuterwearProduct(): JSX.Element {
 const { id } = useParams<{ id: string }>();
-const productId = id ? parseInt(id, 10) : 1;
+const productId = id || "1";
 const navigate = useNavigate();
 
-const [favorites, setFavorites] = useState<number[]>(() => {
+const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+const [products, setProducts] = useState<Product[]>([]);
+const [favorites, setFavorites] = useState<string[]>(() => {
 const savedFavorites = localStorage.getItem("favorites");
 return savedFavorites ? JSON.parse(savedFavorites) : [];
 });
-
 const [currentImageIndex, setCurrentImageIndex] = useState(0);
+const [loading, setLoading] = useState(true);
+const [error, setError] = useState<string | null>(null);
+
+useEffect(() => {
+const fetchData = async () => {
+    try {
+    // Загрузка выбранного товара
+    const productResponse = await fetch(`http://localhost:3001/products/${productId}`);
+    if (!productResponse.ok) {
+        throw new Error('Товар не найден');
+    }
+    const productData: Product = await productResponse.json();
+    if (productData.gender !== 'male' && productData.gender !== 'unisex') {
+        throw new Error('Товар не относится к мужской категории');
+    }
+    setSelectedProduct(productData);
+
+    // Загрузка всех товаров для секции "В том же стиле"
+    const productsResponse = await fetch('http://localhost:3001/products?gender=male');
+    if (!productsResponse.ok) {
+        throw new Error('Ошибка загрузки товаров');
+    }
+    const productsData: Product[] = await productsResponse.json();
+    setProducts(productsData.filter(p => p.id !== productId && p.category === productData.category));
+    } catch (err) {
+    setError('Не удалось загрузить данные. Попробуйте позже.');
+    } finally {
+    setLoading(false);
+    }
+};
+
+fetchData();
+}, [productId]);
 
 useEffect(() => {
 localStorage.setItem("favorites", JSON.stringify(favorites));
 }, [favorites]);
 
-const handleFavoriteToggle = (productId: number) => {
+const handleFavoriteToggle = (productId: string) => {
 setFavorites((prev) =>
     prev.includes(productId)
     ? prev.filter((id) => id !== productId)
@@ -313,7 +74,7 @@ setFavorites((prev) =>
 );
 };
 
-const handlePurchase = (product: any) => {
+const handlePurchase = (product: Product) => {
 const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
 const existingItem = cartItems.find((item: any) => item.id === product.id);
 if (existingItem) {
@@ -332,7 +93,13 @@ localStorage.setItem('cartItems', JSON.stringify(cartItems));
 alert(`${product.name} добавлен в корзину!`);
 };
 
-const selectedProduct = products.find((p) => p.id === productId) || products[0];
+if (loading) {
+return <div className="p-8 text-center font-['Inter'] text-[24px] text-[#131313]">Загрузка...</div>;
+}
+
+if (error || !selectedProduct) {
+return <div className="p-8 text-center font-['Inter'] text-[24px] text-red-500">{error || 'Товар не найден'}</div>;
+}
 
 const allPhotos = [...selectedProduct.photosLarge, ...selectedProduct.photosSmall];
 
@@ -570,6 +337,4 @@ return (
     </div>
 </div>
 );
-};
-
-export default Product;
+}

@@ -9,211 +9,64 @@ AccordionTrigger,
 import { Card, CardContent } from "../../../components/ui/card";
 import { HeartIcon } from "lucide-react";
 import { Button } from "../../../components/ui/button";
+import { Product } from "../../../data/productsData";
 
-const products = [
-{
-id: 1,
-name: 'Рубашка с жатым эффектом',
-category: 'CAPSULE',
-price: 'KGS 7 990',
-image: '/Рубашка с жатым эффектом.png',
-colorVariants: [],
-composition: "63% viscose, 37% polyamide",
-origin: "Разработано в Барселоне, Производство: Китай",
-care: "Ручная стирка при 30 °С, Отбеливать запрещено, Гладить при 110 °С, Химчистка запрещена, Запрещено сушить в сушилке",
-photosLarge: [
-    { src: "/Рубашка с жатым эффектом.png", alt: "1" },
-    { src: "/Рубашка с жатым эффектом_2.png", alt: "2" },
-],
-photosSmall: [
-    { src: "/Рубашка с жатым эффектом_3.png", alt: "3" },
-    { src: "/Рубашка с жатым эффектом_4.png", alt: "4" },
-    { src: "/Рубашка с жатым эффектом_5.png", alt: "5" },
-    { src: "/Рубашка с жатым эффектом_6.png", alt: "6" },
-],
-color: "Коричневый",
-description: "В состав входит лиоцелл. Прямой крой. Воротник в стиле боулинг. Эффект смятия. Накладной карман на груди. Короткий рукав. Прямой низ. Небольшие боковые разрезы внизу ",
-},
-{
-id: 2,
-name: 'Рубашка из ажурного трикотажа',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 6 990',
-image: '/Рубашка из ажурного трикотажа.png',
-colorVariants: [],
-composition: "65% cotton, 35% polyester",
-origin: "Разработано в Париже, Производство: Вьетнам",
-care: "Машинная стирка при 40 °С, Отбеливать запрещено, Гладить при 150 °С, Химчистка разрешена, Сушка в сушилке разрешена",
-photosLarge: [
-    { src: "/Рубашка из ажурного трикотажа.png", alt: "1" },
-    { src: "/Рубашка из ажурного трикотажа_2.png", alt: "2" },
-],
-photosSmall: [
-    { src: "/Рубашка из ажурного трикотажа_3.png", alt: "3" },
-    { src: "/Рубашка из ажурного трикотажа_4.png", alt: "4" },
-    { src: "/Рубашка из ажурного трикотажа_5.png", alt: "5" },
-    { src: "/Рубашка из ажурного трикотажа_6.png", alt: "6" },
-],
-color: "Белый",
-description: "Прямой крой. Смесь хлопка. Короткий рукав. Воротник в стиле боулинг. Ажурный узор. Передняя застежка на пуговицы. Модель ростом 190 см и носит размер M. ",
-},
-{
-id: 3,
-name: 'Рубашка оксфорд',
-category: 'CAPSULE',
-price: 'KGS 5 990',
-image: '/Рубашка оксфорд.png',
-colorVariants: [],
-composition: "70% cotton, 30% elastane",
-origin: "Разработано в Милане, Производство: Турция",
-care: "Ручная стирка при 30 °С, Отбеливать запрещено, Гладить при 110 °С, Химчистка запрещена, Запрещено сушить в сушилке",
-photosLarge: [
-    { src: "/Рубашка оксфорд.png", alt: "1" },
-    { src: "/Рубашка оксфорд_2.png", alt: "2" },
-],
-photosSmall: [
-    { src: "/Рубашка оксфорд_3.png", alt: "3" },
-    { src: "/Рубашка оксфорд_4.png", alt: "4" },
-    { src: "/Рубашка оксфорд_5.png", alt: "5" },
-    { src: "/Рубашка оксфорд_6.png", alt: "6" },
-],
-color: "Белый",
-description: "Легкая ткань. Прямой крой. Застежка на пуговицы. Ткань 100% хлопок. Ткань оксфорд. Рубашечный воротник. Манжеты на пуговицах. Закругленный низ. Застежка спереди. Стандартный дизайн. Длинный рукав. Модель ростом 185 см и носит размер M. ",
-},
-{
-id: 4,
-name: 'Рубашка комфорт стретч non iron',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 7 990',
-image: '/Рубашка комфорт стретч non iron.png',
-colorVariants: [],
-composition: "100% cotton",
-origin: "Разработано в Лондоне, Производство: Индия",
-care: "Машинная стирка при 40 °С, Отбеливать запрещено, Гладить при 150 °С, Химчистка разрешена, Сушка в сушилке разрешена",
-photosLarge: [
-    { src: "/Рубашка комфорт стретч non iron.png", alt: "1" },
-    { src: "/Рубашка комфорт стретч non iron_2.png", alt: "2" },
-],
-photosSmall: [
-    { src: "/Рубашка комфорт стретч non iron_3.png", alt: "3" },
-    { src: "/Рубашка комфорт стретч non iron_4.png", alt: "4" },
-    { src: "/Рубашка комфорт стретч non iron_5.png", alt: "5" },
-    { src: "/Рубашка комфорт стретч non iron_6.png", alt: "6" },
-],
-color: "Белый",
-description: "Коллекция Performance. Wrinkle free: ткань, не требующая глажки. Терморегулятор: эта ткань обеспечивает оптимальную воздухопроницаемость для поддержания стабильной температуры. Comfort Stretch: эластичная ткань, обеспечивающая дополнительный комфорт. Breathable: ткань помогает регулировать температуру тела, позволяя отводить влагу. Прямой крой. Классический воротник. Передняя застежка на пуговицы. Длинные рукава с манжетами на пуговицах. Закругленный низ. Модель ростом 190 см и носит размер M. ",
-},
-{
-id: 5,
-name: 'Рубашка для боулинга со структурой кроше',
-category: 'CAPSULE',
-price: 'KGS 6 990',
-image: '/Рубашка в полоску.png',
-colorVariants: [],
-composition: "60% wool, 40% acrylic",
-origin: "Разработано в Нью-Йорке, Производство: Китай",
-care: "Ручная стирка при 30 °С, Отбеливать запрещено, Гладить при 110 °С, Химчистка запрещена, Запрещено сушить в сушилке",
-photosLarge: [
-    { src: "/Рубашка в полоску.png", alt: "1" },
-    { src: "/Рубашка в полоску_2.png", alt: "2" },
-],
-photosSmall: [
-    { src: "/Рубашка в полоску_3.png", alt: "3" },
-    { src: "/Рубашка в полоску_4.png", alt: "4" },
-    { src: "/Рубашка в полоску_5.png", alt: "5" },
-    { src: "/Рубашка в полоску_6.png", alt: "6" },
-],
-color: "Слоновая кость",
-description: "Прямой крой. Смесь хлопка. Ажурная ткань. Геометрическая структура. Короткий рукав. Передняя застежка на пуговицы. Воротник, манжеты и низ с отделкой в рубчик. Модель ростом 190 см и носит размер M. ",
-},
-{
-id: 6,
-name: 'Рубашка в полоску',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 5 990',
-image: '/Рубашка в полоску1.png',
-colorVariants: [],
-composition: "63% viscose, 37% polyamide",
-origin: "Разработано в Барселоне, Производство: Китай",
-care: "Ручная стирка при 30 °С, Отбеливать запрещено, Гладить при 110 °С, Химчистка запрещена, Запрещено сушить в сушилке",
-photosLarge: [
-    { src: "/Рубашка в полоску1.png", alt: "1" },
-    { src: "/Рубашка в полоску1_2.png", alt: "2" },
-],
-photosSmall: [
-    { src: "/Рубашка в полоску1_3.png", alt: "3" },
-    { src: "/Рубашка в полоску1_4.png", alt: "4" },
-    { src: "/Рубашка в полоску1_5.png", alt: "5" },
-    { src: "/Рубашка в полоску1_6.png", alt: "6" },
-],
-color: "Небесно-голубой",
-description: "ESSENTIALS: Сделано, чтобы служить долго. Прямой крой. Ткань 100% хлопок. Принт в мельчайшую полоску. Итальянский воротник. Передняя застежка на пуговицы. Длинные рукава с манжетами на пуговицах. Закругленный низ. Модель ростом 190 см и носит размер M. ",
-},
-{
-id: 7,
-name: 'Рубашка из лиоцелла с карманом',
-category: 'NEW NOW',
-price: 'KGS 6 990',
-image: '/Рубашка из лиоцелла с карманом.png',
-colorVariants: [],
-composition: "65% cotton, 35% polyester",
-origin: "Разработано в Париже, Производство: Вьетнам",
-care: "Машинная стирка при 40 °С, Отбеливать запрещено, Гладить при 150 °С, Химчистка разрешена, Сушка в сушилке разрешена",
-photosLarge: [
-    { src: "/Рубашка из лиоцелла с карманом.png", alt: "1" },
-    { src: "/Рубашка из лиоцелла с карманом_2.png", alt: "2" },
-],
-photosSmall: [
-    { src: "/Рубашка из лиоцелла с карманом_3.png", alt: "3" },
-    { src: "/Рубашка из лиоцелла с карманом_4.png", alt: "4" },
-    { src: "/Рубашка из лиоцелла с карманом_5.png", alt: "5" },
-    { src: "/Рубашка из лиоцелла с карманом_6.png", alt: "6" },
-],
-color: "Песочный",
-description: "Прямой крой. 100% лиоцелл. Рубашечный воротник. Накладной карман на груди. Короткий рукав. Передняя застежка на пуговицы. Детали вытачек сзади. Прямой низ. Модель ростом 190 см и носит размер M.",
-},
-{
-id: 8,
-name: 'Рубашка лен',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 8 990',
-image: '/Рубашка лен.png',
-colorVariants: [],
-composition: "70% cotton, 30% elastane",
-origin: "Разработано в Милане, Производство: Турция",
-care: "Ручная стирка при 30 °С, Отбеливать запрещено, Гладить при 110 °С, Химчистка запрещена, Запрещено сушить в сушилке",
-photosLarge: [
-    { src: "/Рубашка лен.png", alt: "1" },
-    { src: "/Рубашка лен_2.png", alt: "2" },
-],
-photosSmall: [
-    { src: "/Рубашка лен_3.png", alt: "3" },
-    { src: "/Рубашка лен_4.png", alt: "4" },
-    { src: "/Рубашка лен_5.png", alt: "5" },
-    { src: "/Рубашка лен_6.png", alt: "6" },
-],
-color: "Черный",
-description: "Голубой цвет эксклюзивно онлайн. Прямой крой. Ткань 100% лен. Рубашечный воротник. Передняя застежка на пуговицы. Длинные рукава с манжетами на пуговицах. Детали вытачек сзади. Закругленный низ. Модель ростом 190 см и носит размер M. Цвет синий фарфор эксклюзивно онлайн. ",
-},
-];
+interface Photo {
+src: string;
+alt: string;
+}
 
-export const Product = (): JSX.Element => {
+export default function MenJacketsOuterwearProduct(): JSX.Element {
 const { id } = useParams<{ id: string }>();
-const productId = id ? parseInt(id, 10) : 1;
+const productId = id || "1";
 const navigate = useNavigate();
 
-const [favorites, setFavorites] = useState<number[]>(() => {
+const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+const [products, setProducts] = useState<Product[]>([]);
+const [favorites, setFavorites] = useState<string[]>(() => {
 const savedFavorites = localStorage.getItem("favorites");
 return savedFavorites ? JSON.parse(savedFavorites) : [];
 });
-
 const [currentImageIndex, setCurrentImageIndex] = useState(0);
+const [loading, setLoading] = useState(true);
+const [error, setError] = useState<string | null>(null);
+
+useEffect(() => {
+const fetchData = async () => {
+    try {
+    // Загрузка выбранного товара
+    const productResponse = await fetch(`http://localhost:3001/products/${productId}`);
+    if (!productResponse.ok) {
+        throw new Error('Товар не найден');
+    }
+    const productData: Product = await productResponse.json();
+    if (productData.gender !== 'male' && productData.gender !== 'unisex') {
+        throw new Error('Товар не относится к мужской категории');
+    }
+    setSelectedProduct(productData);
+
+    // Загрузка всех товаров для секции "В том же стиле"
+    const productsResponse = await fetch('http://localhost:3001/products?gender=male');
+    if (!productsResponse.ok) {
+        throw new Error('Ошибка загрузки товаров');
+    }
+    const productsData: Product[] = await productsResponse.json();
+    setProducts(productsData.filter(p => p.id !== productId && p.category === productData.category));
+    } catch (err) {
+    setError('Не удалось загрузить данные. Попробуйте позже.');
+    } finally {
+    setLoading(false);
+    }
+};
+
+fetchData();
+}, [productId]);
 
 useEffect(() => {
 localStorage.setItem("favorites", JSON.stringify(favorites));
 }, [favorites]);
 
-const handleFavoriteToggle = (productId: number) => {
+const handleFavoriteToggle = (productId: string) => {
 setFavorites((prev) =>
     prev.includes(productId)
     ? prev.filter((id) => id !== productId)
@@ -221,7 +74,7 @@ setFavorites((prev) =>
 );
 };
 
-const handlePurchase = (product: any) => {
+const handlePurchase = (product: Product) => {
 const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
 const existingItem = cartItems.find((item: any) => item.id === product.id);
 if (existingItem) {
@@ -240,7 +93,13 @@ localStorage.setItem('cartItems', JSON.stringify(cartItems));
 alert(`${product.name} добавлен в корзину!`);
 };
 
-const selectedProduct = products.find((p) => p.id === productId) || products[0];
+if (loading) {
+return <div className="p-8 text-center font-['Inter'] text-[24px] text-[#131313]">Загрузка...</div>;
+}
+
+if (error || !selectedProduct) {
+return <div className="p-8 text-center font-['Inter'] text-[24px] text-red-500">{error || 'Товар не найден'}</div>;
+}
 
 const allPhotos = [...selectedProduct.photosLarge, ...selectedProduct.photosSmall];
 
@@ -478,6 +337,4 @@ return (
     </div>
 </div>
 );
-};
-
-export default Product;
+}

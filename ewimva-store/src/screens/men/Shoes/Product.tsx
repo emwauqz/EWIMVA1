@@ -9,303 +9,64 @@ AccordionTrigger,
 import { Card, CardContent } from "../../../components/ui/card";
 import { HeartIcon } from "lucide-react";
 import { Button } from "../../../components/ui/button";
+import { Product } from "../../../data/productsData";
 
-const products = [
-{
-id: 1,
-name: '',
-category: 'CAPSULE',
-price: 'KGS 7 990',
-image: '/.png',
-colorVariants: [],
-composition: "63% viscose, 37% polyamide",
-origin: "Разработано в Барселоне, Производство: Китай",
-care: "Ручная стирка при 30 °С, Отбеливать запрещено, Гладить при 110 °С, Химчистка запрещена, Запрещено сушить в сушилке",
-photosLarge: [
-    { src: "/.png", alt: "1" },
-    { src: "/_2.png", alt: "2" },
-],
-photosSmall: [
-    { src: "/_3.png", alt: "3" },
-    { src: "/_4.png", alt: "4" },
-    { src: "/_5.png", alt: "5" },
-    { src: "/_6.png", alt: "6" },
-],
-color: "Белый",
-description: "Удобный ",
-},
-{
-id: 2,
-name: '',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 6 990',
-image: '/.png',
-colorVariants: [],
-composition: "65% cotton, 35% polyester",
-origin: "Разработано в Париже, Производство: Вьетнам",
-care: "Машинная стирка при 40 °С, Отбеливать запрещено, Гладить при 150 °С, Химчистка разрешена, Сушка в сушилке разрешена",
-photosLarge: [
-    { src: "/.png", alt: "1" },
-    { src: "/_2.png", alt: "2" },
-],
-photosSmall: [
-    { src: "/_3.png", alt: "3" },
-    { src: "/_4.png", alt: "4" },
-    { src: "/_5.png", alt: "5" },
-    { src: "/_6.png", alt: "6" },
-],
-color: "Белый",
-description: "Удобный ",
-},
-{
-id: 3,
-name: '',
-category: 'CAPSULE',
-price: 'KGS 5 990',
-image: '/.png',
-colorVariants: [],
-composition: "70% cotton, 30% elastane",
-origin: "Разработано в Милане, Производство: Турция",
-care: "Ручная стирка при 30 °С, Отбеливать запрещено, Гладить при 110 °С, Химчистка запрещена, Запрещено сушить в сушилке",
-photosLarge: [
-    { src: "/.png", alt: "1" },
-    { src: "/_2.png", alt: "2" },
-],
-photosSmall: [
-    { src: "/_3.png", alt: "3" },
-    { src: "/_4.png", alt: "4" },
-    { src: "/_5.png", alt: "5" },
-    { src: "/_6.png", alt: "6" },
-],
-color: "Белый",
-description: "Удобный ",
-},
-{
-id: 4,
-name: '',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 7 990',
-image: '/.png',
-colorVariants: [],
-composition: "100% cotton",
-origin: "Разработано в Лондоне, Производство: Индия",
-care: "Машинная стирка при 40 °С, Отбеливать запрещено, Гладить при 150 °С, Химчистка разрешена, Сушка в сушилке разрешена",
-photosLarge: [
-    { src: "/.png", alt: "1" },
-    { src: "/_2.png", alt: "2" },
-],
-photosSmall: [
-    { src: "/_3.png", alt: "3" },
-    { src: "/_4.png", alt: "4" },
-    { src: "/_5.png", alt: "5" },
-    { src: "/_6.png", alt: "6" },
-],
-color: "Белый",
-description: "Удобный ",
-},
-{
-id: 5,
-name: '',
-category: 'CAPSULE',
-price: 'KGS 6 990',
-image: '/.png',
-colorVariants: [],
-composition: "60% wool, 40% acrylic",
-origin: "Разработано в Нью-Йорке, Производство: Китай",
-care: "Ручная стирка при 30 °С, Отбеливать запрещено, Гладить при 110 °С, Химчистка запрещена, Запрещено сушить в сушилке",
-photosLarge: [
-    { src: "/.png", alt: "1" },
-    { src: "/_2.png", alt: "2" },
-],
-photosSmall: [
-    { src: "/_3.png", alt: "3" },
-    { src: "/_4.png", alt: "4" },
-    { src: "/_5.png", alt: "5" },
-    { src: "/_6.png", alt: "6" },
-],
-color: "Белый",
-description: "Удобный ",
-},
-{
-id: 6,
-name: '',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 5 990',
-image: '/.png',
-colorVariants: [],
-composition: "63% viscose, 37% polyamide",
-origin: "Разработано в Барселоне, Производство: Китай",
-care: "Ручная стирка при 30 °С, Отбеливать запрещено, Гладить при 110 °С, Химчистка запрещена, Запрещено сушить в сушилке",
-photosLarge: [
-    { src: "/.png", alt: "1" },
-    { src: "/_2.png", alt: "2" },
-],
-photosSmall: [
-    { src: "/_3.png", alt: "3" },
-    { src: "/_4.png", alt: "4" },
-    { src: "/_5.png", alt: "5" },
-    { src: "/_6.png", alt: "6" },
-],
-color: "Белый",
-description: "Удобный ",
-},
-{
-id: 7,
-name: '',
-category: 'NEW NOW',
-price: 'KGS 6 990',
-image: '/.png',
-colorVariants: [],
-composition: "65% cotton, 35% polyester",
-origin: "Разработано в Париже, Производство: Вьетнам",
-care: "Машинная стирка при 40 °С, Отбеливать запрещено, Гладить при 150 °С, Химчистка разрешена, Сушка в сушилке разрешена",
-photosLarge: [
-    { src: "/.png", alt: "1" },
-    { src: "/_2.png", alt: "2" },
-],
-photosSmall: [
-    { src: "/_3.png", alt: "3" },
-    { src: "/_4.png", alt: "4" },
-    { src: "/_5.png", alt: "5" },
-    { src: "/_6.png", alt: "6" },
-],
-color: "Белый",
-description: "Удобный ",
-},
-{
-id: 8,
-name: '',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 8 990',
-image: '/.png',
-colorVariants: [],
-composition: "70% cotton, 30% elastane",
-origin: "Разработано в Милане, Производство: Турция",
-care: "Ручная стирка при 30 °С, Отбеливать запрещено, Гладить при 110 °С, Химчистка запрещена, Запрещено сушить в сушилке",
-photosLarge: [
-    { src: "/.png", alt: "1" },
-    { src: "/_2.png", alt: "2" },
-],
-photosSmall: [
-    { src: "/_3.png", alt: "3" },
-    { src: "/_4.png", alt: "4" },
-    { src: "/_5.png", alt: "5" },
-    { src: "/_6.png", alt: "6" },
-],
-color: "Белый",
-description: "Удобный ",
-},
-{
-id: 9,
-name: '',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 5 990',
-image: '/.png',
-colorVariants: [],
-composition: "100% cotton",
-origin: "Разработано в Лондоне, Производство: Индия",
-care: "Машинная стирка при 40 °С, Отбеливать запрещено, Гладить при 150 °С, Химчистка разрешена, Сушка в сушилке разрешена",
-photosLarge: [
-    { src: "/.png", alt: "1" },
-    { src: "/_2.png", alt: "2" },
-],
-photosSmall: [
-    { src: "/_3.png", alt: "3" },
-    { src: "/_4.png", alt: "4" },
-    { src: "/_5.png", alt: "5" },
-    { src: "/_6.png", alt: "6" },
-],
-color: "Белый",
-description: "Удобный ",
-},
-{
-id: 10,
-name: '',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 6 990',
-image: '/.png',
-colorVariants: [],
-composition: "60% wool, 40% acrylic",
-origin: "Разработано в Нью-Йорке, Производство: Китай",
-care: "Ручная стирка при 30 °С, Отбеливать запрещено, Гладить при 110 °С, Химчистка запрещена, Запрещено сушить в сушилке",
-photosLarge: [
-    { src: "/.png", alt: "1" },
-    { src: "/_2.png", alt: "2" },
-],
-photosSmall: [
-    { src: "/_3.png", alt: "3" },
-    { src: "/_4.png", alt: "4" },
-    { src: "/_5.png", alt: "5" },
-    { src: "/_6.png", alt: "6" },
-],
-color: "Белый",
-description: "Удобный ",
-},
-{
-id: 11,
-name: '',
-category: 'NEW NOW',
-price: 'KGS 7 990',
-image: '/.png',
-colorVariants: [],
-composition: "63% viscose, 37% polyamide",
-origin: "Разработано в Барселоне, Производство: Китай",
-care: "Ручная стирка при 30 °С, Отбеливать запрещено, Гладить при 110 °С, Химчистка запрещена, Запрещено сушить в сушилке",
-photosLarge: [
-    { src: "/.png", alt: "1" },
-    { src: "/_2.png", alt: "2" },
-],
-photosSmall: [
-    { src: "/_3.png", alt: "3" },
-    { src: "/_4.png", alt: "4" },
-    { src: "/_5.png", alt: "5" },
-    { src: "/_6.png", alt: "6" },
-],
-color: "Белый",
-description: "Удобный ",
-},
-{
-id: 12,
-name: '',
-category: 'NEW NOW - SELECTION',
-price: 'KGS 12 990',
-image: '/.png',
-colorVariants: [],
-composition: "65% cotton, 35% polyester",
-origin: "Разработано в Париже, Производство: Вьетнам",
-care: "Машинная стирка при 40 °С, Отбеливать запрещено, Гладить при 150 °С, Химчистка разрешена, Сушка в сушилке разрешена",
-photosLarge: [
-    { src: "/.png", alt: "1" },
-    { src: "/_2.png", alt: "2" },
-],
-photosSmall: [
-    { src: "/_3.png", alt: "3" },
-    { src: "/_4.png", alt: "4" },
-    { src: "/_5.png", alt: "5" },
-    { src: "/_6.png", alt: "6" },
-],
-color: "Белый",
-description: "Удобный ",
-},
-];
+interface Photo {
+src: string;
+alt: string;
+}
 
-export const Product = (): JSX.Element => {
+export default function MenJacketsOuterwearProduct(): JSX.Element {
 const { id } = useParams<{ id: string }>();
-const productId = id ? parseInt(id, 10) : 1;
+const productId = id || "1";
 const navigate = useNavigate();
 
-const [favorites, setFavorites] = useState<number[]>(() => {
+const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+const [products, setProducts] = useState<Product[]>([]);
+const [favorites, setFavorites] = useState<string[]>(() => {
 const savedFavorites = localStorage.getItem("favorites");
 return savedFavorites ? JSON.parse(savedFavorites) : [];
 });
-
 const [currentImageIndex, setCurrentImageIndex] = useState(0);
+const [loading, setLoading] = useState(true);
+const [error, setError] = useState<string | null>(null);
+
+useEffect(() => {
+const fetchData = async () => {
+    try {
+    // Загрузка выбранного товара
+    const productResponse = await fetch(`http://localhost:3001/products/${productId}`);
+    if (!productResponse.ok) {
+        throw new Error('Товар не найден');
+    }
+    const productData: Product = await productResponse.json();
+    if (productData.gender !== 'male' && productData.gender !== 'unisex') {
+        throw new Error('Товар не относится к мужской категории');
+    }
+    setSelectedProduct(productData);
+
+    // Загрузка всех товаров для секции "В том же стиле"
+    const productsResponse = await fetch('http://localhost:3001/products?gender=male');
+    if (!productsResponse.ok) {
+        throw new Error('Ошибка загрузки товаров');
+    }
+    const productsData: Product[] = await productsResponse.json();
+    setProducts(productsData.filter(p => p.id !== productId && p.category === productData.category));
+    } catch (err) {
+    setError('Не удалось загрузить данные. Попробуйте позже.');
+    } finally {
+    setLoading(false);
+    }
+};
+
+fetchData();
+}, [productId]);
 
 useEffect(() => {
 localStorage.setItem("favorites", JSON.stringify(favorites));
 }, [favorites]);
 
-const handleFavoriteToggle = (productId: number) => {
+const handleFavoriteToggle = (productId: string) => {
 setFavorites((prev) =>
     prev.includes(productId)
     ? prev.filter((id) => id !== productId)
@@ -313,7 +74,7 @@ setFavorites((prev) =>
 );
 };
 
-const handlePurchase = (product: any) => {
+const handlePurchase = (product: Product) => {
 const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
 const existingItem = cartItems.find((item: any) => item.id === product.id);
 if (existingItem) {
@@ -332,7 +93,13 @@ localStorage.setItem('cartItems', JSON.stringify(cartItems));
 alert(`${product.name} добавлен в корзину!`);
 };
 
-const selectedProduct = products.find((p) => p.id === productId) || products[0];
+if (loading) {
+return <div className="p-8 text-center font-['Inter'] text-[24px] text-[#131313]">Загрузка...</div>;
+}
+
+if (error || !selectedProduct) {
+return <div className="p-8 text-center font-['Inter'] text-[24px] text-red-500">{error || 'Товар не найден'}</div>;
+}
 
 const allPhotos = [...selectedProduct.photosLarge, ...selectedProduct.photosSmall];
 
@@ -570,6 +337,4 @@ return (
     </div>
 </div>
 );
-};
-
-export default Product;
+}
