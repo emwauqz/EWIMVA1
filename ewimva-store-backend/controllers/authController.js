@@ -111,11 +111,14 @@ const recovery = async (req, res) => {
     const resetToken = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
     console.log('Сгенерирован токен:', resetToken);
 
+    const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
+    console.log('Используемый FRONTEND_URL:', frontendUrl);
+
     const mailOptions = {
         from: 'amngldwna@gmail.com',
         to: email,
         subject: 'Сброс пароля для EWIMVA',
-        text: `Для сброса пароля перейдите по ссылке: http://localhost:3000/reset-password/${resetToken}`,
+        text: `Для сброса пароля перейдите по ссылке: ${frontendUrl}/reset-password/${resetToken}`,
     };
 
     console.log('Отправка письма:', mailOptions);
