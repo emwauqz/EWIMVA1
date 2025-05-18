@@ -23,6 +23,7 @@ import EwimvaClothes from "./screens/EwimvaClothes/EwimvaClothes";
 import EwimvaMyAccount from "./screens/EwimvaMyAccount/EwimvaMyAccount";
 import EwimvaMyDetails from "./screens/EwimvaMyDetails/EwimvaMyDetails";
 import EwimvaRecovery from "./screens/EwimvaRecovery/EwimvaRecovery";
+import EwimvaResetPassword from "./screens/EwimvaResetPassword/EwimvaResetPassword"; 
 import EwimvaPomosh from "./screens/EwimvaPomosh/EwimvaPomosh";
 import EwimvaPolzovateli from "./screens/admin/EwimvaPolzovateli/EwimvaPolzovateli";
 import EwimvaTovary from "./screens/admin/EwimvaTovary/EwimvaTovary";
@@ -122,6 +123,7 @@ const AppContent = () => {
           <Route path="/login" element={<EwimvaLogin />} />
           <Route path="/register" element={<EwimvaRegistry />} />
           <Route path="/recovery" element={<EwimvaRecovery />} />
+          <Route path="/reset-password/:token" element={<EwimvaResetPassword />} /> 
           <Route path="/favourites" element={<ProtectedRoute><EwimvaFavourite /></ProtectedRoute>} />
           <Route path="/search" element={<ProtectedRoute><EwimvaSeorch /></ProtectedRoute>} />
           <Route path="/checkout" element={<ProtectedRoute><EwimvaCheckout /></ProtectedRoute>} />
