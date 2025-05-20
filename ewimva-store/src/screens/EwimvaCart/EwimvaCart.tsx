@@ -3,9 +3,10 @@ import { Card, CardContent } from '../../components/ui/card';
 import { Button } from '../../components/ui/button';
 import { MinusIcon, PlusIcon, XIcon } from 'lucide-react';
 import { useNavigate, NavLink } from 'react-router-dom';
+import api from '../../lib/api';
 
 interface CartItem {
-id: number;
+id: string;
 name: string;
 price: string;
 image: string;
@@ -15,42 +16,95 @@ colorVariants: { color: string; image: string }[];
 
 const EwimvaCart = (): JSX.Element => {
 const navigate = useNavigate();
-const [cartItems, setCartItems] = useState<CartItem[]>(() => {
-const savedCart = localStorage.getItem('cartItems');
-return savedCart ? JSON.parse(savedCart) : [];
-});
+const [cartItems, setCartItems] = useState<CartItem[]>([]);
+const [loading, setLoading] = useState(true);
+const [error, setError] = useState<string | null>(null);
 
 useEffect(() => {
-localStorage.setItem('cartItems', JSON.stringify(cartItems));
-}, [cartItems]);
+const fetchCart = async () => {
+    try {
+    const token = localStorage.getItem('token');
+    if (!token) {
+        throw new Error('Please log in to view cart');
+    }
 
-// Изменение количества товара
-const handleQuantityChange = (id: number, delta: number) => {
-setCartItems((prev) =>
+    // Fetch user's cart
+    const userResponse = await api.get('/auth/profile');
+    const cart = userResponse.data.cart || [];
+
+    // Fetch product details for cart items
+    const cartItemsWithDetails = await Promise.all(
+        cart.map(async (item: { productId: string; quantity: number }) => {
+        const productResponse = await api.get(`/products/${item.productId}`);
+        const product = productResponse.data;
+        return {
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            image: product.image,
+            quantity: item.quantity,
+            colorVariants: product.colorVariants || [],
+        };
+        })
+    );
+
+    setCartItems(cartItemsWithDetails);
+    } catch (err: any) {
+    setError(err.message || 'Failed to load cart');
+    } finally {
+    setLoading(false);
+    }
+};
+
+fetchCart();
+}, []);
+
+// Update cart in backend and local state
+const handleQuantityChange = async (id: string, delta: number) => {
+try {
+    const newQuantity = Math.max(1, cartItems.find(item => item.id === id)!.quantity + delta);
+    await api.post('/user/cart', { productId: id, quantity: newQuantity });
+    setCartItems((prev) =>
     prev.map((item) =>
-    item.id === id ? { ...item, quantity: Math.max(1, item.quantity + delta) } : item
+        item.id === id ? { ...item, quantity: newQuantity } : item
     )
-);
+    );
+} catch (err) {
+    alert('Failed to update quantity');
+}
 };
 
-// Удаление товара из корзины
-const handleRemoveItem = (id: number) => {
-setCartItems((prev) => prev.filter((item) => item.id !== id));
+// Remove item from cart
+const handleRemoveItem = async (id: string) => {
+try {
+    await api.delete('/user/cart', { data: { productId: id } });
+    setCartItems((prev) => prev.filter((item) => item.id !== id));
+} catch (err) {
+    alert('Failed to remove item');
+}
 };
 
-// Расчет общей суммы
+// Calculate total amount
 const totalAmount = cartItems.reduce(
 (sum, item) => {
-    const price = parseFloat(item.price.replace(' KGS', '').replace(' ', '')) || 0;
+    const price = parseFloat(item.price.replace(/[^0-9]/g, '')) / 100 || 0;
     return sum + price * item.quantity;
 },
 0
 );
 
-// Переход к оформлению
+// Navigate to checkout
 const handleCheckout = () => {
 navigate('/checkout');
 };
+
+if (loading) {
+return <div className="p-8 text-center">Loading...</div>;
+}
+
+if (error) {
+return <div className="p-8 text-center text-red-500">{error}</div>;
+}
 
 return (
 <div className="flex flex-col min-h-screen">

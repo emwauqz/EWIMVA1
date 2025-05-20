@@ -8,7 +8,7 @@ category: { type: String, required: true },
 gender: { type: String, enum: ['women', 'men'], required: true },
 image: { type: String },
 stock: { type: Number, default: 0 },
-isNewArrival: { type: Boolean, default: false }, // Изменено с isNew
+isNewArrival: { type: Boolean, default: false }, 
 createdAt: { type: Date, default: Date.now },
 });
 

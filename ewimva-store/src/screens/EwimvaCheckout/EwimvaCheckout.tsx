@@ -7,9 +7,10 @@ import { Label } from '../../components/ui/label';
 import { RadioGroup, RadioGroupItem } from '../../components/ui/radio-group';
 import { Separator } from '../../components/ui/separator';
 import { useNavigate } from 'react-router-dom';
+import api from '../../lib/api';
 
 interface OrderItem {
-  id: number;
+  id: string;
   name: string;
   size: string;
   price: string;
@@ -26,27 +27,10 @@ interface OrderSummary {
 
 export const EwimvaCheckout = (): JSX.Element => {
   const navigate = useNavigate();
+  const [orderItems, setOrderItems] = useState<OrderItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  // Состояние для товаров в заказе, синхронизация с корзиной из localStorage
-  const [orderItems, setOrderItems] = useState<OrderItem[]>(() => {
-    const savedCart = localStorage.getItem('cartItems');
-    return savedCart ? JSON.parse(savedCart).map((item: OrderItem) => ({
-      ...item,
-      size: 'M',
-    })) : [];
-  });
-
-  useEffect(() => {
-    const savedCart = localStorage.getItem('cartItems');
-    if (savedCart) {
-      setOrderItems(JSON.parse(savedCart).map((item: OrderItem) => ({
-        ...item,
-        size: 'M',
-      })));
-    }
-  }, []);
-
-  // Состояние для данных формы
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -62,14 +46,50 @@ export const EwimvaCheckout = (): JSX.Element => {
     cvv: '',
   });
 
-  // Состояние для способа оплаты
   const [paymentMethod, setPaymentMethod] = useState('card');
 
-  // Расчет суммы заказа
+  useEffect(() => {
+    const fetchCart = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+          throw new Error('Please log in to proceed to checkout');
+        }
+
+        const userResponse = await api.get('/auth/profile');
+        const cart = userResponse.data.cart || [];
+
+        const cartItemsWithDetails = await Promise.all(
+          cart.map(async (item: { productId: string; quantity: number }) => {
+            const productResponse = await api.get(`/products/${item.productId}`);
+            const product = productResponse.data;
+            return {
+              id: product.id,
+              name: product.name,
+              price: product.price,
+              image: product.image,
+              quantity: item.quantity,
+              size: 'M',
+              colorVariants: product.colorVariants || [],
+            };
+          })
+        );
+
+        setOrderItems(cartItemsWithDetails);
+      } catch (err: any) {
+        setError(err.message || 'Failed to load cart');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCart();
+  }, []);
+
   const calculateSummary = (): OrderSummary => {
     const subtotal = orderItems.reduce(
       (sum, item) =>
-        sum + parseFloat(item.price.replace(' KGS', '').replace(' ', '')) * item.quantity,
+        sum + (parseFloat(item.price.replace(/[^0-9]/g, '')) / 100) * item.quantity,
       0
     );
     const shipping = 500;
@@ -79,33 +99,39 @@ export const EwimvaCheckout = (): JSX.Element => {
 
   const orderSummary = calculateSummary();
 
-  // Обработчик изменения количества
-  const handleQuantityChange = (id: number, delta: number) => {
-    setOrderItems((prev) =>
-      prev.map((item) =>
-        item.id === id ? { ...item, quantity: Math.max(1, item.quantity + delta) } : item
-      )
-    );
+  const handleQuantityChange = async (id: string, delta: number) => {
+    try {
+      const newQuantity = Math.max(1, orderItems.find(item => item.id === id)!.quantity + delta);
+      await api.post('/user/cart', { productId: id, quantity: newQuantity });
+      setOrderItems((prev) =>
+        prev.map((item) =>
+          item.id === id ? { ...item, quantity: newQuantity } : item
+        )
+      );
+    } catch (err) {
+      alert('Failed to update quantity');
+    }
   };
 
-  // Обработчик удаления товара
-  const handleRemoveItem = (id: number) => {
-    setOrderItems((prev) => prev.filter((item) => item.id !== id));
+  const handleRemoveItem = async (id: string) => {
+    try {
+      await api.delete('/user/cart', { data: { productId: id } });
+      setOrderItems((prev) => prev.filter((item) => item.id !== id));
+    } catch (err) {
+      alert('Failed to remove item');
+    }
   };
 
-  // Обработчик изменения формы
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Обработчик изменения способа оплаты
   const handlePaymentChange = (value: string) => {
     setPaymentMethod(value);
   };
 
-  // Обработчик оплаты
-  const handlePayment = () => {
+  const handlePayment = async () => {
     const requiredFields = [
       'firstName',
       'lastName',
@@ -135,90 +161,72 @@ export const EwimvaCheckout = (): JSX.Element => {
       return;
     }
 
-    // Генерация уникального ID для заказа
-    const orderId = `CRD-${Date.now()}`;
-    const currentDate = new Date().toLocaleDateString('ru-RU');
-    const customer = `${formData.firstName} ${formData.lastName}`;
-    const itemsCount = orderItems.reduce((sum, item) => sum + item.quantity, 0);
+    try {
+      const order = {
+        products: orderItems.map(item => ({
+          productId: item.id,
+          quantity: item.quantity,
+        })),
+        shippingAddress: `${formData.address}, ${formData.city}, ${formData.region}, ${formData.postalCode}`,
+      };
 
-    // Формируем объект заказа с продуктами, включая image и colorVariants
-    const newOrder = {
-      id: orderId,
-      customer,
-      email: formData.email,
-      date: currentDate,
-      status: 'processing',
-      items: itemsCount,
-      amount: `${orderSummary.total.toLocaleString()} с`,
-      products: orderItems.map(item => ({
-        name: item.name,
-        quantity: item.quantity,
-        price: item.price,
-        image: item.image,
-        colorVariants: item.colorVariants,
-      })),
-    };
-
-    // Сохраняем заказ в localStorage
-    const existingPurchases = JSON.parse(localStorage.getItem('purchases') || '[]');
-    const updatedPurchases = [...existingPurchases, newOrder];
-    localStorage.setItem('purchases', JSON.stringify(updatedPurchases));
-
-    // Очищаем корзину
-    alert('Оплата успешно выполнена! Ваш заказ оформлен.');
-    setOrderItems([]);
-    localStorage.removeItem('cartItems');
-    setFormData({
-      firstName: '',
-      lastName: '',
-      address: '',
-      region: '',
-      city: '',
-      postalCode: '',
-      phone: '',
-      email: '',
-      cardNumber: '',
-      expiryDate: '',
-      cardHolder: '',
-      cvv: '',
-    });
-    navigate('/purchases');
+      const response = await api.post('/orders', order);
+      alert('Оплата успешно выполнена! Ваш заказ оформлен.');
+      
+      // Clear cart
+      await api.delete('/user/cart', { data: { clearAll: true } });
+      setOrderItems([]);
+      setFormData({
+        firstName: '',
+        lastName: '',
+        address: '',
+        region: '',
+        city: '',
+        postalCode: '',
+        phone: '',
+        email: '',
+        cardNumber: '',
+        expiryDate: '',
+        cardHolder: '',
+        cvv: '',
+      });
+      navigate('/purchases');
+    } catch (err) {
+      alert('Failed to process order');
+    }
   };
+
+  if (loading) {
+    return <div className="p-8 text-center">Loading...</div>;
+  }
+
+  if (error) {
+    return <div className="p-8 text-center text-red-500">{error}</div>;
+  }
 
   return (
     <>
       <style>
         {`
           @media (max-width: 767px) {
-            /* Основной контейнер */
             .bg-white {
               padding: 16px !important;
               width: 100% !important;
               max-width: 100% !important;
             }
-
-            /* Главный блок */
             main[class*="px-[214px]"] {
               padding: 16px !important;
             }
-
-            /* Контейнер колонок */
             div[class*="flex gap-20"] {
               flex-direction: column !important;
               gap: 24px !important;
             }
-
-            /* Левая колонка (Ваши данные, Способ оплаты) */
             div[class*="flex-1"] {
               width: 100% !important;
             }
-
-            /* Правая колонка (Ваш заказ) */
             div[class*="w-[524px]"] {
               width: 100% !important;
             }
-
-            /* Поля формы в Ваши данные */
             div[class*="flex gap-2.5"],
             div[class*="flex"] {
               flex-direction: column !important;
@@ -234,8 +242,6 @@ export const EwimvaCheckout = (): JSX.Element => {
               width: 100% !important;
               font-size: 14px !important;
             }
-
-            /* Способ оплаты */
             div[class*="mb-10"] {
               width: 100% !important;
             }
@@ -251,25 +257,17 @@ export const EwimvaCheckout = (): JSX.Element => {
               margin-left: 24px !important;
               width: 60px !important;
             }
-
-            /* Скрыть картинки в форме платежных данных */
             div[class*="absolute right-4 top-1/2"] {
               display: none !important;
             }
-
-            /* Радиокнопки */
             .flex.items-center.space-x-2 {
               flex-direction: row !important;
               align-items: center !important;
               width: 100% !important;
             }
-
-            /* Заголовки */
             h2[class*="text-[15.8px]"] {
               font-size: 14px !important;
             }
-
-            /* Кнопка Оплатить */
             div[class*="flex justify-center"] {
               display: flex !important;
               justify-content: center !important;
@@ -278,8 +276,6 @@ export const EwimvaCheckout = (): JSX.Element => {
               width: 100% !important;
               max-width: 300px !important;
             }
-
-            /* Карточки товаров */
             .flex.relative {
               flex-direction: row !important;
               align-items: flex-start !important;
@@ -302,7 +298,6 @@ export const EwimvaCheckout = (): JSX.Element => {
             </h1>
 
             <div className="flex gap-20">
-              {/* Left column - Customer information */}
               <div className="flex-1">
                 <h2 className="font-bold text-[#131313] text-[15.8px] leading-5 [font-family:'Inter',Helvetica] tracking-[0] whitespace-nowrap mb-6">
                   Ваши данные
@@ -541,7 +536,6 @@ export const EwimvaCheckout = (): JSX.Element => {
                 )}
               </div>
 
-              {/* Right column - Order summary */}
               <div className="w-[524px]">
                 <h2 className="font-bold text-[#131313] text-[15.8px] leading-5 [font-family:'Inter',Helvetica] tracking-[0] whitespace-nowrap mb-6">
                   Ваш заказ
